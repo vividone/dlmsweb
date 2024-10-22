@@ -20,7 +20,19 @@ export default function SignUp() {
             setError("Both email and password are required.")
         }
 
+        if(!validateEmail(email)) {
+            setError("Please enter a valid email address");
+            return;
+        }       
 }
+
+    // Email validation function
+    const validateEmail = (email: string) => {
+        const regex =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    }
+
+
 return(
     <div>
         <div className="w-[241px] h-[53px] absolute top-[108px] left-[476px]">
