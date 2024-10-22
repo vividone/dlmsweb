@@ -57,6 +57,11 @@ export default function SignIn() {
           </div>
 
         <form onSubmit={handleSubmit}>
+        {error && (
+          <div className="text-red-500 text-sm mb-4 relative top-[330px] left-[476px]">
+            {error}
+          </div>
+           )}
            <div className="w-[560px] h-[104px] relative top-[359px] left-[476px] gap-[18px]">
             <label className="font-sans w-[560px] h-[20px] text-[14px] leading-[20.11px] font-semibold">
                Email Address               
