@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FaBell } from "react-icons/fa"
+import { FaSearch } from 'react-icons/fa'
 
 export default function Home() {
   return (
@@ -44,10 +45,83 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="w-[1,112px] h-[66px] relative top-[215px] left-[80px] flex rounded-md justify-between p-8">
-           
+        <div className="w-[992px] h-[66px] relative top-[45px] left-[2px] flex rounded-md justify-between p-8 border">
+           {/* Search Icon */}
+      <FaSearch 
+      className="text-gray-500 w-3 h-6 relative bottom-[10px] left-[920px] cursor-pointer" 
+      />
+          
+      <div className="w-[172px] h-[58px] relative bottom-[30px] left-[302px] rounded-md border pt-[14px] pr-[10px] pb-[14px] pl-[10px] hover:bg-blue-500 bg-[#0661E8] cursor-pointer">
+          <button 
+          type="submit"
+          className="text-white relative left-[50px] font-sans text-[14px]">
+             Filter
+          </button>
+      </div>
         </div>
+
+      <div className="w-[1,314px] h-[58px] top-[328px] left-[80px] gap-[30px]">
+          <div className="w-[60px] h-[38px] rounded-md pt-[14px] pr-[10px] pb-[14px] pl-[10px] cursor-pointer bg-[#0661E8] relative top-[76px]">
+            <p className="text-white relative left-[10px] bottom-[8px] font-sans">
+              All
+              </p>  
+          </div>    
+         
+          <div className="w-[80px] h-[38px] rounded-sm pt-[14px] pr-[10px] pb-[14px] pl-[10px] cursor-pointer bg-blue-200 relative top-[38px] left-[100px]">
+            <p className="text-black relative left-[5px] bottom-[8px] font-sans font-semibold">
+              Sci-fi 
+              </p>  
+          </div>    
+
+          <div className="w-[80px] h-[38px] rounded-sm pt-[14px] pr-[10px] pb-[14px] pl-[10px] cursor-pointer bg-blue-200 relative bottom-[1.1px] left-[240px]">
+            <p className="text-black relative left-[2px] bottom-[8px] font-semibold">
+              Fantasy 
+            </p>  
+          </div>    
+
+          <div className="w-[100px] h-[38px] rounded-sm pt-[14px] pr-[10px] pb-[14px] pl-[10px] cursor-pointer bg-blue-200 relative bottom-[40px] left-[380px]">
+            <p className="text-black relative right-[5px] bottom-[8px] font-semibold">
+              Romance
+              </p>  
+          </div>    
+              
+
+          <div className="w-[80px] h-[38px] rounded-sm pt-[14px] pr-[10px] pb-[14px] pl-[10px] cursor-pointer bg-blue-200 relative bottom-[78px] left-[540px]">
+            <p className="text-black font-sans relative left-[10px] bottom-[8px] font-semibold">
+              Drama 
+              </p>  
+          </div>    
+
+          <div className="w-[120px] h-[38px] rounded-sm pt-[14px] pr-[10px] pb-[14px] pl-[10px] cursor-pointer bg-blue-200 relative bottom-[114px] left-[670px]">
+            <p className="text-black font-sans  relative left-[10px] bottom-[8px] font-semibold">
+              Business 
+              </p>  
+          </div>    
+
+          <div className="w-[120px] h-[38px] rounded-sm pt-[14px] pr-[10px] pb-[14px] pl-[10px] cursor-pointer bg-blue-200 relative bottom-[152px] left-[840px]">
+            <p className="text-black font-sans relative left-[10px] bottom-[8px] font-semibold">
+              Education
+              </p>  
+          </div>    
+
+          <div className="w-[120px] h-[38px] rounded-sm pt-[14px] pr-[10px] pb-[14px] pl-[10px] cursor-pointer bg-blue-200 relative bottom-[189px] left-[1000px]">
+            <p className="text-black font-sans relative left-[10px] bottom-[8px] font-semibold">
+              Geography  
+              </p>  
+          </div>    
+      
+      <div className="w-[1,331px] h-[320px] top-[428px] justify-between">
+        <div className="w-[192px] h-[320px] p-8">
+        
+
+        </div>
+      </div>
+           
+      </div>
+      
     </div>
+
+
 
     
   );
