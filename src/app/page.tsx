@@ -113,7 +113,6 @@ export default function Home() {
       <div className="w-[1,331px] h-[320px] top-[428px] justify-between">
         <div className="w-[192px] h-[320px] p-8">
         
-
         </div>
       </div>
            
