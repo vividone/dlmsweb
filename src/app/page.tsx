@@ -22,16 +22,15 @@ export default function Home() {
              </span>
              </div>
 
-            <div className="w-[17.88px] h-[21.81px] relative bottom-[48px] left-[800px]">
+            <div className="w-[17.88px] h-[21.81px] relative bottom-[48px] left-[900px]">
              <FaBell className='text-xl text-gray-700 cursor-pointer hover:text-blue-500'>
-               <Image 
+               <img 
                src='/user-avatar.jpg'
                alt="Avatar"
                width={44}
                height={46}
                className="rounded-full cursor-pointer"
-               >
-               </Image>
+               />
               </FaBell>  
             </div> 
 
@@ -45,13 +44,20 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="w-[992px] h-[66px] relative top-[45px] left-[2px] flex rounded-md justify-between p-8 border">
+        <div className="w-[992px] h-[66px] flex rounded-md justify-between p-8">
+          <div className="relative">
+            <input 
+            type="text" 
+            className="border p-6 font-sans w-[1112px] h-[66px] bottom-[25px] right-[35px] relative rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"      
+            placeholder="Type book name or author"
+            />
            {/* Search Icon */}
       <FaSearch 
-      className="text-gray-500 w-3 h-6 relative bottom-[10px] left-[920px] cursor-pointer" 
+      className="text-gray-500 w-3 h-6 relative bottom-[70px] left-[1040px] cursor-pointer" 
       />
-          
-      <div className="w-[172px] h-[58px] relative bottom-[30px] left-[302px] rounded-md border pt-[14px] pr-[10px] pb-[14px] pl-[10px] hover:bg-blue-500 bg-[#0661E8] cursor-pointer">
+        
+
+      <div className="w-[172px] h-[58px] relative bottom-[110px] left-[1090px] rounded-md border pt-[14px] pr-[10px] pb-[14px] pl-[10px] hover:bg-blue-500 bg-[#0661E8] cursor-pointer">
           <button 
           type="submit"
           className="text-white relative left-[50px] font-sans text-[14px]">
@@ -59,7 +65,8 @@ export default function Home() {
           </button>
       </div>
         </div>
-
+      </div>
+      
       <div className="w-[1,314px] h-[58px] top-[328px] left-[80px] gap-[30px]">
           <div className="w-[60px] h-[38px] rounded-md pt-[14px] pr-[10px] pb-[14px] pl-[10px] cursor-pointer bg-[#0661E8] relative top-[76px]">
             <p className="text-white relative left-[10px] bottom-[8px] font-sans">
@@ -74,20 +81,20 @@ export default function Home() {
           </div>    
 
           <div className="w-[80px] h-[38px] rounded-sm pt-[14px] pr-[10px] pb-[14px] pl-[10px] cursor-pointer bg-blue-200 relative bottom-[1.1px] left-[240px]">
-            <p className="text-black relative left-[2px] bottom-[8px] font-semibold">
+            <p className="text-black relative left-[2px] bottom-[8px] font-semibold relative">
               Fantasy 
             </p>  
           </div>    
 
           <div className="w-[100px] h-[38px] rounded-sm pt-[14px] pr-[10px] pb-[14px] pl-[10px] cursor-pointer bg-blue-200 relative bottom-[40px] left-[380px]">
-            <p className="text-black relative right-[5px] bottom-[8px] font-semibold">
+            <p className="text-black relative right-[5px] bottom-[8px] font-semibold relative left-[5px]">
               Romance
               </p>  
           </div>    
               
 
           <div className="w-[80px] h-[38px] rounded-sm pt-[14px] pr-[10px] pb-[14px] pl-[10px] cursor-pointer bg-blue-200 relative bottom-[78px] left-[540px]">
-            <p className="text-black font-sans relative left-[10px] bottom-[8px] font-semibold">
+            <p className="text-black font-sans relative left-[10px] bottom-[8px] font-semibold relative left-[5px]">
               Drama 
               </p>  
           </div>    
@@ -109,11 +116,123 @@ export default function Home() {
               Geography  
               </p>  
           </div>    
-      
-      <div className="w-[1,331px] h-[320px] top-[428px] justify-between">
-        <div className="w-[192px] h-[320px] p-8">
-        
+
+
+
+      <div className="w-[1331px] h-[320px] justify-between">
+        <div className="w-[192px] h-[320px] bottom-[130px] relative p-8">
+           <img src="/lone wolf.png" className="rounded-md cursor-pointer" alt="lone wolf" />
+            <div className="flex justify-between w-[164px] h-[43px]">
+           <span className="w-[164px] h-[20px] font-sans font-semibold text-[14px] leading-[20.11px]">
+            Lone Wolf Adventure
+            </span>
         </div>
+        </div>
+
+        <div className="w-[192px] h-[320px] bottom-[450px] left-[200px] relative p-8">
+           <img src="/Hide and seek.jpg" className='rounded-md cursor-pointer' alt="Hide and seek" />
+            <div className="flex justify-between w-[164px] h-[43px]">
+           <span className="w-[164px] h-[20px] font-sans font-semibold text-[14px] leading-[20.11px]">
+            Hide and Seek 
+            </span>
+        </div>
+        </div>
+
+        <div className="w-[192px] h-[320px] bottom-[770px] left-[400px] relative p-8">
+           <img src="/Dont Look.png" className="rounded-md cursor-pointer" alt="Dont Look" />
+            <div className="flex justify-between w-[164px] h-[43px]">
+           <span className="w-[164px] h-[20px] font-sans font-semibold text-[14px] leading-[20.11px]">
+              Don't Look Back 
+            </span>
+        </div>
+        </div>
+
+        <div className="w-[192px] h-[320px] bottom-[1090px] left-[600px] relative p-8">
+           <img src="/spring book.jpg" className="rounded-md cursor-pointer h-[200px]" alt="spring book" />
+            <div className="flex justify-between w-[164px] h-[43px]">
+           <span className="w-[164px] h-[20px] font-sans font-semibold text-[14px] leading-[20.11px]">
+              Spring book 
+            </span>
+        </div>
+        </div>
+
+        <div className="w-[192px] h-[320px] bottom-[1410px] left-[800px] relative p-8">
+           <img src="/harry potter.jpg" className="rounded-md cursor-pointer h-[200px]" alt="harry potter" />
+            <div className="flex justify-between w-[164px] h-[43px]">
+           <span className="w-[164px] h-[20px] font-sans font-semibold text-[14px] leading-[20.11px]">
+              Harry Potter 
+            </span>
+        </div>
+        </div>
+
+        <div className="w-[192px] h-[320px] bottom-[1730px] left-[1000px] relative p-8">
+           <img src="/Robin lee.jpg" className="rounded-md cursor-pointer h-[200px]" alt="robin lee" />
+            <div className="flex justify-between w-[164px] h-[43px]">
+           <span className="w-[164px] h-[20px] font-sans font-semibold text-[14px] leading-[20.11px]">
+              A Promise Kept
+            </span>
+        </div>
+        </div>
+
+
+
+        <div className="w-[1331px] h-[320px] justify-between"> 
+        <div className="w-[192px] h-[320px] bottom-[1700px] left-[2.25px] relative p-8">
+           <img src="/Dont Look.png" className="rounded-md cursor-pointer" alt="Dont Look" />
+            <div className="flex justify-between w-[164px] h-[43px]">
+           <span className="w-[164px] h-[20px] font-sans font-semibold text-[14px] leading-[20.11px]">
+              Don't Look Back 
+            </span>
+        </div>
+        </div>
+    
+        <div className="w-[192px] h-[320px] bottom-[2020px] left-[200px] relative p-8">
+           <img src="/Hide and seek.jpg" className='rounded-md cursor-pointer' alt="Hide and seek" />
+            <div className="flex justify-between w-[164px] h-[43px]">
+           <span className="w-[164px] h-[20px] font-sans font-semibold text-[14px] leading-[20.11px]">
+            Hide and Seek 
+            </span>
+        </div>
+        </div>
+
+        <div className="w-[192px] h-[320px] bottom-[2340px] left-[400px] relative p-8">
+           <img src="/harry potter.jpg" className="rounded-md cursor-pointer h-[200px]" alt="harry potter" />
+            <div className="flex justify-between w-[164px] h-[43px]">
+           <span className="w-[164px] h-[20px] font-sans font-semibold text-[14px] leading-[20.11px]">
+              Harry Potter 
+            </span>
+        </div>
+        </div>
+
+        <div className="w-[192px] h-[320px] bottom-[2660px] left-[600px] relative p-8">
+           <img src="/Robin lee.jpg" className="rounded-md cursor-pointer h-[200px]" alt="robin lee" />
+            <div className="flex justify-between w-[164px] h-[43px]">
+           <span className="w-[164px] h-[20px] font-sans font-semibold text-[14px] leading-[20.11px]">
+              A Promise Kept
+            </span>
+        </div>
+        </div>
+
+        <div className="w-[192px] h-[320px] bottom-[2980px] left-[800px] relative p-8">
+           <img src="/lone wolf.png" className="rounded-md cursor-pointer" alt="lone wolf" />
+            <div className="flex justify-between w-[164px] h-[43px]">
+           <span className="w-[164px] h-[20px] font-sans font-semibold text-[14px] leading-[20.11px]">
+            Lone Wolf Adventure
+            </span>
+        </div>
+        </div>
+
+        <div className="w-[192px] h-[320px] bottom-[3300px] left-[1000px] relative p-8">
+           <img src="/spring book.jpg" className="rounded-md cursor-pointer h-[200px]" alt="spring book" />
+            <div className="flex justify-between w-[164px] h-[43px]">
+           <span className="w-[164px] h-[20px] font-sans font-semibold text-[14px] leading-[20.11px]">
+              Spring book 
+            </span>
+        </div>
+        </div>
+
+      </div>
+
       </div>
            
       </div>
