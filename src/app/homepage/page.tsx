@@ -13,11 +13,11 @@ export default function Home() {
         <div className="w-[1,062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
             <div className="w-[238px] h-[25px]">
               <div className="w-[67px] h-[25px]">
-             <p className="text-[#0661E8] font-sans text-[14px] leading-[25.14px]">
+             <p className="text-[#0661E8] cursor-pointer font-semibold font-sans text-[14px] leading-[25.14px]">
               Library
              </p>
-             <div className="w-[83px] h-[25px] font-sans relative bottom-[25px] left-[100px]">
-             <span className="text-[14px] leading-[25.14px] w-[400px]">
+             <div className="w-[83px] h-[25px] cursor-pointer font-sans relative bottom-[25px] left-[100px]">
+             <span className="text-[14px] font-semibold leading-[25.14px] w-[400px]">
                My Shelf 
              </span>
              </div>
