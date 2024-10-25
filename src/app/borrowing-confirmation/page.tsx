@@ -4,12 +4,15 @@ import { FaBell } from "react-icons/fa"
 import { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 
+
 export default function Home() {
   const[token, setToken] = useState('');
   const[error, setError] = useState<string | null>(null);
   const[success, setSuccess] = useState(false);
 
 
+
+ 
   const handleSubmit = (e:React.FormEvent) => {
        e.preventDefault(); // prevent page refresh
        if(token.trim() === ""){
@@ -53,8 +56,11 @@ export default function Home() {
                />
        </div>
      </div>
+     
   </div>
+  
   </div>
+  
   {/* Success Message */}
   {success && (
         <div className="w-full max-w-lg flex items-center gap-2 p-4 bg-green-100 rounded-md mb-6">

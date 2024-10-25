@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FaBell } from "react-icons/fa"
 import { FaSearch } from 'react-icons/fa'
+import { FaFilter } from 'react-icons/fa'
 
 export default function Home() {
   return (
@@ -55,13 +56,16 @@ export default function Home() {
       />
         
 
-      <div className="w-[172px] h-[58px] relative bottom-[110px] left-[1090px] rounded-md border pt-[14px] pr-[10px] pb-[14px] pl-[10px] hover:bg-blue-500 bg-[#0661E8] cursor-pointer">
-          <button 
-          type="submit"
-          className="text-white relative left-[50px] font-sans text-[14px]">
-             Filter
-          </button>
-      </div>
+        <div className="w-[172px] h-[58px] relative bottom-[110px] left-[1090px] rounded-md border pt-[14px] pr-[10px] pb-[14px] pl-[10px] hover:bg-blue-500 bg-[#0661E8] cursor-pointer">
+  <button 
+    type="submit"
+    className="text-white font-sans text-[14px] flex items-center justify-center gap-2"
+  >
+    <FaFilter className="text-white text-lg" /> {/* Filter Icon */}
+    Filter
+  </button>
+ </div>
+
         </div>
       </div>
       
