@@ -83,6 +83,7 @@ export default function Home() {
             />
           
            {/* Search Icon */}
+           
       <FaSearch 
       className="text-gray-500 w-3 h-6 relative bottom-[70px] left-[440px] cursor-pointer" 
       />
@@ -100,7 +101,7 @@ export default function Home() {
         <select
           value={selectedGenre}
           onChange={(e) => setSelectedGenre(e.target.value)}
-          className="p-2 border rounded-md"
+          className="p-2 cursor-pointer border rounded-md"
         >
           <option value="All">Genre</option>
           <option value="Adventure">Adventure</option>
@@ -119,7 +120,7 @@ export default function Home() {
         <select
           value={selectedGenre}
           onChange={(e) => setSelectedGenre(e.target.value)}
-          className="p-2 border rounded-md"
+          className="p-2 cursor-pointer border rounded-md"
         >
           <option value="All">Borrowal Status</option>
           <option value="Adventure">Adventure</option>
@@ -138,7 +139,7 @@ export default function Home() {
         <select
           value={selectedGenre}
           onChange={(e) => setSelectedGenre(e.target.value)}
-          className="p-2 border rounded-md"
+          className="p-2 cursor-pointer border rounded-md"
         >
           <option value="All">Return Date</option>
           <option value="Adventure">Adventure</option>
@@ -157,7 +158,7 @@ export default function Home() {
         <select
           value={selectedGenre}
           onChange={(e) => setSelectedGenre(e.target.value)}
-          className="p-2 border rounded-md"
+          className="p-2 cursor-pointer border rounded-md"
         >
           <option value="All">Return Date</option>
           <option value="Adventure">Adventure</option>
