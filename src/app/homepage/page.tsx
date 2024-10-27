@@ -73,11 +73,15 @@ export default function Home() {
             </div>
         </div>
 
+       {/* find a book */}
+
         <div className="w-[195px] h-[40px] top-[135px] left-[80px]">
           <p className="w-[400px] font-semibold font-sans text-[22px] leading-[40.22px]">
             Find a Book
           </p>
         </div>
+
+      {/*Search input */}
 
         <div className="w-[992px] h-[66px] flex rounded-md justify-between p-8">
           <div className="relative">
@@ -124,7 +128,7 @@ export default function Home() {
       {/* Book List */}
       <div className="flex gap-8 mt-8">
         {filteredBooks.map((book) => (
-          <div key={book.id} className="p-4 border rounded-md">
+          <div key={book.id} className="p-4 rounded-md">
             <Image
               src={book.cover}
               alt={book.title}
