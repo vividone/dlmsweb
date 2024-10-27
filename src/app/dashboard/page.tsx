@@ -1,6 +1,19 @@
-import Image from "next/image";
-import { FaBell } from "react-icons/fa"
-import { FaSearch } from 'react-icons/fa'
+"use client"
+import { FaSearch, FaBell } from 'react-icons/fa'
+import { useState, useEffect } from 'react';
+
+// return book definition
+
+interface Book {
+  id: number,
+  title: string,
+  category: string,
+  cover: string,
+}
+
+const returnedBooks = [
+  { id: 1, title: "Lone Wolf Adventure", category: "Adventure", cover: "/lone wolf.png"},
+];
 
 export default function Home() {
   return (
@@ -12,11 +25,11 @@ export default function Home() {
         </div>
         <div className="w-[1,062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
             <div className="w-[238px] h-[25px]">
-              <div className="w-[67px] h-[25px]">
+              <div className="w-[67px] h-[25px] cursor-pointer hover:text-blue-400">
              <p className="font-sans font-semibold text-[14px] leading-[25.14px]">
               Library
              </p>
-             <div className="w-[83px] h-[25px] font-sans relative bottom-[25px] left-[100px]">
+             <div className="w-[83px] cursor-pointer hover:text-blue-800 h-[25px] font-sans relative bottom-[25px] left-[100px]">
              <span className="text-[14px] font-semibold text-[#0661E8] leading-[25.14px] w-[400px]">
                My Shelf 
              </span>
@@ -40,18 +53,30 @@ export default function Home() {
           <div className="relative">
             <input 
             type="text" 
-            className="border p-6 font-sans w-[1112px] h-[66px] bottom-[25px] right-[35px] relative rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"      
+            className="border p-6 font-sans w-[512px] h-[66px] bottom-[25px] right-[35px] relative rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"      
             placeholder="Type book name or author"
             />
+          
            {/* Search Icon */}
       <FaSearch 
-      className="text-gray-500 w-3 h-6 relative bottom-[70px] left-[1040px] cursor-pointer" 
+      className="text-gray-500 w-3 h-6 relative bottom-[70px] left-[440px] cursor-pointer" 
       />
 
         <div className="w-[195px] h-[40px] top-[135px] left-[80px]">
           <p className="w-[400px] font-semibold font-sans text-[22px] leading-[40.22px]">
             Returned Rentals 
           </p>
+        </div>
+
+      {/*Header page- Genre, borrowed status, return date and date borrowed */}
+
+      <div className='flex gap-8'>
+
+      </div>
+
+      {/* returned list */ }
+        <div className="flex gap-8 mt-8">
+
         </div>
 
         </div>
