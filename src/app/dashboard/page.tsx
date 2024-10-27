@@ -21,6 +21,9 @@ const books: Book[] = [
   { id: 3, title: 'Don\'t Look Back', genre: 'Thriller', cover: '/Dont Look.png', borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
   { id: 4, title: 'Spring Book', genre: 'Romance', cover: '/spring book.jpg', borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
   { id: 5, title: 'Harry Potter', genre: 'Fantasy', cover: '/harry potter.jpg', borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+  { id: 6, title: 'Nose Myth', genre: 'Adventure', cover: '/Norse Myth.jpg', borrowStatus:'Returned', returnDate: 'N/A', borrowedDate: '2024-10-15'},
+  { id: 7, title: 'Tigers heart', genre: 'Thriller', cover: '/Tigers heart.jpg', borrowStatus:'Borrowed', returnDate:'2024-10-29', borrowedDate:'2024-08-06'},
+  { id: 8, title: 'All this Time', genre: 'Fantasy', cover: '/All this Time.png', borrowStatus:'Borrowed', returnDate:'2024-10-29', borrowedDate:'2024-09-06'},
 ];
 
 
