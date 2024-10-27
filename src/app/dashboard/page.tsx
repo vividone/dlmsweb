@@ -97,9 +97,10 @@ export default function Home() {
           </p>
 
         {/*Header page- Genre, borrowed status, return date and date borrowed */}
+       
         {/* Dropdown */}
 
-      <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-36 left-[600px]">
+      <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-[160px] left-[500px]">
         <h2 className="font-semibold">Sort by:</h2>
         <select
           value={selectedGenre}
@@ -118,7 +119,7 @@ export default function Home() {
 
         {/* Borrowal List */}
 
-        <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-36 left-[600px]">
+        <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-[220px] left-[730px]">
         
         <select
           value={selectedGenre}
@@ -137,7 +138,7 @@ export default function Home() {
 
     {/* Return Date */}
      
-    <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-36 left-[600px]">
+    <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-[280px] left-[950px]">
         
         <select
           value={selectedGenre}
@@ -156,14 +157,14 @@ export default function Home() {
      
     {/* Date Borrowed */}
 
-    <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-36 left-[600px]">
+    <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-[340px] left-[1110px]">
         
         <select
           value={selectedGenre}
           onChange={(e) => setSelectedGenre(e.target.value)}
           className="p-2 cursor-pointer border rounded-md"
         >
-          <option value="All">Return Date</option>
+          <option value="All">Date Borrowed</option>
           <option value="Adventure">Adventure</option>
           <option value="Drama">Drama</option>
           <option value="Thriller">Thriller</option>
