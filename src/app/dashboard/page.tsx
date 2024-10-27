@@ -7,15 +7,40 @@ import { useState, useEffect } from 'react';
 interface Book {
   id: number,
   title: string,
-  category: string,
+  genre: string,
   cover: string,
+  borrowStatus: string,
+  returnDate: string,
+  borrowedDate: string,
 }
 
-const returnedBooks = [
-  { id: 1, title: "Lone Wolf Adventure", category: "Adventure", cover: "/lone wolf.png"},
+// Sample book data
+const books: Book[] = [
+  { id: 1, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: '/lone-wolf.png', borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 2, title: 'Hide and Seek', genre: 'Drama', cover: '/Hide-and-seek.jpg', borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+  { id: 3, title: 'Don\'t Look Back', genre: 'Thriller', cover: '/Dont-Look.png', borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+  { id: 4, title: 'Spring Book', genre: 'Romance', cover: '/spring-book.jpg', borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+  { id: 5, title: 'Harry Potter', genre: 'Fantasy', cover: '/harry-potter.jpg', borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
 ];
 
+
 export default function Home() {
+  const[selectedGenre, setSelectedGenre] = useState<string>('All');
+  const[filteredBooks, setFilteredBooks] = useState<Book[]>(books);
+
+
+  // update the filtered books when the genre changes
+
+  useEffect(() => {
+    if(selectedGenre === 'All'){
+      setFilteredBooks(books);
+    }
+    else {
+      const filtered = books.filter((book) => book.genre === selectedGenre);
+      setFilteredBooks(filtered);
+    }
+  }, [selectedGenre])
+
   return (
     <div className="w-[1,512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
         <div className="w-[241px] h-[53px]">
@@ -67,12 +92,24 @@ export default function Home() {
             Returned Rentals 
           </p>
 
-            {/*Header page- Genre, borrowed status, return date and date borrowed */}
+        {/*Header page- Genre, borrowed status, return date and date borrowed */}
+        {/* Dropdown */}
 
-      <div className='flex gap-8 font-sans'>
-         <h2 className='relative bottom-36 left-[600px]'>
-          Sort by:
-          </h2>
+      <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-36 left-[600px]">
+        <h2 className="font-semibold">Sort by:</h2>
+        <select
+          value={selectedGenre}
+          onChange={(e) => setSelectedGenre(e.target.value)}
+          className="p-2 border rounded-md"
+        >
+          <option value="All">Genre</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Drama">Drama</option>
+          <option value="Thriller">Thriller</option>
+          <option value="Romance">Romance</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Business">Business</option>
+        </select>
       </div>
 
         </div>
