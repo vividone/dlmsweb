@@ -132,7 +132,7 @@ export default function Home() {
               height={300}
               className="rounded-md cursor-pointer"
             />
-            <h2 className="mt-4 text-lg font-semibold">{book.title}</h2>
+            <h2 className="mt-4 text-sm font-semibold">{book.title}</h2>
           </div>
         ))}
       </div>
