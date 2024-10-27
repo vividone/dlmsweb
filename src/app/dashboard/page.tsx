@@ -66,14 +66,16 @@ export default function Home() {
           <p className="w-[400px] font-semibold font-sans text-[22px] leading-[40.22px]">
             Returned Rentals 
           </p>
-        </div>
 
-      {/*Header page- Genre, borrowed status, return date and date borrowed */}
+            {/*Header page- Genre, borrowed status, return date and date borrowed */}
 
-      <div className='flex gap-8'>
-
+      <div className='flex gap-8 font-sans'>
+         <h2 className='relative bottom-36 left-[600px]'>
+          Sort by:
+          </h2>
       </div>
 
+        </div>
       {/* returned list */ }
         <div className="flex gap-8 mt-8">
 
