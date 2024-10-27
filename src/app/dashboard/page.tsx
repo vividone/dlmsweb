@@ -16,11 +16,11 @@ interface Book {
 
 // Sample book data
 const books: Book[] = [
-  { id: 1, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: '/lone-wolf.png', borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-  { id: 2, title: 'Hide and Seek', genre: 'Drama', cover: '/Hide-and-seek.jpg', borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-  { id: 3, title: 'Don\'t Look Back', genre: 'Thriller', cover: '/Dont-Look.png', borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-  { id: 4, title: 'Spring Book', genre: 'Romance', cover: '/spring-book.jpg', borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-  { id: 5, title: 'Harry Potter', genre: 'Fantasy', cover: '/harry-potter.jpg', borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+  { id: 1, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: '/lone wolf.png', borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 2, title: 'Hide and Seek', genre: 'Drama', cover: '/Hide and seek.jpg', borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+  { id: 3, title: 'Don\'t Look Back', genre: 'Thriller', cover: '/Dont Look.png', borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+  { id: 4, title: 'Spring Book', genre: 'Romance', cover: '/spring book.jpg', borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+  { id: 5, title: 'Harry Potter', genre: 'Fantasy', cover: '/harry potter.jpg', borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
 ];
 
 
@@ -112,17 +112,69 @@ export default function Home() {
         </select>
       </div>
 
-        </div>
-      {/* returned list */ }
-        <div className="flex gap-8 mt-8">
+        {/* Borrowal List */}
 
-        </div>
-
-        </div>
+        <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-36 left-[600px]">
+        
+        <select
+          value={selectedGenre}
+          onChange={(e) => setSelectedGenre(e.target.value)}
+          className="p-2 border rounded-md"
+        >
+          <option value="All">Borrowal Status</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Drama">Drama</option>
+          <option value="Thriller">Thriller</option>
+          <option value="Romance">Romance</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Business">Business</option>
+        </select>
       </div>
-      
 
-       </div>
+    {/* Return Date */}
+     
+    <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-36 left-[600px]">
+        
+        <select
+          value={selectedGenre}
+          onChange={(e) => setSelectedGenre(e.target.value)}
+          className="p-2 border rounded-md"
+        >
+          <option value="All">Return Date</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Drama">Drama</option>
+          <option value="Thriller">Thriller</option>
+          <option value="Romance">Romance</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Business">Business</option>
+        </select>
+      </div>
+     
+    {/* Date Borrowed */}
+
+    <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-36 left-[600px]">
+        
+        <select
+          value={selectedGenre}
+          onChange={(e) => setSelectedGenre(e.target.value)}
+          className="p-2 border rounded-md"
+        >
+          <option value="All">Return Date</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Drama">Drama</option>
+          <option value="Thriller">Thriller</option>
+          <option value="Romance">Romance</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Business">Business</option>
+        </select>
+      </div>
+
+      </div>
+    </div>
+
+        </div>
+     
+        </div>
 
   );
 }
