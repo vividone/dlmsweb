@@ -107,7 +107,7 @@ export default function Home() {
 
         <div className="w-[195px] h-[40px] top-[135px] left-[80px]">
           <p className="w-[400px] font-semibold font-sans text-[22px] leading-[40.22px]">
-            Returned Rentals 
+            All 
           </p>
 
         {/*Header page- Genre, borrowed status, return date and date borrowed */}

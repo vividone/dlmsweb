@@ -1,5 +1,7 @@
-import { FaBell } from "react-icons/fa"
-import { FaSearch } from 'react-icons/fa'
+"use client";
+
+import { FaBell, FaArrowLeft } from "react-icons/fa"
+import Link from "next/link"; // use for routing
 
 export default function Home() {
   return (
@@ -30,6 +32,15 @@ export default function Home() {
                className="rounded-full cursor-pointer relative left-[50px] w-[64px] h-[20px] bottom-[19px]"
                />
             </div>
+          
+          {/* Back arow to redirect user to homepage */}
+            <div className="flex items-center space-x-2 relative top-[80px] right-[300px]">
+            <Link href="/homepage" passHref>
+              <FaArrowLeft className="text-md text-gray-700 cursor-pointer hover:text-blue-500" />
+            </Link>
+          </div>
+
+
 
             <div className="flex w-[412px] relative top-[121px] right-[300px]">
                 <img src="/lone wolf.png"

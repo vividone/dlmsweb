@@ -142,12 +142,6 @@ export default function Home() {
           className="p-2 cursor-pointer border rounded-md"
         >
           <option value="All">Borrowal Status</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Drama">Drama</option>
-          <option value="Thriller">Thriller</option>
-          <option value="Romance">Romance</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="Business">Business</option>
         </select>
       </div>
 
@@ -161,12 +155,6 @@ export default function Home() {
           className="p-2 cursor-pointer border rounded-md"
         >
           <option value="All">Return Date</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Drama">Drama</option>
-          <option value="Thriller">Thriller</option>
-          <option value="Romance">Romance</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="Business">Business</option>
         </select>
       </div>
      
@@ -180,12 +168,6 @@ export default function Home() {
           className="p-2 cursor-pointer border rounded-md"
         >
           <option value="All">Date Borrowed</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Drama">Drama</option>
-          <option value="Thriller">Thriller</option>
-          <option value="Romance">Romance</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="Business">Business</option>
         </select>
       </div>
 
