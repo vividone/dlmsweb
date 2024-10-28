@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image";
 import { FaSearch, FaBell } from 'react-icons/fa'
 import { useState, useEffect } from 'react';
 
@@ -15,15 +16,15 @@ interface Book {
 }
 
 // Sample book data
-const books = [
-  { id: 1, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: '/lone wolf.png', borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-  { id: 2, title: 'Hide and Seek', genre: 'Drama', cover: '/Hide and seek.jpg', borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-  { id: 3, title: 'Don\'t Look Back', genre: 'Thriller', cover: '/Dont Look.png', borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-  { id: 4, title: 'Spring Book', genre: 'Romance', cover: '/spring book.jpg', borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-  { id: 5, title: 'Harry Potter', genre: 'Fantasy', cover: '/harry potter.jpg', borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 6, title: 'Nose Myth', genre: 'Adventure', cover: '/Norse Myth.jpg', borrowStatus:'Returned', returnDate: 'N/A', borrowedDate: '2024-10-15'},
-];
-
+const books: Book[] = [
+  { id: 1, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 2, title: 'Hide and Seek', genre: 'Drama', cover: "/Hide and seek.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+  { id: 3, title: 'Don\'t Look Back', genre: 'Thriller', cover: "/Dont Look.png", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+  { id: 4, title: 'Spring Book', genre: 'Romance', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+  { id: 5, title: 'Harry Potter', genre: 'Fantasy', cover: "/harry potter.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+  { id: 6, title: 'Nose Myth', genre: 'Adventure', cover: "/Norse Myth.jpg", borrowStatus:'Returned', returnDate: 'N/A', borrowedDate: '2024-10-12'},
+  { id: 7, title: 'Tigers heart', genre: 'Thriller', cover: "/Tigers heart.jpg", borrowStatus:'Borrowed', returnDate:'2024-10-24', borrowedDate:'2024-08-04'},
+]
 
 export default function Home() {
   const[selectedGenre, setSelectedGenre] = useState<string>('All');
@@ -46,15 +47,15 @@ export default function Home() {
 
   // handle search and filtering 
   useEffect(() => {
-    const filtered = books.filter((book) => {
+    const filteredBooks = books.filter((book) => {
       const matchesSearch = book.title.toLowerCase().includes(searchTerm.toLowerCase());
       return matchesSearch;
     });
-    setFilteredBooks(filtered);
+    setFilteredBooks(filteredBooks);
   }, [searchTerm]);
 
   return (
-    <div className="w-[1,512px] h-[85px] relative fixed [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
+    <div className="w-[1,512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
         <div className="w-[241px] h-[53px]">
               <h1 className="font-sans text-[32px] font-bold leading-[52.79px]">
                 BookaThon 
@@ -63,14 +64,9 @@ export default function Home() {
         <div className="w-[1,062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
             <div className="w-[238px] h-[25px]">
               <div className="w-[67px] h-[25px] cursor-pointer hover:text-blue-400">
-             <p className="font-sans font-semibold text-[14px] leading-[25.14px]">
+             <p className="font-sans font-semibold text-[#0661E8] text-[14px] leading-[25.14px]">
               Library
              </p>
-             <div className="w-[83px] cursor-pointer hover:text-blue-800 h-[25px] font-sans relative bottom-[25px] left-[100px]">
-             <span className="text-[14px] font-semibold text-[#0661E8] leading-[25.14px] w-[400px]">
-               My Shelf 
-             </span>
-             </div>
 
             <div className="w-[17.88px] h-[21.81px] relative bottom-[48px] left-[900px]">
              <FaBell className='text-xl text-gray-700 cursor-pointer hover:text-blue-500'>
@@ -80,8 +76,7 @@ export default function Home() {
                alt="Avatar"
                className="rounded-full cursor-pointer relative left-[50px] w-[64px] h-[20px] bottom-[19px]"
                />
-            </div> 
-                
+            </div>     
              </div>
             </div>
         </div>
@@ -139,12 +134,6 @@ export default function Home() {
           className="p-2 cursor-pointer border rounded-md"
         >
           <option value="All">Borrowal Status</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Drama">Drama</option>
-          <option value="Thriller">Thriller</option>
-          <option value="Romance">Romance</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="Business">Business</option>
         </select>
       </div>
 
@@ -158,12 +147,6 @@ export default function Home() {
           className="p-2 cursor-pointer border rounded-md"
         >
           <option value="All">Return Date</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Drama">Drama</option>
-          <option value="Thriller">Thriller</option>
-          <option value="Romance">Romance</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="Business">Business</option>
         </select>
       </div>
      
@@ -177,14 +160,10 @@ export default function Home() {
           className="p-2 cursor-pointer border rounded-md"
         >
           <option value="All">Date Borrowed</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Drama">Drama</option>
-          <option value="Thriller">Thriller</option>
-          <option value="Romance">Romance</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="Business">Business</option>
         </select>
       </div>
+
+
 
     
       {/* Book List */}
@@ -202,13 +181,12 @@ export default function Home() {
         ))}
       </div>
   
-    
-      </div>
-
-  
       </div>
     </div>
+
         </div>
-</div>
+     
+        </div>
+  </div>
   );
 }

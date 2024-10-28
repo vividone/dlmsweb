@@ -17,16 +17,14 @@ interface Book {
 
 // Sample book data
 const books: Book[] = [
-  { id: 1, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: '/lone wolf.png', borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-  { id: 2, title: 'Hide and Seek', genre: 'Drama', cover: '/Hide and seek.jpg', borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-  { id: 3, title: 'Don\'t Look Back', genre: 'Thriller', cover: '/Dont Look.png', borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-  { id: 4, title: 'Spring Book', genre: 'Romance', cover: '/spring book.jpg', borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-  { id: 5, title: 'Harry Potter', genre: 'Fantasy', cover: '/harry potter.jpg', borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 6, title: 'Nose Myth', genre: 'Adventure', cover: '/Norse Myth.jpg', borrowStatus:'Returned', returnDate: 'N/A', borrowedDate: '2024-10-15'},
-  { id: 7, title: 'Tigers heart', genre: 'Thriller', cover: '/Tigers heart.jpg', borrowStatus:'Borrowed', returnDate:'2024-10-29', borrowedDate:'2024-08-06'},
-  { id: 8, title: 'All this Time', genre: 'Fantasy', cover: '/All this Time.png', borrowStatus:'Borrowed', returnDate:'2024-10-29', borrowedDate:'2024-09-06'},
-];
-
+  { id: 1, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 2, title: 'Hide and Seek', genre: 'Drama', cover: "/Hide and seek.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+  { id: 3, title: 'Don\'t Look Back', genre: 'Thriller', cover: "/Dont Look.png", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+  { id: 4, title: 'Spring Book', genre: 'Romance', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+  { id: 5, title: 'Harry Potter', genre: 'Fantasy', cover: "/harry potter.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+  { id: 6, title: 'Nose Myth', genre: 'Adventure', cover: "/Norse Myth.jpg", borrowStatus:'Returned', returnDate: 'N/A', borrowedDate: '2024-10-12'},
+  { id: 7, title: 'Tigers heart', genre: 'Thriller', cover: "/Tigers heart.jpg", borrowStatus:'Borrowed', returnDate:'2024-10-24', borrowedDate:'2024-08-04'},
+]
 
 export default function Home() {
   const[selectedGenre, setSelectedGenre] = useState<string>('All');
@@ -83,8 +81,7 @@ export default function Home() {
                alt="Avatar"
                className="rounded-full cursor-pointer relative left-[50px] w-[64px] h-[20px] bottom-[19px]"
                />
-            </div> 
-                
+            </div>     
              </div>
             </div>
         </div>
@@ -171,20 +168,21 @@ export default function Home() {
         </select>
       </div>
 
+
+
     
       {/* Book List */}
+      <div className="grid w-[1297px] h-[209px]">
       <div className="flex gap-8 relative font-sans bottom-[200px]">
         {filteredBooks.map((book) => (
           <div key={book.id} className="p-8 rounded-md">
-            <Image
+            <img 
               src={book.cover}
               alt={book.title}
-              width={250}
-              height={375}
-              className="rounded-md cursor-pointer w-full"
+              className="rounded-md w-full h-[120px] cursor-pointer"
             />
-            <h2 className="mt-4 text-sm font-semibold">{book.title}</h2>
           </div>
+        
         ))}
       </div>
   
@@ -194,6 +192,6 @@ export default function Home() {
         </div>
      
         </div>
-
+  </div>
   );
 }
