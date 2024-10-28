@@ -1,5 +1,4 @@
 "use client"
-import Image from "next/image";
 import { FaSearch, FaBell } from 'react-icons/fa'
 import { useState, useEffect } from 'react';
 
@@ -16,7 +15,7 @@ interface Book {
 }
 
 // Sample book data
-const books: Book[] = [
+const books = [
   { id: 1, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: '/lone wolf.png', borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
   { id: 2, title: 'Hide and Seek', genre: 'Drama', cover: '/Hide and seek.jpg', borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
   { id: 3, title: 'Don\'t Look Back', genre: 'Thriller', cover: '/Dont Look.png', borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
@@ -49,15 +48,15 @@ export default function Home() {
 
   // handle search and filtering 
   useEffect(() => {
-    const filteredBooks = books.filter((book) => {
+    const filtered = books.filter((book) => {
       const matchesSearch = book.title.toLowerCase().includes(searchTerm.toLowerCase());
       return matchesSearch;
     });
-    setFilteredBooks(filteredBooks);
+    setFilteredBooks(filtered);
   }, [searchTerm]);
 
   return (
-    <div className="w-[1,512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
+    <div className="w-[1,512px] h-[85px] relative fixed [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
         <div className="w-[241px] h-[53px]">
               <h1 className="font-sans text-[32px] font-bold leading-[52.79px]">
                 BookaThon 
@@ -108,7 +107,7 @@ export default function Home() {
 
         <div className="w-[195px] h-[40px] top-[135px] left-[80px]">
           <p className="w-[400px] font-semibold font-sans text-[22px] leading-[40.22px]">
-            Returned Rentals 
+            Borrowed  
           </p>
 
         {/*Header page- Genre, borrowed status, return date and date borrowed */}
@@ -194,17 +193,18 @@ export default function Home() {
       <div className="flex gap-8 relative font-sans bottom-[200px]">
         {filteredBooks.map((book) => (
           <div key={book.id} className="p-8 rounded-md">
-            <Image
+            <img
               src={book.cover}
               alt={book.title}
-              width={250}
-              height={375}
-              className="rounded-md cursor-pointer w-full"
+              width={192}
+              height={300}
+              className="rounded-md cursor-pointer"
             />
             <h2 className="mt-4 text-sm font-semibold">{book.title}</h2>
           </div>
         ))}
       </div>
+
   
       </div>
     </div>
