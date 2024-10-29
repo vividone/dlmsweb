@@ -43,17 +43,19 @@ export default function Home() {
  
    // Handle search and filtering
    useEffect(() => {
-     const filtered = books.filter((book) => {
-       const matchesSearch = 
-       book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-       book.author.toLowerCase().includes(searchTerm.toLowerCase());
-       const matchesCategory = selectedCategory === 'All' || book.category === selectedCategory;
-       return matchesSearch && matchesCategory;
+    const filterData = (bookList: Book[]) =>
+      bookList.filter((book) => {
+        const matchesSearch =
+          book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          book.author.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory = selectedCategory === 'All' || book.category === selectedCategory;
+        return matchesSearch && matchesCategory;
      });
-     setFilteredBooks(filtered);
+ 
+  const combinedFilteredBooks = [...filterData(books), ...filterData(booksTwo)];
+   setFilteredBooks(combinedFilteredBooks);
    }, [searchTerm, selectedCategory]);
 
-  
  
   return (
     <div className="w-[1,512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
@@ -144,48 +146,45 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Book List */}
-      <div className="flex gap-8 mt-8 relative right-[50px]">
-        {filteredBooks.map((book) => (
-          <div key={book.id} className="p-4 rounded-md">
-            <Image
-              src={book.cover}
-              alt={book.title && book.author}
-              width={192}
-              height={300}
-              className="rounded-md cursor-pointer"
-            />
+       {/* Book Rows */}
+       <div className="space-y-12">
+        {/* First Row */}
+        <div className="grid grid-cols-6 gap-8">
+          {filteredBooks.slice(0, books.length).map((book) => (
+            <div key={book.id} className="p-4 rounded-md">
+              <Image
+                src={book.cover}
+                alt={book.title}
+                width={192}
+                height={300}
+                className="rounded-md"
+              />
+              <h2 className="mt-2 font-semibold">{book.title}</h2>
+              <p className="text-sm text-gray-500">{book.author}</p>
+            </div>
+          ))}
+        </div>
 
-            <h2 className="mt-2 text-sm font-sans text-[13px] font-semibold leading-tight">
-               {book.title}
-            </h2>
-            <p className="mt-2 text-sm font-sans text-[12px] font-extralight">{book.author}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="flex gap-8 mt-8 relative right-[50px]">
-        {filteredBooks.map((book) => (
-          <div key={book.id} className="p-4 rounded-md">
-            <Image
-              src={book.cover}
-              alt={`${book.title} by ${book.author}`}
-              width={192}
-              height={300}
-              className="rounded-md cursor-pointer"
-            />
-
-            <h2 className="mt-2 text-sm font-sans text-[13px] font-semibold leading-tight">
-               {book.title}
-            </h2>
-            <p className="mt-2 text-sm font-sans text-[12px] font-extralight">{book.author}</p>
-          </div>
-        ))}
-      </div>
+        {/* Second Row */}
+        <div className="grid grid-cols-6 gap-8">
+          {filteredBooks.slice(books.length).map((book) => (
+            <div key={book.id} className="p-4 rounded-md">
+              <Image
+                src={book.cover}
+                alt={book.title}
+                width={192}
+                height={300}
+                className="rounded-md"
+              />
+              <h2 className="mt-2 font-semibold">{book.title}</h2>
+              <p className="text-sm text-gray-500">{book.author}</p>
+            </div>
+          ))}
+        </div>
 
           </div>
       </div>
       </div>
-           
+    </div>
   );
 }
