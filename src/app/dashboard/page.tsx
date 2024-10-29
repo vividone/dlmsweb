@@ -26,7 +26,7 @@ const books: Book[] = [
   { id: 7, title: 'Tigers heart', genre: 'Thriller', cover: "/Tigers heart.jpg", borrowStatus:'Borrowed', returnDate:'2024-10-24', borrowedDate:'2024-08-04'},
 ]
 
-export default function Home() {
+export default function Dashboard() {
   const[selectedGenre, setSelectedGenre] = useState<string>('All');
   const[filteredBooks, setFilteredBooks] = useState<Book[]>(books);
   const[searchTerm, setSearchTerm] = useState<string>('');

@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 
 
-export default function Home() {
+export default function BorrowConfirmation() {
   const[token, setToken] = useState('');
   const[error, setError] = useState<string | null>(null);
   const[success, setSuccess] = useState(false);

@@ -5,7 +5,7 @@ import { useState } from "react"
 import Link from "next/link"; // use for routing;
 
 
-export default function Home() {
+export default function BorrowPage() {
     const[collectionDate, setConfirmationDate] = useState('') 
     const[returnDate, setReturnDate] = useState('');  
     const[error, setError] = useState<string | null>(null); 

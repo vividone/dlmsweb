@@ -25,7 +25,7 @@ const books = [
 ];
 
 
-export default function Home() {
+export default function LibraryPage() {
   const[selectedGenre, setSelectedGenre] = useState<string>('All');
   const[filteredBooks, setFilteredBooks] = useState<Book[]>(books);
   const[searchTerm, setSearchTerm] = useState<string>('');

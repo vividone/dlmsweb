@@ -3,7 +3,7 @@
 import { FaBell, FaArrowLeft } from "react-icons/fa"
 import Link from "next/link"; // use for routing
 
-export default function Home() {
+export default function BookDetails() {
   return (
     <div className="w-[1,512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
         <div className="w-[241px] h-[53px]">
