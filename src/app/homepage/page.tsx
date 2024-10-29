@@ -111,8 +111,8 @@ export default function Home() {
  </div>
 
 {/* Category Filter */}
-    <div className="mt-6 flex gap-4">
-        {['All', 'Adventure', 'Drama', 'Thriller', 'Romance', 'Fantasy', 'Business'].map((category) => (
+    <div className="mt-6 flex gap-8 relative bottom-20 right-[30px]">
+        {['All', 'Adventure', 'Drama', 'Thriller', 'Romance', 'Fantasy', 'Business', 'Education', 'Geography'].map((category) => (
           <button
             key={category}
             className={`px-4 py-2 rounded-md ${
@@ -126,7 +126,7 @@ export default function Home() {
       </div>
 
       {/* Book List */}
-      <div className="flex gap-8 mt-8">
+      <div className="flex gap-8 mt-8 relative right-[50px]">
         {filteredBooks.map((book) => (
           <div key={book.id} className="p-4 rounded-md">
             <Image
