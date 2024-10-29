@@ -142,7 +142,7 @@ export default function Dashboard() {
        
         {/* Dropdown */}
 
-      <div className="mt-6 flex items-center gap-2 relative font-extralight bottom-[160px] left-[500px]">
+      <div className="mt-6 flex items-center gap-2 relative bottom-[160px] left-[500px]">
         <h2 className="font-extralight">Sort by:</h2>
         <select
           value={selectedGenre}

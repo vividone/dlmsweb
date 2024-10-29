@@ -25,12 +25,47 @@ const books = [
   { id: 6, title: 'Nose Myth', genre: 'Adventure', cover: '/Norse Myth.jpg', borrowStatus:'Returned', returnDate: 'N/A', borrowedDate: '2024-10-15'},
 ];
 
+const dashboardTwos = [
+  { id: 1, title: 'Harry Potter', genre: 'Adventure', cover: "/harry potter.jpg", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 2, title: 'Hide and seek', genre: 'Thriller', cover: "/Hide and seek.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+  { id: 3, title: 'Spring Book', genre: 'Romance', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+  { id: 4, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+  { id: 5, title: 'Walk in the shadow', genre: 'Fantasy', cover: "/walk in the shadow.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+  { id: 6, title: 'All This Time', genre: 'Adventure', cover: "/All This Time.png", borrowStatus:'Returned', returnDate: 'N/A', borrowedDate: '2024-10-12'},
+]
+
+const dashboardThrees = [
+  { id: 1, title: 'All This Time', genre: 'Adventure', cover: "/All This Time.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 2, title: 'Tigers Heart', genre: 'Thriller', cover: "/Tigers heart.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+  { id: 3, title: 'Walk in the shadow', genre: 'Fantasy', cover: "/walk in the shadow.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+  { id: 4, title: 'Robin lee', genre: 'Thriller', cover: "/Robin lee.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+  { id: 5, title: 'Don\'t Look Back', genre: 'Thriller', cover: "/Dont Look.png", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+  { id: 6, title: 'Norse Myth', genre: 'Fantasy', cover: "/Norse Myth.jpg", borrowStatus:'Returned', returnDate: 'N/A', borrowedDate: '2024-10-12'},
+]
 
 export default function LibraryPage() {
   const[selectedGenre, setSelectedGenre] = useState<string>('All');
   const[filteredBooks, setFilteredBooks] = useState<Book[]>(books);
   const[searchTerm, setSearchTerm] = useState<string>('');
 
+
+    // Handle search and filtering
+    useEffect(() => { 
+      const filterData = (bookList: Book[]) =>
+       bookList.filter((book) => {
+         const matchesSearch =
+           book.title.toLowerCase().includes(searchTerm.toLowerCase());
+         return matchesSearch;
+      });
+   
+   
+     const combinedFilteredBooks = 
+     [...filterData(books), 
+      ...filterData(dashboardTwos), 
+      ...filterData(dashboardThrees)];
+     setFilteredBooks(combinedFilteredBooks);
+     }, [searchTerm]);
+   
 
   // update the filtered books when the genre changes
 
@@ -44,15 +79,6 @@ export default function LibraryPage() {
     }
   }, [selectedGenre])
 
-
-  // handle search and filtering 
-  useEffect(() => {
-    const filtered = books.filter((book) => {
-      const matchesSearch = book.title.toLowerCase().includes(searchTerm.toLowerCase());
-      return matchesSearch;
-    });
-    setFilteredBooks(filtered);
-  }, [searchTerm]);
 
   return (
     <div className="w-[1,512px] h-[85px] relative fixed [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
@@ -109,8 +135,8 @@ export default function LibraryPage() {
        
         {/* Dropdown */}
 
-      <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-[160px] left-[500px]">
-        <h2 className="font-semibold">Sort by:</h2>
+      <div className="mt-6 flex items-center gap-2 relative bottom-[160px] left-[500px]">
+        <h2 className="font-extralight">Sort by:</h2>
         <select
           value={selectedGenre}
           onChange={(e) => setSelectedGenre(e.target.value)}
@@ -128,7 +154,7 @@ export default function LibraryPage() {
 
         {/* Borrowal List */}
 
-        <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-[220px] left-[730px]">
+        <div className="mt-6 flex items-center gap-2 relative font-extralight bottom-[220px] left-[730px]">
         
         <select
           value={selectedGenre}
@@ -147,7 +173,7 @@ export default function LibraryPage() {
 
     {/* Return Date */}
      
-    <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-[280px] left-[950px]">
+    <div className="mt-6 flex items-center gap-2 relative font-extralight bottom-[280px] left-[950px]">
         
         <select
           value={selectedGenre}
@@ -166,7 +192,7 @@ export default function LibraryPage() {
      
     {/* Date Borrowed */}
 
-    <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-[340px] left-[1110px]">
+    <div className="mt-6 flex items-center gap-2 relative font-extralight bottom-[340px] left-[1110px]">
         
         <select
           value={selectedGenre}
@@ -185,6 +211,8 @@ export default function LibraryPage() {
 
     
       {/* Book List */}
+      {/*First row */}
+
       <div className="grid w-[1297px] h-[209px]">
       <div className="flex gap-8 relative font-sans bottom-[200px]">
         {filteredBooks.map((book) => (
@@ -194,18 +222,45 @@ export default function LibraryPage() {
               alt={book.title}
               className="rounded-md w-full h-[120px] cursor-pointer"
             />
-          </div>
-        
+          </div>        
         ))}
       </div>
-  
-    
+
+     {/*second row */}
+     <div className="grid w-[1297px] h-[209px]">
+      <div className="flex gap-8 relative font-sans bottom-[200px]">
+        {dashboardTwos.map((book) => (
+          <div key={book.id} className="p-8 rounded-md">
+            <img 
+              src={book.cover}
+              alt={book.title}
+              className="rounded-md w-full h-[120px] cursor-pointer"
+            />
+          </div>       
+        ))}
+      </div>
+
+      {/*Third row */}
+      <div className="grid w-[1297px] h-[209px]">
+      <div className="flex gap-8 relative font-sans bottom-[200px]">
+        {dashboardThrees.map((book) => (
+          <div key={book.id} className="p-8 rounded-md">
+            <img 
+              src={book.cover}
+              alt={book.title}
+              className="rounded-md w-full h-[120px] cursor-pointer"
+            />
+          </div>
+     ))}
+      </div> 
       </div>
 
   
       </div>
     </div>
         </div>
+</div>
+</div>
 </div>
   );
 }

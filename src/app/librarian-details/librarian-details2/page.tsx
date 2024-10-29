@@ -17,20 +17,47 @@ interface Book {
 }
 
 // Sample book data
-const books: Book[] = [
+const books = [
   { id: 1, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-  { id: 2, title: 'Hide and Seek', genre: 'Drama', cover: "/Hide and seek.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+  { id: 2, title: 'Robin lee', genre: 'Thriller', cover: "/Robin lee.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
   { id: 3, title: 'Don\'t Look Back', genre: 'Thriller', cover: "/Dont Look.png", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-  { id: 4, title: 'Spring Book', genre: 'Romance', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-  { id: 5, title: 'Harry Potter', genre: 'Fantasy', cover: "/harry potter.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 6, title: 'Nose Myth', genre: 'Adventure', cover: "/Norse Myth.jpg", borrowStatus:'Returned', returnDate: 'N/A', borrowedDate: '2024-10-12'},
-  { id: 7, title: 'Tigers heart', genre: 'Thriller', cover: "/Tigers heart.jpg", borrowStatus:'Borrowed', returnDate:'2024-10-24', borrowedDate:'2024-08-04'},
+  { id: 4, title: 'Tigers heart', genre: 'Thriller', cover: "/Tigers heart.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+  { id: 5, title: 'Norse Myth', genre: 'Fantasy', cover: "/Norse Myth.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+  { id: 6, title: 'Spring book', genre: 'Romance', cover: "/spring book.jpg", borrowStatus:'Borrowed', returnDate:'2024-10-24', borrowedDate:'2024-08-04'},
+]
+
+const dashboardTwos = [
+  { id: 1, title: 'Harry Potter', genre: 'Adventure', cover: "/harry potter.jpg", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 2, title: 'Hide and seek', genre: 'Thriller', cover: "/Hide and seek.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+  { id: 3, title: 'Spring Book', genre: 'Romance', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+  { id: 4, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+  { id: 5, title: 'Walk in the shadow', genre: 'Fantasy', cover: "/walk in the shadow.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+  { id: 6, title: 'All This Time', genre: 'Adventure', cover: "/All This Time.png", borrowStatus:'Returned', returnDate: 'N/A', borrowedDate: '2024-10-12'},
 ]
 
 export default function LibraryDetailsTwo() {
   const[selectedGenre, setSelectedGenre] = useState<string>('All');
   const[filteredBooks, setFilteredBooks] = useState<Book[]>(books);
   const[searchTerm, setSearchTerm] = useState<string>('');
+
+  // handle search and filtering
+  useEffect(() => { 
+    const filterData = (bookList: Book[]) =>
+     bookList.filter((book) => {
+       const matchesSearch =
+         book.title.toLowerCase().includes(searchTerm.toLowerCase());
+       return matchesSearch;
+    });
+ 
+ 
+   const combinedFilteredBooks = 
+   [...filterData(books), 
+    ...filterData(dashboardTwos), 
+   ];
+   setFilteredBooks(combinedFilteredBooks);
+   }, [searchTerm]);
+ 
+
 
 
   // update the filtered books when the genre changes
@@ -45,15 +72,6 @@ export default function LibraryDetailsTwo() {
     }
   }, [selectedGenre])
 
-
-  // handle search and filtering 
-  useEffect(() => {
-    const filteredBooks = books.filter((book) => {
-      const matchesSearch = book.title.toLowerCase().includes(searchTerm.toLowerCase());
-      return matchesSearch;
-    });
-    setFilteredBooks(filteredBooks);
-  }, [searchTerm]);
 
   return (
     <div className="w-[1,512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
@@ -108,8 +126,8 @@ export default function LibraryDetailsTwo() {
        
         {/* Dropdown */}
 
-      <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-[160px] left-[500px]">
-        <h2 className="font-semibold">Sort by:</h2>
+      <div className="mt-6 flex items-center gap-2 relative bottom-[160px] left-[500px]">
+        <h2 className="font-extralight">Sort by:</h2>
         <select
           value={selectedGenre}
           onChange={(e) => setSelectedGenre(e.target.value)}
@@ -127,7 +145,7 @@ export default function LibraryDetailsTwo() {
 
         {/* Borrowal List */}
 
-        <div className="mt-6 flex items-center gap-2 relative font-semibold bottom-[220px] left-[730px]">
+        <div className="mt-6 flex items-center gap-2 relative font-extralight bottom-[220px] left-[730px]">
         
         <select
           value={selectedGenre}
@@ -177,8 +195,21 @@ export default function LibraryDetailsTwo() {
               alt={book.title}
               className="rounded-md w-full h-[120px] cursor-pointer"
             />
-          </div>
-        
+          </div>    
+        ))}
+      </div>
+
+      {/*second row */}
+     <div className="grid w-[1297px] h-[209px]">
+      <div className="flex gap-8 relative font-sans bottom-[200px]">
+        {dashboardTwos.map((book) => (
+          <div key={book.id} className="p-8 rounded-md">
+            <img 
+              src={book.cover}
+              alt={book.title}
+              className="rounded-md w-full h-[120px] cursor-pointer"
+            />
+          </div>       
         ))}
       </div>
   
@@ -188,6 +219,7 @@ export default function LibraryDetailsTwo() {
         </div>
      
         </div>
+  </div>
   </div>
   );
 }
