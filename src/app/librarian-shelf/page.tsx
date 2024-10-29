@@ -62,7 +62,7 @@ export default function LibraryShelf() {
         </div>
         <div className="w-[1,062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
             <div className="w-[238px] h-[25px]">
-             <div className="w-[83px] cursor-pointer hover:text-blue-800 h-[25px] font-sans relative bottom-[15px] left-[100px]">
+             <div className="w-[83px] cursor-pointer hover:text-blue-800 h-[25px] font-sans relative bottom-[10px] left-[100px]">
              <span className="text-[14px] font-semibold text-[#0661E8] leading-[25.14px] w-[400px]">
                My Shelf 
              </span>
