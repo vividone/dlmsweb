@@ -11,34 +11,48 @@ interface Book {
   title: string,
   category: string,
   cover: string,
+  author: string,
 }
 
+
+
 const books = [
-  { id: 1, title: "Lone Wolf Adventure", category: "Adventure", cover: "/lone wolf.png" },
-  { id: 2, title: "Hide and Seek", category: "Mystery", cover: "/Hide and seek.jpg" },
-  { id: 3, title: "Don't Look Back", category: "Thriller", cover: "/Dont Look.png" },
-  { id: 4, title: "Spring Book", category: "Romance", cover: "/spring book.jpg" },
-  { id: 5, title: "Harry Potter", category: "Fantasy", cover: "/harry potter.jpg" },
-  { id: 6, title: "A Promise Kept", category: "Drama", cover: "/Robin lee.jpg" },
+  { id: 1, title: "Lone Wolf Adventure", category: "Adventure", author: 'Emerngard Nausicaa', cover: "/lone wolf.png" },
+  { id: 2, title: "Hide and Seek", category: "Mystery", author:'Olivia Wison', cover: "/Hide and seek.jpg" },
+  { id: 3, title: "Don't Look Back", category: "Thriller", author:'Isaac Nelson', cover: "/Dont Look.png" },
+  { id: 4, title: "Spring Book", category: "Romance", author:'Deena Roberts', cover: "/spring book.jpg" },
+  { id: 5, title: "Harry Potter", category: "Fantasy", author:'Isaac Nelson', cover: "/harry potter.jpg" },
+  { id: 6, title: "A Promise Kept", category: "Drama", author:'Robert Lee Hatcher', cover: "/Robin lee.jpg" },
 ];
 
+const booksTwo = [
+  { id: 1, title: "Don't Look Back", category: "Thriller", author: 'Isaac Nelson', cover: "/Dont Look.png" },
+  { id: 2, title: "Hide and Seek", category: "Mystery", author:'Olivia Wison', cover: "/Hide and seek.jpg" },
+  { id: 3, title: "Harry Potter", category: "Fantasy", author:'Isaac Nelson', cover: "/harry potter.jpg" },
+  { id: 4, title: "A Promise Kept", category: "Drama", author:'Robert Lee Hatcher', cover: "/Robin lee.jpg" },
+  { id: 5, title: "Lone Wolf Adventure", category: "Adventure", author:'Emerngard Nausica', cover: "/lone wolf.png" },
+  { id: 6, title: "Spring Book", category: "Romance", author:'Deena Roberts', cover: "/spring book.jpg" },
+];
 
 export default function Home() {
    // state for search input and filtered books
    const [searchTerm, setSearchTerm] = useState<string>('');
-   const [filteredBooks, setFilteredBooks] = useState<Book[]>(books);
+   const [filteredBooks, setFilteredBooks] = useState<Book[]>(books && booksTwo);
    const [selectedCategory, setSelectedCategory] = useState<string>('All');
  
    // Handle search and filtering
    useEffect(() => {
      const filtered = books.filter((book) => {
-       const matchesSearch = book.title.toLowerCase().includes(searchTerm.toLowerCase());
+       const matchesSearch = 
+       book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+       book.author.toLowerCase().includes(searchTerm.toLowerCase());
        const matchesCategory = selectedCategory === 'All' || book.category === selectedCategory;
        return matchesSearch && matchesCategory;
      });
      setFilteredBooks(filtered);
    }, [searchTerm, selectedCategory]);
 
+  
  
   return (
     <div className="w-[1,512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
@@ -131,12 +145,35 @@ export default function Home() {
           <div key={book.id} className="p-4 rounded-md">
             <Image
               src={book.cover}
-              alt={book.title}
+              alt={book.title && book.author}
               width={192}
               height={300}
               className="rounded-md cursor-pointer"
             />
-            <h2 className="mt-4 text-sm font-semibold">{book.title}</h2>
+
+            <h2 className="mt-2 text-sm font-sans text-[13px] font-semibold leading-tight">
+               {book.title}
+            </h2>
+            <p className="mt-2 text-sm font-sans text-[12px] font-extralight">{book.author}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex gap-8 mt-8 relative right-[50px]">
+        {filteredBooks.map((book) => (
+          <div key={book.id} className="p-4 rounded-md">
+            <Image
+              src={book.cover}
+              alt={`${book.title} by ${book.author}`}
+              width={192}
+              height={300}
+              className="rounded-md cursor-pointer"
+            />
+
+            <h2 className="mt-2 text-sm font-sans text-[13px] font-semibold leading-tight">
+               {book.title}
+            </h2>
+            <p className="mt-2 text-sm font-sans text-[12px] font-extralight">{book.author}</p>
           </div>
         ))}
       </div>
