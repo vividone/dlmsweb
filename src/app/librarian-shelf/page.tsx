@@ -60,15 +60,17 @@ export default function LibraryShelf() {
                 BookaThon 
               </h1>
         </div>
+
+
         <div className="w-[1,062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
             <div className="w-[238px] h-[25px]">
-             <div className="w-[83px] cursor-pointer hover:text-blue-800 h-[25px] font-sans relative bottom-[10px] left-[100px]">
-             <span className="text-[14px] font-semibold text-[#0661E8] leading-[25.14px] w-[400px]">
-               My Shelf 
-             </span>
-             </div>
-             
+              <div className="w-[67px] h-[25px] text-[#0661E8] cursor-pointer hover:text-blue-400">
+             <p className="font-sans font-semibold text-[14px] leading-[25.14px]">
+              Library
+             </p>
 
+
+           {/* Notification-bell */}
             <div className="w-[17.88px] h-[21.81px] relative bottom-[48px] left-[900px]">
              <FaBell className='text-xl text-gray-700 cursor-pointer hover:text-blue-500'>
               </FaBell>  
@@ -81,7 +83,7 @@ export default function LibraryShelf() {
                 
              </div>
             </div>
-        
+        </div>
 
       {/*Search input */}
         <div className="w-[992px] h-[66px] flex rounded-md justify-between p-8">
