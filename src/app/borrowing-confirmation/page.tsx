@@ -1,8 +1,8 @@
 "use client";
 
-import { FaBell } from "react-icons/fa"
+import { FaBell, FaArrowLeft } from "react-icons/fa"
 import { useState } from 'react'
-import { FaSearch } from 'react-icons/fa'
+import Link from "next/link"; // use for routing;
 
 
 export default function BorrowConfirmation() {
@@ -28,7 +28,7 @@ export default function BorrowConfirmation() {
   }
 
   return (
-       <div className="w-[1,512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
+       <div className="w-[1512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
               <div className="w-[241px] h-[53px]">
               <h1 className="font-sans text-[32px] font-bold leading-[52.79px]">
                 BookaThon 
@@ -61,9 +61,11 @@ export default function BorrowConfirmation() {
   
   </div>
   
+
+  
   {/* Success Message */}
-  {success && (
-        <div className="w-full max-w-lg flex items-center gap-2 p-4 bg-green-100 rounded-md mb-6">
+     {success && (
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 w-full max-w-lg flex items-center gap-2 p-4 bg-green-100 rounded-md mb-6">
           <span className="text-green-600 text-3xl">&#10003;</span> {/* Checkmark */}
           <div>
             <h2 className="font-sans text-xl font-semibold">Request Sent Successfully</h2>
@@ -75,7 +77,14 @@ export default function BorrowConfirmation() {
         </div>
       )}
 
+    {/*Back arrow to redirect user to homepage */}
+    <div className="flex items-center space-x-2 relative top-[40px] right-[10px]">
+            <Link href="/homepage" passHref>
+              <FaArrowLeft className="text-md text-gray-700 cursor-pointer hover:text-blue-500" />
+            </Link>
+          </div>
       {/* Token Input and Form */}
+        <div className="absolute left-[550px] top-[200px] justify-center">
       <form onSubmit={handleSubmit} className="w-full max-w-lg flex flex-col gap-4">
         <label htmlFor="token" className="text-lg font-semibold">
           Your Unique Borrow Token
@@ -109,6 +118,7 @@ export default function BorrowConfirmation() {
         >
           Back to Homepage
         </a>
+        </div>
         </div>
         </div>
   );
