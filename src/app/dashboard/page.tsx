@@ -1,5 +1,5 @@
 "use client"
-import Image from "next/image";
+import Link from "next/link";
 import { FaSearch, FaBell } from 'react-icons/fa'
 import { useState, useEffect } from 'react';
 
@@ -30,6 +30,16 @@ export default function Dashboard() {
   const[selectedGenre, setSelectedGenre] = useState<string>('All');
   const[filteredBooks, setFilteredBooks] = useState<Book[]>(books);
   const[searchTerm, setSearchTerm] = useState<string>('');
+  
+   // Handle search and filtering
+   useEffect(() => {
+    const filtered = books.filter((book) => {
+      const matchesSearch = 
+      book.title.toLowerCase().includes(searchTerm.toLowerCase());
+      return matchesSearch;
+    });
+    setFilteredBooks(filtered);
+  }, [searchTerm]);
 
 
   // update the filtered books when the genre changes
@@ -61,16 +71,20 @@ export default function Dashboard() {
                 BookaThon 
               </h1>
         </div>
+
         <div className="w-[1,062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
             <div className="w-[238px] h-[25px]">
               <div className="w-[67px] h-[25px] cursor-pointer hover:text-blue-400">
-             <p className="font-sans font-semibold text-[14px] leading-[25.14px]">
+              {/* Library Link */}
+            <Link href="/homepage" className="hover:text-blue-500 cursor-pointer font-semibold text-[14px] leading-[25.14px]">
               Library
-             </p>
-             <div className="w-[83px] cursor-pointer hover:text-blue-800 h-[25px] font-sans relative bottom-[25px] left-[100px]">
-             <span className="text-[14px] font-semibold text-[#0661E8] leading-[25.14px] w-[400px]">
-               My Shelf 
-             </span>
+            </Link>
+
+             <div className="w-[83px] cursor-pointer h-[25px] font-sans relative bottom-[25px] left-[100px]">
+             {/*My Shelf Link */}
+             <Link href="/dashboard" className="text-[14px] text-[#0661E8] font-semibold leading-[25.14px]">
+             My Shelf
+             </Link>
              </div>
 
             <div className="w-[17.88px] h-[21.81px] relative bottom-[48px] left-[900px]">

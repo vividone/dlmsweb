@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from 'next/link';
 import { FaBell, FaSearch, FaFilter } from "react-icons/fa"
 import { useState, useEffect } from 'react';
 
@@ -61,16 +62,20 @@ export default function Home() {
                 BookaThon 
               </h1>
         </div>
+
         <div className="w-[1,062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
             <div className="w-[238px] h-[25px]">
               <div className="w-[67px] h-[25px]">
-             <p className="text-[#0661E8] cursor-pointer font-semibold font-sans text-[14px] leading-[25.14px]">
+            {/* Library Link */}
+            <Link href="/homepage" className="text-[#0661E8] cursor-pointer font-semibold text-[14px] leading-[25.14px]">
               Library
-             </p>
+            </Link>
+
              <div className="w-[83px] h-[25px] cursor-pointer font-sans relative bottom-[25px] left-[100px]">
-             <span className="text-[14px] font-semibold leading-[25.14px] w-[400px]">
-               My Shelf 
-             </span>
+             {/*My Shelf Link */}
+             <Link href="/dashboard" className="text-[14px] font-semibold leading-[25.14px] hover:text-blue-500">
+             My Shelf
+             </Link>
              </div>
 
             <div className="w-[17.88px] h-[21.81px] relative bottom-[48px] left-[900px]">
