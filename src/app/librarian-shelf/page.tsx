@@ -1,6 +1,7 @@
 "use client"
 import { FaSearch, FaBell } from 'react-icons/fa'
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 // return book definition
 
@@ -65,9 +66,9 @@ export default function LibraryShelf() {
         <div className="w-[1,062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
             <div className="w-[238px] h-[25px]">
               <div className="w-[67px] h-[25px] text-[#0661E8] cursor-pointer hover:text-blue-400">
-             <p className="font-sans font-semibold text-[14px] leading-[25.14px]">
+             <Link href='/homepage' className="font-sans font-semibold text-[14px] leading-[25.14px]">
               Library
-             </p>
+             </Link>
 
 
            {/* Notification-bell */}
