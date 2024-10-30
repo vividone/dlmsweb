@@ -3,7 +3,7 @@
 import { FaBell, FaArrowLeft } from "react-icons/fa"
 import Link from "next/link"; // use for routing
 
-export default function BookDetails() {
+export default function BookDetailsTwo() {
   return (
     <div className="max-w-[1512px] h-[85px] mx-auto border sm:p-6 md:p-8 lg:p-6">
         <div className="w-[241px] h-[53px]">
@@ -43,13 +43,13 @@ export default function BookDetails() {
 
 
             <div className="flex w-[412px] relative top-[121px] right-[300px]">
-                <img src="/lone wolf.png"
-                alt="lone wolf" 
+                <img src="/Dont Look.png"
+                alt="Don\'t Look Back" 
                 className="cursor-pointer" 
                  />
                  <div className="w-[335px] h-[115px]">
                  <h2 className="font-sans p-8 font-semibold">
-                      AUTHOR:   Deena Roberts
+                      AUTHOR:   Isaac Nelson 
                  </h2>
 
                  <span className="font-sans p-8 font-semibold">STATUS:  Available </span>
@@ -70,7 +70,7 @@ export default function BookDetails() {
             className="w-[480px] h-[58px] rounded-md pt-[14px] pr-[10px] pb-[14px] pl-[10px] bg-[#0661E8] hover:bg-blue-600 text-white focus:outline-none font-sans"
             aria-label="Borrow this book"
             >
-                <a href="/borrowing-page">
+                <a href="/borrowing-page2">
                 BORROW THIS BOOK 
                 </a>
             </button>
