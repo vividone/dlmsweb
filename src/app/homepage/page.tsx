@@ -58,14 +58,14 @@ export default function Home() {
 
  
   return (
-    <div className="w-[1512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
+    <div className="container max-w-full h-[85px] relative border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
         <div className="w-[241px] h-[53px]">
               <h1 className="font-sans text-[32px] font-bold leading-[52.79px]">
                 BookaThon 
               </h1>
         </div>
 
-        <div className="w-[1,062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
+        <div className="w-[1062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
             <div className="w-[238px] h-[25px]">
               <div className="w-[67px] h-[25px]">
             {/* Library Link */}
@@ -86,7 +86,7 @@ export default function Home() {
               <img 
                src='/user-avatar.jpg'
                alt="Avatar"
-               className="rounded-full cursor-pointer relative left-[50px] w-32 h-6 bottom-[22px]"
+               className="rounded-full cursor-pointer relative left-[50px] w-8 h-6 bottom-[22px]"
                />
             </div> 
                 
@@ -120,13 +120,13 @@ export default function Home() {
       />
         
 
-        <div className="w-[172px] h-[58px] relative bottom-[110px] left-[1090px] rounded-md border pt-[14px] pr-[10px] pb-[14px] pl-[10px] hover:bg-blue-500 bg-[#0661E8] cursor-pointer">
+        <div className="w-[142px] h-[58px] relative bottom-[110px] left-[1090px] rounded-md border pt-[14px] pr-[10px] pb-[14px] pl-[10px] hover:bg-blue-500 bg-[#0661E8] cursor-pointer">
   <button 
     type="submit"
     onClick={() => setSelectedCategory('All')}
     className="text-white font-sans text-[14px] flex items-center justify-center gap-2"
   >
-    <FaFilter className="text-white text-lg opacity-40" /> {/* Filter Icon */}
+    <FaFilter className="text-white mr-2 text-lg opacity-40" /> {/* Filter Icon */}
     Filter
   </button>
  </div>
