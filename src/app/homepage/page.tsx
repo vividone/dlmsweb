@@ -157,7 +157,7 @@ export default function Home() {
                 alt={book.title}
                 width={192}
                 height={300}
-                className="rounded-md"
+                className="rounded-md cursor-pointer"
               />
               <h2 className="mt-2 font-semibold">{book.title}</h2>
               <p className="text-sm text-gray-500">{book.author}</p>
@@ -174,7 +174,7 @@ export default function Home() {
                 alt={book.title}
                 width={192}
                 height={300}
-                className="rounded-md"
+                className="rounded-md cursor-pointer"
               />
               <h2 className="mt-2 font-semibold">{book.title}</h2>
               <p className="text-sm text-gray-500">{book.author}</p>
