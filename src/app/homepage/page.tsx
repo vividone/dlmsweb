@@ -104,8 +104,8 @@ export default function Home() {
 
       {/*Search input */}
 
-        <div className="w-[992px] h-[66px] flex rounded-md justify-between p-8">
-          <div className="relative">
+        <div className="flex justify-between items-center mb-4 p-8">
+          <div className="relative flex-grow">
             <input 
             type="text" 
             value={searchTerm}
@@ -120,19 +120,20 @@ export default function Home() {
       />
         
 
-        <div className="w-[142px] h-[58px] relative bottom-[110px] left-[1090px] rounded-md border pt-[14px] pr-[10px] pb-[14px] pl-[10px] hover:bg-blue-500 bg-[#0661E8] cursor-pointer">
-  <button 
-    type="submit"
-    onClick={() => setSelectedCategory('All')}
-    className="text-white font-sans text-[14px] flex items-center justify-center gap-2"
-  >
-    <FaFilter className="text-white mr-2 text-lg opacity-40" /> {/* Filter Icon */}
-    Filter
+
+    <div className="w-[142px] h-[58px] relative bottom-[110px] left-[1090px] rounded-md border pt-[14px] pr-[10px] pb-[14px] pl-[10px] hover:bg-blue-500 bg-[#0661E8] cursor-pointer">
+        <button 
+        type="submit"
+        onClick={() => setSelectedCategory('All')}
+        className="text-white font-sans text-[14px] flex items-center justify-center gap-2"
+      >
+    <FaFilter className="text-white mr-2 text-lg relative left-5 w-4 h-4 opacity-40" /> {/* Filter Icon */}
+     <p className="font-sans relative left-2">Filter</p>
   </button>
  </div>
 
 {/* Category Filter */}
-    <div className="mt-6 flex gap-8 relative bottom-20 right-[30px]">
+    <div className="mt-6 flex gap-14 relative bottom-20 right-[30px] sm:flex flex wrap gap-2">
         {['All', 'Adventure', 'Drama', 'Thriller', 'Romance', 'Fantasy', 'Business', 'Education', 'Geography'].map((category) => (
           <button
             key={category}
@@ -149,7 +150,7 @@ export default function Home() {
        {/* Book Rows */}
        <div className="space-y-12">
         {/* First Row */}
-        <div className="grid grid-cols-6 gap-8">
+        <div className="grid grid-cols-6 gap-8  sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6">
           {filteredBooks.slice(0, books.length).map((book) => (
             <div key={book.id} className="p-4 rounded-md">
               <Image
