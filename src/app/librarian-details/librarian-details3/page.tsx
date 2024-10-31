@@ -141,7 +141,7 @@ export default function LibraryDetailsThree() {
           onChange={(e) => setSelectedGenre(e.target.value)}
           className="p-2 cursor-pointer border rounded-md"
         >
-          <option value="All">Borrowal Status</option>
+          <option value="All">Due</option>
         </select>
       </div>
 

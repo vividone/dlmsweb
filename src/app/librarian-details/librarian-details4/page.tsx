@@ -160,7 +160,7 @@ export default function LibraryDetailsFour() {
           onChange={(e) => setSelectedGenre(e.target.value)}
           className="p-2 cursor-pointer border rounded-md"
         >
-          <option value="All">Borrowal Status</option>
+          <option value="All">Borrowed</option>
         </select>
       </div>
 
