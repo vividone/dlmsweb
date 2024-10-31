@@ -27,12 +27,12 @@ const books = [
 ];
 
 const booksTwo = [
-  { id: 1, title: "Don't Look Back", category: "Thriller", author: 'Isaac Nelson', cover: "/Dont Look.png" },
-  { id: 2, title: "Hide and Seek", category: "Mystery", author:'Olivia Wison', cover: "/Hide and seek.jpg" },
-  { id: 3, title: "Harry Potter", category: "Fantasy", author:'Isaac Nelson', cover: "/harry potter.jpg" },
-  { id: 4, title: "A Promise Kept", category: "Drama", author:'Robert Lee Hatcher', cover: "/Robin lee.jpg" },
-  { id: 5, title: "Lone Wolf Adventure", category: "Adventure", author:'Emerngard Nausica', cover: "/lone wolf.png" },
-  { id: 6, title: "Spring Book", category: "Romance", author:'Deena Roberts', cover: "/spring book.jpg" },
+  { id: 7, title: "Don't Look Back", category: "Thriller", author: 'Isaac Nelson', cover: "/Dont Look.png" },
+  { id: 8, title: "Hide and Seek", category: "Mystery", author:'Olivia Wison', cover: "/Hide and seek.jpg" },
+  { id: 9, title: "Harry Potter", category: "Fantasy", author:'Isaac Nelson', cover: "/harry potter.jpg" },
+  { id: 10, title: "A Promise Kept", category: "Drama", author:'Robert Lee Hatcher', cover: "/Robin lee.jpg" },
+  { id: 11, title: "Lone Wolf Adventure", category: "Adventure", author:'Emerngard Nausica', cover: "/lone wolf.png" },
+  { id: 12, title: "Spring Book", category: "Romance", author:'Deena Roberts', cover: "/spring book.jpg" },
 ];
 
 export default function Home() {
@@ -150,7 +150,7 @@ export default function Home() {
        {/* Book Rows */}
        <div className="space-y-12">
         {/* First Row */}
-        <div className="grid grid-cols-6 gap-8  sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6">
+        <div className="grid grid-cols-6 gap-8">
           {filteredBooks.slice(0, books.length).map((book) => (
             <div key={book.id} className="p-4 rounded-md">
               <Image
