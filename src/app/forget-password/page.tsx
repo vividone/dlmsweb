@@ -17,7 +17,7 @@ export default function ForgotPassword() {
       setError("Passwords do not match");
     } else {
       setError(null);
-      // Proceed with password reset logic here
+      
     }
   };
 
