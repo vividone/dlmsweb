@@ -58,7 +58,7 @@ export default function Home() {
 
  
   return (
-    <div className="w-[1,512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
+    <div className="w-[1512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
         <div className="w-[241px] h-[53px]">
               <h1 className="font-sans text-[32px] font-bold leading-[52.79px]">
                 BookaThon 
@@ -86,7 +86,7 @@ export default function Home() {
               <img 
                src='/user-avatar.jpg'
                alt="Avatar"
-               className="rounded-full cursor-pointer relative left-[50px] w-[64px] h-[20px] bottom-[19px]"
+               className="rounded-full cursor-pointer relative left-[50px] w-32 h-6 bottom-[22px]"
                />
             </div> 
                 
