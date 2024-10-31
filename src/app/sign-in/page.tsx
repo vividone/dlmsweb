@@ -40,7 +40,7 @@ export default function SignIn() {
                 BookaThon
             </h1>
 
-            <h2 className="text-lg font-semibold relative lg:right-[135px] sm:text-2xl mb-2">
+            <h2 className="text-lg mt-10 font-semibold relative lg:right-[135px] sm:text-2xl mb-2">
                 Welcome Back!
             </h2>
             <p className="text-sm text-gray-700 mb-8 text-center max-w-sm relative lg:right-[78px]">
