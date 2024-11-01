@@ -152,7 +152,7 @@ export default function Home() {
         {/* First Row */}
         <div className="grid grid-cols-6 gap-8">
           {filteredBooks.slice(0, books.length).map((book) => (
-            <Link key={book.id} href={`/books/${book.id}`}>
+            <Link key={book.id} href={`/book/${book.id}`}>
            <div key={book.id} className="p-4 rounded-md">
               <Image
                 src={book.cover}
@@ -172,7 +172,7 @@ export default function Home() {
         {/* Second Row */}
         <div className="grid grid-cols-6 gap-8">
           {filteredBooks.slice(books.length).map((book) => (
-              <Link key={book.id} href={`/books/${book.id}`}>
+              <Link key={book.id} href={`/book/${book.id}`}>
             <div key={book.id} className="p-4 rounded-md">
               <Image
                 src={book.cover}
