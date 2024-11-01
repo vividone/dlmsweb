@@ -206,6 +206,7 @@ export default function Dashboard() {
       <div className="grid w-[1297px] h-[209px]">
       <div className="flex gap-8 relative font-sans bottom-[200px]">
         {filteredBooks.map((book) => (
+          <Link key={book.id} href={`/book/${book.id}`}>
           <div key={book.id} className="p-8 rounded-md">
             <img 
               src={book.cover}
@@ -213,6 +214,7 @@ export default function Dashboard() {
               className="rounded-md w-full h-[120px] cursor-pointer"
             />
           </div>       
+          </Link>
         ))}
       </div>
 
@@ -220,6 +222,7 @@ export default function Dashboard() {
       <div className="grid w-[1297px] h-[209px]">
       <div className="flex gap-8 relative font-sans bottom-[200px]">
         {dashboardTwos.map((book) => (
+          <Link key={book.id} href={`/book/${book.id}`}>
           <div key={book.id} className="p-8 rounded-md">
             <img 
               src={book.cover}
@@ -227,6 +230,7 @@ export default function Dashboard() {
               className="rounded-md w-full h-[120px] cursor-pointer"
             />
           </div>       
+          </Link>
         ))}
       </div>
 
@@ -234,6 +238,7 @@ export default function Dashboard() {
       <div className="grid w-[1297px] h-[209px]">
       <div className="flex gap-8 relative font-sans bottom-[200px]">
         {dashboardThrees.map((book) => (
+          <Link key={book.id} href={`/book/${book.id}`}>
           <div key={book.id} className="p-8 rounded-md">
             <img 
               src={book.cover}
@@ -241,6 +246,7 @@ export default function Dashboard() {
               className="rounded-md w-full h-[120px] cursor-pointer"
             />
           </div>
+          </Link>
      ))}
       </div>
   
