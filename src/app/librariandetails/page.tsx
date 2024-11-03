@@ -1,248 +1,132 @@
-"use client"
-import Image from "next/image";
-import { FaSearch, FaBell } from 'react-icons/fa'
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+"use client";
 
-// return book definition
+import Link from "next/link";
+import { FaSearch, FaBell } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
 
 interface Book {
-  id: number,
-  title: string,
-  genre: string,
-  cover: string,
-  borrowStatus: string,
-  returnDate: string,
-  borrowedDate: string,
+  id: number;
+  title: string;
+  genre: string;
+  cover: string;
+  borrowStatus: string;
+  returnDate: string;
+  borrowedDate: string;
 }
 
-// Sample book data
-const books = [
-    { id: 1, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-    { id: 2, title: 'Robin lee', genre: 'Thriller', cover: "/Robin lee.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-    { id: 3, title: 'Don\'t Look Back', genre: 'Thriller', cover: "/Dont Look.png", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-    { id: 4, title: 'Tigers heart', genre: 'Thriller', cover: "/Tigers heart.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-    { id: 5, title: 'Norse Myth', genre: 'Fantasy', cover: "/Norse Myth.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-    { id: 6, title: 'Spring book', genre: 'Romance', cover: "/spring book.jpg", borrowStatus:'Borrowed', returnDate:'2024-10-24', borrowedDate:'2024-08-04'},
-  ]
-  
-  const dashboardTwos = [
-    { id: 7, title: 'Harry Potter', genre: 'Adventure', cover: "/harry potter.jpg", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-    { id: 8, title: 'Hide and seek', genre: 'Thriller', cover: "/Hide and seek.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-    { id: 9, title: 'Spring Book', genre: 'Romance', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-    { id: 10, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-    { id: 11, title: 'Walk in the shadow', genre: 'Fantasy', cover: "/walk in the shadow.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-    { id: 12, title: 'All This Time', genre: 'Adventure', cover: "/All This Time.png", borrowStatus:'Returned', returnDate: 'N/A', borrowedDate: '2024-10-12'},
-  ]
-  
-  const dashboardThrees = [
-    { id: 13, title: 'All This Time', genre: 'Adventure', cover: "/All This Time.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-    { id: 14, title: 'Tigers Heart', genre: 'Thriller', cover: "/Tigers heart.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-    { id: 15, title: 'Walk in the shadow', genre: 'Fantasy', cover: "/walk in the shadow.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-    { id: 16, title: 'Robin lee', genre: 'Thriller', cover: "/Robin lee.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-    { id: 17, title: 'Don\'t Look Back', genre: 'Thriller', cover: "/Dont Look.png", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-    { id: 18, title: 'Norse Myth', genre: 'Fantasy', cover: "/Norse Myth.jpg", borrowStatus:'Returned', returnDate: 'N/A', borrowedDate: '2024-10-12'},
-  ]
+const books: Book[] = [
+  { id: 1, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 2, title: 'Robin lee', genre: 'Thriller', cover: "/Robin lee.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+  { id: 3, title: "Don't Look Back", genre: 'Drama', cover: "/Dont Look.png", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+  { id: 4, title: 'Tigers Heart', genre: 'Thriller', cover: "/Tigers heart.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+  { id: 5, title: 'Norse Myth', genre: 'Fantasy', cover: "/Norse Myth.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+  { id: 6, title: 'Spring Book', genre: 'Romance', cover: "/spring book.jpg", borrowStatus: 'Borrowed', returnDate: '2024-10-24', borrowedDate: '2024-08-04' },
+];
 
-export default function LibraryDetails() {
-  const[selectedGenre, setSelectedGenre] = useState<string>('All');
-  const[filteredBooks, setFilteredBooks] = useState<Book[]>(books);
-  const[searchTerm, setSearchTerm] = useState<string>('');
+const dashboardTwos: Book[] = [
+  { id: 7, title: 'Harry Potter', genre: 'Adventure', cover: "/harry potter.jpg", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 8, title: 'Hide and Seek', genre: 'Thriller', cover: "/Hide and seek.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+  { id: 9, title: 'Spring Book', genre: 'Romance', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+  { id: 10, title: 'Lone Wolf Adventure', genre: 'Adventure', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+  { id: 11, title: 'Walk in the Shadow', genre: 'Fantasy', cover: "/walk in the shadow.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+  { id: 12, title: 'All This Time', genre: 'Adventure', cover: "/All This Time.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-10' },
+];
 
-  // handle search and filtering
-  useEffect(() => { 
-    const filterData = (bookList: Book[]) =>
-     bookList.filter((book) => {
-       const matchesSearch =
-         book.title.toLowerCase().includes(searchTerm.toLowerCase());
-       return matchesSearch;
-    });
- 
- 
-   const combinedFilteredBooks = 
-   [...filterData(books), 
-    ...filterData(dashboardTwos), 
-    ...filterData(dashboardThrees)];
-   setFilteredBooks(combinedFilteredBooks);
-   }, [searchTerm]);
- 
+const dashboardThrees: Book[] = [
+  { id: 13, title: 'All This Time', genre: 'Adventure', cover: "/All This Time.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 14, title: 'Tigers Heart', genre: 'Thriller', cover: "/Tigers heart.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+  { id: 15, title: 'Walk in the Shadow', genre: 'Fantasy', cover: "/walk in the shadow.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+  { id: 16, title: 'Robin Lee', genre: 'Thriller', cover: "/Robin lee.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+  { id: 17, title: "Don't Look Back", genre: 'Drama', cover: "/Dont Look.png", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+  { id: 18, title: 'Norse Myth', genre: 'Fantasy', cover: "/Norse Myth.jpg", borrowStatus: 'Returned', returnDate: 'N/A', borrowedDate: '2024-10-12' },
+];
 
-
-  // update the filtered books when the genre changes
+export default function DetailsPage() {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedGenre, setSelectedGenre] = useState<string>("All");
+  const [filteredBooks, setFilteredBooks] = useState<Book[]>([...books, ...dashboardTwos, ...dashboardThrees]);
 
   useEffect(() => {
-    if(selectedGenre === 'All'){
-      setFilteredBooks(books);
-    }
-    else {
-      const filteredBooks = books.filter((book) => book.genre === selectedGenre);
-      setFilteredBooks(filteredBooks);
-    }
-  }, [selectedGenre])
+    const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
+    const searchFilteredBooks = allBooks.filter((book) =>
+      book.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredBooks(searchFilteredBooks);
+  }, [searchTerm]);
 
+  useEffect(() => {
+    const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
+    const genreFilteredBooks = selectedGenre === 'All'
+      ? allBooks
+      : allBooks.filter(book => book.genre === selectedGenre);
+    setFilteredBooks(genreFilteredBooks);
+  }, [selectedGenre]);
 
   return (
-    <div className="w-[1,512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
-        <div className="w-[241px] h-[53px]">
-              <h1 className="font-sans text-[32px] font-bold leading-[52.79px]">
-                BookaThon 
-              </h1>
+    <div className="container mx-auto p-4">
+      {/* Header Section */}
+      <header className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
+        <div className="flex items-center space-x-4 ml-auto">
+          <Link href="/homepage" className="text-blue-500 relative right-[640px] font-semibold hover:text-blue-500">Library</Link>
+          <FaBell className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer" />
+          <img src="/user-avatar.jpg" alt="Avatar" className="w-8 h-7 rounded-full cursor-pointer" />
         </div>
-        <div className="w-[1,062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
-            <div className="w-[238px] h-[25px]">
-              <div className="w-[67px] h-[25px] cursor-pointer hover:text-blue-400">
-             <Link href='/homepage' className="font-sans font-semibold text-[#0661E8] text-[14px] leading-[25.14px]">
-              Library
-             </Link>
+      </header>
 
-            <div className="w-[17.88px] h-[21.81px] relative bottom-[48px] left-[900px]">
-             <FaBell className='text-xl text-gray-700 cursor-pointer hover:text-blue-500'>
-              </FaBell>  
-              <img 
-               src='/user-avatar.jpg'
-               alt="Avatar"
-               className="rounded-full cursor-pointer relative left-[50px] w-[64px] h-[20px] bottom-[19px]"
-               />
-            </div>     
-             </div>
-            </div>
-        </div>
-
-      {/*Search input */}
-        <div className="w-[992px] h-[66px] flex rounded-md justify-between p-8">
-          <div className="relative">
-            <input 
+      {/* Search & Filter Section */}
+      <div className="flex flex-col sm:flex-row items-center justify-between mb-6">
+        <div className="relative w-full sm:w-1/2">
+          <input
             type="text"
-            value={searchTerm} 
-            className="border p-6 font-sans w-[512px] h-[66px] bottom-[25px] right-[35px] relative rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"      
-            placeholder="Type book name or author"
+            value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          
-           {/* Search Icon */}
-           
-      <FaSearch 
-      className="text-gray-500 w-3 h-6 relative bottom-[70px] left-[440px] cursor-pointer" 
-      />
-
-        <div className="w-[195px] h-[40px] top-[135px] left-[80px]">
-          <p className="w-[400px] font-semibold font-sans text-[22px] leading-[40.22px]">
-            All 
-          </p>
-
-        {/*Header page- Genre, borrowed status, return date and date borrowed */}
-       
-        {/* Dropdown */}
-
-      <div className="mt-6 flex items-center gap-2 relative bottom-[160px] left-[500px]">
-        <h2 className="font-extralight">Sort by:</h2>
-        <select
-          value={selectedGenre}
-          onChange={(e) => setSelectedGenre(e.target.value)}
-          className="p-2 cursor-pointer border rounded-md"
-        >
-          <option value="All">Genre</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Drama">Drama</option>
-          <option value="Thriller">Thriller</option>
-          <option value="Romance">Romance</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="Business">Business</option>
-        </select>
+            placeholder="Type book name or author"
+            className="w-full p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <FaSearch className="absolute right-3 top-3 text-gray-500" />
+        </div>
+        <div className="mt-4 sm:mt-0 flex items-center space-x-4">
+          <select
+            value={selectedGenre}
+            onChange={(e) => setSelectedGenre(e.target.value)}
+            className="p-2 border rounded-md cursor-pointer"
+          >
+            <option value="All">Genre</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Romance">Romance</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Drama">Drama</option>
+          </select>
+          <select className="p-2 border rounded-md cursor-pointer">
+            <option value="All">Borrowal Status</option>
+          </select>
+          <select className="p-2 border rounded-md cursor-pointer">
+            <option value="All">Return Date</option>
+          </select>
+          <select className="p-2 border rounded-md cursor-pointer">
+            <option value="All">Date Borrowed</option>
+          </select>
+        </div>
       </div>
 
-        {/* Borrowal List */}
-
-        <div className="mt-6 flex items-center gap-2 relative font-extralight bottom-[220px] left-[730px]">
-        
-        <select
-          value={selectedGenre}
-          onChange={(e) => setSelectedGenre(e.target.value)}
-          className="p-2 cursor-pointer border rounded-md"
-        >
-          <option value="All">Borrowal Status</option>
-        </select>
+      <div className="flex justify-between items-center p-6">
+        <h1 className="font-bold text-2xl">All</h1>
       </div>
 
-    {/* Return Date */}
-     
-    <div className="mt-6 flex items-center gap-2 relative font-extralight bottom-[280px] left-[950px]">
-        
-        <select
-          value={selectedGenre}
-          onChange={(e) => setSelectedGenre(e.target.value)}
-          className="p-2 cursor-pointer border rounded-md"
-        >
-          <option value="All">Return Date</option>
-        </select>
-      </div>
-     
-    {/* Date Borrowed */}
-
-    <div className="mt-6 flex items-center gap-2 relative font-extralight bottom-[340px] left-[1110px]">
-        
-        <select
-          value={selectedGenre}
-          onChange={(e) => setSelectedGenre(e.target.value)}
-          className="p-2 cursor-pointer border rounded-md"
-        >
-          <option value="All">Date Borrowed</option>
-        </select>
-      </div>
-
-
-
-    
-      {/* Book List */}
-      <div className="grid w-[1297px] h-[209px]">
-      <div className="flex gap-8 relative font-sans bottom-[200px]">
+      {/* Book Collection */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {filteredBooks.map((book) => (
-          <div key={book.id} className="p-8 rounded-md">
-            <img 
-              src={book.cover}
-              alt={book.title}
-              className="rounded-md w-full h-[120px] cursor-pointer"
-            />
-          </div>        
+          <Link key={book.id} href={`/book/${book.id}`}>
+            <div className="p-4 rounded-md shadow-md hover:shadow-lg cursor-pointer">
+              <img src={book.cover} alt={book.title} className="rounded-md w-full h-48 object-cover" />
+              <h2 className="mt-2 font-semibold">{book.title}</h2>
+              <p className="text-sm text-gray-500">{book.genre}</p>
+            </div>
+          </Link>
         ))}
-      </div>
-
-     {/*second row */}
-     <div className="grid w-[1297px] h-[209px]">
-      <div className="flex gap-8 relative font-sans bottom-[200px]">
-        {dashboardTwos.map((book) => (
-          <div key={book.id} className="p-8 rounded-md">
-            <img 
-              src={book.cover}
-              alt={book.title}
-              className="rounded-md w-full h-[120px] cursor-pointer"
-            />
-          </div>       
-        ))}
-      </div>
-
-      {/*Third row */}
-      <div className="grid w-[1297px] h-[209px]">
-      <div className="flex gap-8 relative font-sans bottom-[200px]">
-        {dashboardThrees.map((book) => (
-          <div key={book.id} className="p-8 rounded-md">
-            <img 
-              src={book.cover}
-              alt={book.title}
-              className="rounded-md w-full h-[120px] cursor-pointer"
-            />
-          </div>
-     ))}
-      </div>
-  
       </div>
     </div>
-
-        </div>
-     
-        </div>
-  </div>
-  </div>
-  </div>
   );
 }
