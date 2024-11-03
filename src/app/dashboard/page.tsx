@@ -20,7 +20,7 @@ const books: Book[] = [
   { id: 3, title: "Don't Look Back", genre: 'Drama', cover: "/Dont Look.png", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
   { id: 4, title: 'Tigers Heart', genre: 'Thriller', cover: "/Tigers heart.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
   { id: 5, title: 'Norse Myth', genre: 'Fantasy', cover: "/Norse Myth.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 6, title: 'Spring Book', genre: 'Romance', cover: "/spring book.jpg", borrowStatus:'Borrowed', returnDate:'2024-10-24', borrowedDate:'2024-08-04' },
+  { id: 6, title: 'Spring Book', genre: 'Romance', cover: "/spring book.jpg", borrowStatus: 'Borrowed', returnDate: '2024-10-24', borrowedDate: '2024-08-04' },
 ];
 
 const dashboardTwos: Book[] = [
@@ -44,20 +44,21 @@ const dashboardThrees: Book[] = [
 export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
-  const [filteredBooks, setFilteredBooks] = useState<Book[]>(books);
+  const [filteredBooks, setFilteredBooks] = useState<Book[]>([...books, ...dashboardTwos, ...dashboardThrees]);
 
   useEffect(() => {
-    const filterBooks = (bookList: Book[]) => bookList.filter((book) =>
+    const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
+    const searchFilteredBooks = allBooks.filter((book) =>
       book.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    const combinedFilteredBooks = [...filterBooks(books), ...filterBooks(dashboardTwos), ...filterBooks(dashboardThrees)];
-    setFilteredBooks(combinedFilteredBooks);
+    setFilteredBooks(searchFilteredBooks);
   }, [searchTerm]);
 
   useEffect(() => {
+    const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
     const genreFilteredBooks = selectedGenre === 'All'
-      ? books
-      : books.filter(book => book.genre === selectedGenre);
+      ? allBooks
+      : allBooks.filter(book => book.genre === selectedGenre);
     setFilteredBooks(genreFilteredBooks);
   }, [selectedGenre]);
 
@@ -66,9 +67,9 @@ export default function Dashboard() {
       {/* Header Section */}
       <header className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 ml-auto">
           <Link href="/homepage" className="text-gray-700 font-semibold hover:text-blue-500">Library</Link>
-          <Link href="/dashboard" className="text-[#0661E8] font-semibold hover:text-blue-500">My Shelf</Link>
+          <Link href="/dashboard" className="text-gray-700 font-semibold hover:text-blue-500">My Shelf</Link>
           <FaBell className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer" />
           <img src="/user-avatar.jpg" alt="Avatar" className="w-8 h-8 rounded-full cursor-pointer" />
         </div>
@@ -123,31 +124,6 @@ export default function Dashboard() {
           </Link>
         ))}
       </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {dashboardTwos.map((book) => (
-          <Link key={book.id} href={`/book/${book.id}`}>
-            <div className="p-4 bg-white rounded-md shadow-md hover:shadow-lg cursor-pointer">
-              <img src={book.cover} alt={book.title} className="rounded-md w-full h-48 object-cover" />
-              <h2 className="mt-2 font-semibold">{book.title}</h2>
-              <p className="text-sm text-gray-500">{book.genre}</p>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {dashboardThrees.map((book) => (
-          <Link key={book.id} href={`/book/${book.id}`}>
-            <div className="p-4 bg-white rounded-md shadow-md hover:shadow-lg cursor-pointer">
-              <img src={book.cover} alt={book.title} className="rounded-md w-full h-48 object-cover" />
-              <h2 className="mt-2 font-semibold">{book.title}</h2>
-              <p className="text-sm text-gray-500">{book.genre}</p>
-            </div>
-          </Link>
-        ))}
-      </div>
-
     </div>
   );
 }
