@@ -112,6 +112,10 @@ export default function Dashboard() {
         </div>
       </div>
 
+      <div className="flex justify-between items-center">
+        <h1 className="font-bold text-2xl">Returned Rentals</h1>
+      </div>
+
       {/* Book Collection */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {filteredBooks.map((book) => (
