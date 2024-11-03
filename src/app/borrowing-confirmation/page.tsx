@@ -1,125 +1,111 @@
 "use client";
 
-import { FaBell, FaArrowLeft } from "react-icons/fa"
-import { useState } from 'react'
-import Link from "next/link"; // use for routing;
+import { useRouter } from 'next/navigation';
+import { FaBell, FaArrowLeft } from "react-icons/fa";
+import Link from "next/link";
+import { useState, useEffect, useRef } from 'react';
 
+// Book details component
+export default function BorrowingConfirmation({ params }: { params: Promise<{ bookId: string }> }) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [token, setToken] = useState('');
+  const router = useRouter();
 
-export default function BorrowConfirmation() {
-  const[token, setToken] = useState('');
-  const[error, setError] = useState<string | null>(null);
-  const[success, setSuccess] = useState(false);
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setDropdownOpen(false);
+    }
+  }
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
+  // handle submit
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault(); // prevents page to refresh.
+    if (token.trim() === "") {
+      setError("Please enter a valid token");
+      setSuccess(false);
+      return;
+    }
 
- 
-  const handleSubmit = (e:React.FormEvent) => {
-       e.preventDefault(); // prevent page refresh
-       if(token.trim() === ""){
-        setError("Please enter a valid token");
-        setSuccess(false);
-        return;
-       }
-
-       setError(null);
-       setSuccess(true); // show success message
-       setToken(""); // clear the input field;
-       setTimeout(() => setSuccess(false), 3000); // hide success message after 3 seconds
+    setError(null);
+    setSuccess(true); // show success message
+    setToken("");
+    setTimeout(() => setSuccess(false), 3000);
   }
 
   return (
-       <div className="w-[1512px] h-[85px] relative [-1px] border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
-              <div className="w-[241px] h-[53px]">
-              <h1 className="font-sans text-[32px] font-bold leading-[52.79px]">
-                BookaThon 
-              </h1>
+    <div className="container mx-auto p-4 text-center">
+      {/* Header section */}
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-3xl font-bold text-[#0061E8]">BookaThon</h1>
+        <div className="flex items-center space-x-4 ml-auto">
+          <Link href="/homepage" className="text-gray-700 text-[#0061E8] md:relative right-[640px] font-semibold hover:text-blue-500">Library</Link>
+          <Link href="/dashboard" className="text-gray-700 md:relative right-[600px] font-semibold hover:text-blue-500">My Shelf</Link>
+          <FaBell className="text-lg text-gray-600 cursor-pointer hover:text-blue-500" />
+          <img src="/user-avatar.jpg" alt="Avatar" className="w-8 h-7 rounded-full cursor-pointer"
+            onClick={() => setDropdownOpen(!dropdownOpen)} />
+          {dropdownOpen && (
+            <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
+              <Link href="/sign-in">
+                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
+              </Link>
+              <Link href="/signout">
+                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
+              </Link>
+            </div>
+          )}
         </div>
-        <div className="w-[1,062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
-            <div className="w-[238px] h-[25px]">
-              <div className="w-[67px] h-[25px] cursor-pointer">
-             <Link href='/homepage' className="text-[#0661E8] font-semibold font-sans text-[14px] leading-[25.14px]">
-              Library
-             </Link>
-             <div className="w-[83px] h-[25px] font-sans cursor-pointer relative bottom-[25px] left-[100px]">
-             <Link href='/dashboard' className="text-[14px] hover:text-blue-500 font-semibold leading-[25.14px] w-[400px]">
-               My Shelf 
-             </Link>
-             </div>
+      </div>
 
-            <div className="w-[17.88px] h-[21.81px] relative bottom-[48px] left-[900px]">
-             <FaBell className='text-xl text-gray-700 cursor-pointer hover:text-blue-500'>
-              </FaBell>  
-              <img 
-               src='/user-avatar.jpg'
-               alt="Avatar"
-               className="rounded-full cursor-pointer relative left-[50px] w-[64px] h-[20px] bottom-[19px]"
-               />
-       </div>
-     </div>
-     
-  </div>
-  
-  </div>
-  
-
-  
-  {/* Success Message */}
-     {success && (
-        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 w-full max-w-lg flex items-center gap-2 p-4 bg-green-100 rounded-md mb-6">
-          <span className="text-green-600 text-3xl">&#10003;</span> {/* Checkmark */}
-          <div>
-            <h2 className="font-sans text-xl font-semibold">Request Sent Successfully</h2>
-            <p className="text-sm">
-              Your request for "Lone Wolf Adventure" has been sent successfully. Present the borrow
-              token to the librarian to get your book.
-            </p>
+      {/* Book Details */}
+      <div className="flex flex-col items-center p-8">
+      <Link href={'/homepage'}>
+          <FaArrowLeft className="text-lg absolute left-32 text-gray-600 cursor-pointer hover:text-blue-500" />
+        </Link>
+        {/* Success Message */}
+        {success && (
+          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 w-full max-w-lg flex items-center gap-2 p-4 bg-green-100 rounded-md mb-6">
+            <span className="text-green-600 text-3xl">&#10003;</span> {/* Checkmark */}
+            <div>
+              <h2 className="font-sans text-xl font-semibold">Request Sent Successfully</h2>
+              <p className="text-sm">
+                Your request for “<strong>{token}</strong>” has been sent successfully. Present the borrow
+                token to the librarian to get your book.
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-    {/*Back arrow to redirect user to homepage */}
-    <div className="flex items-center space-x-2 relative top-[40px] right-[10px]">
-            <Link href="/homepage" passHref>
-              <FaArrowLeft className="text-md text-gray-700 cursor-pointer hover:text-blue-500" />
-            </Link>
-          </div>
-      {/* Token Input and Form */}
-        <div className="absolute left-[550px] top-[200px] justify-center">
-      <form onSubmit={handleSubmit} className="w-full max-w-lg flex flex-col gap-4">
-        <label htmlFor="token" className="text-lg font-semibold">
-          Your Unique Borrow Token
-        </label>
-        <input
-          type="text"
-          id="token"
-          value={token}
-          onChange={(e) => setToken(e.target.value)}
-          placeholder="APEA43267"
-          className="w-full h-12 border rounded-md p-4 focus:ring-2 focus:ring-blue-400"
-          aria-required="true"
-        />
-        {error && <p className="text-red-500">{error}</p>}
+        <form onSubmit={handleSubmit} className="w-full max-w-lg flex flex-col gap-4 mt-28 items-center">
+          <label htmlFor="token" className="text-sm relative right-40 font-semibold">
+            Your Unique Borrow Token
+          </label>
+          <input
+            type="text"
+            id="token"
+            value={token}
+            onChange={(e) => setToken(e.target.value)}
+            placeholder="APEA43267"
+            className="w-full h-12 border rounded-md p-4 focus:ring-2 focus:ring-blue-400"
+            aria-required="true"
+          />
+          {error && <p className="text-red-500">{error}</p>}
+        </form>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-md focus:outline-none"
-          aria-label="Submit Borrow Request"
-        >
-          Submit Borrow Request
-        </button>
-      </form>
-
-      {/* Back to Homepage Button */}
-      <div className="w-full max-w-lg flex justify-center mt-8">
-        <a
-          href="/homepage"
-          className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center"
-        >
-          Back to Homepage
-        </a>
+        {/* Back to Homepage Button */}
+        <div className="w-full max-w-lg flex justify-center mt-10">
+          <Link href="/homepage" className="w-80 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center">
+            Back to Homepage
+          </Link>
         </div>
-        </div>
-        </div>
+      </div>
+    </div>
   );
 }
