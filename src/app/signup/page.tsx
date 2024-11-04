@@ -42,7 +42,7 @@ export default function SignUp() {
                 {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
                 
                 <div className="space-y-1">
-                    <label className="block text-sm font-semibold">Fullname</label>
+                    <label className="block text-sm font-semibold">Full Name</label>
                     <input
                         type="text"
                         value={fullname}
