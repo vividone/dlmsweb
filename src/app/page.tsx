@@ -1,121 +1,143 @@
 "use client";
 
 import Image from "next/image";
-import { FaBell, FaSearch, FaFilter } from "react-icons/fa"
-import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { FaBell, FaSearch, FaFilter } from "react-icons/fa";
+import { useState, useEffect, useRef } from 'react';
 
-//book type definition
 
+
+// Book type definition
 interface Book {
-  id: number,
-  title: string,
-  category: string,
-  cover: string,
+  id: number;
+  title: string;
+  category: string;
+  cover: string;
+  author: string;
 }
 
-const books = [
-  { id: 1, title: "Lone Wolf Adventure", category: "Adventure", cover: "/lone wolf.png" },
-  { id: 2, title: "Hide and Seek", category: "Mystery", cover: "/Hide and seek.jpg" },
-  { id: 3, title: "Don't Look Back", category: "Thriller", cover: "/Dont Look.png" },
-  { id: 4, title: "Spring Book", category: "Romance", cover: "/spring book.jpg" },
-  { id: 5, title: "Harry Potter", category: "Fantasy", cover: "/harry potter.jpg" },
-  { id: 6, title: "A Promise Kept", category: "Drama", cover: "/Robin lee.jpg" },
+const books: Book[] = [
+  { id: 1, title: "Lone Wolf Adventure", category: "Adventure", author: 'Emerngard Nausicaa', cover: "/lone wolf.png" },
+  { id: 2, title: "Hide and Seek", category: "Mystery", author: 'Olivia Wison', cover: "/Hide and seek.jpg" },
+  { id: 3, title: "Don't Look Back", category: "Thriller", author: 'Isaac Nelson', cover: "/Dont Look.png" },
+  { id: 4, title: "Spring Book", category: "Romance", author: 'Deena Roberts', cover: "/spring book.jpg" },
+  { id: 5, title: "Harry Potter", category: "Fantasy", author: 'Isaac Nelson', cover: "/harry potter.jpg" },
+  { id: 6, title: "A Promise Kept", category: "Drama", author: 'Robert Lee Hatcher', cover: "/Robin lee.jpg" },
 ];
 
+const booksTwo: Book[] = [
+  { id: 7, title: "Don't Look Back", category: "Thriller", author: 'Isaac Nelson', cover: "/Dont Look.png" },
+  { id: 8, title: "Hide and Seek", category: "Mystery", author: 'Olivia Wison', cover: "/Hide and seek.jpg" },
+  { id: 9, title: "Harry Potter", category: "Fantasy", author: 'Isaac Nelson', cover: "/harry potter.jpg" },
+  { id: 10, title: "A Promise Kept", category: "Drama", author: 'Robert Lee Hatcher', cover: "/Robin lee.jpg" },
+  { id: 11, title: "Lone Wolf Adventure", category: "Adventure", author: 'Emerngard Nausica', cover: "/lone wolf.png" },
+  { id: 12, title: "Spring Book", category: "Romance", author: 'Deena Roberts', cover: "/spring book.jpg" },
+];
 
 export default function Home() {
-   // state for search input and filtered books
-   const [searchTerm, setSearchTerm] = useState<string>('');
-   const [filteredBooks, setFilteredBooks] = useState<Book[]>(books);
-   const [selectedCategory, setSelectedCategory] = useState<string>('All');
- 
-   // Handle search and filtering
-   useEffect(() => {
-     const filtered = books.filter((book) => {
-       const matchesSearch = book.title.toLowerCase().includes(searchTerm.toLowerCase());
-       const matchesCategory = selectedCategory === 'All' || book.category === selectedCategory;
-       return matchesSearch && matchesCategory;
-     });
-     setFilteredBooks(filtered);
-   }, [searchTerm, selectedCategory]);
+  // State for search input and filtered books
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
- 
+
+  // Handle search and filtering
+  useEffect(() => {
+    const filterData = (bookList: Book[]) =>
+      bookList.filter((book) => {
+        const matchesSearch =
+          book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          book.author.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory = selectedCategory === 'All' || book.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+      });
+
+    const combinedFilteredBooks = [...filterData(books), ...filterData(booksTwo)];
+    setFilteredBooks(combinedFilteredBooks);
+  }, [searchTerm, selectedCategory]);
+
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+  
+  const handleClickOutside = (event: MouseEvent) => {
+    if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setDropdownOpen(false);
+    }
+  }
+
   return (
-    <div className="w-[1512px] h-[85px] absolute  border pt-[16px] pr-[36px] pb-[16px] pl-[36px]">
-        <div className="w-[241px] h-[53px]">
-              <h1 className="font-sans text-[32px] font-bold leading-[52.79px]">
-                BookaThon 
-              </h1>
+    <div className="container mx-auto p-4 sm:p-6 lg:p-8">
+      {/* Header */}
+      <header className="flex flex-col sm:flex-row justify-between items-center mb-8 mb-6 space-y-4 sm:space-y-0">
+        <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
+        <div className="flex items-center space-x-4 mt-4 sm:mt-0">
+          <Link href="/homepage" className="text-[#0661E8] md:relative right-[640px] font-semibold text-sm sm:text-base hover:text-blue-500">
+            Library
+          </Link>
+          <Link href="/dashboard" className="font-semibold md:relative right-[600px] text-sm sm:text-base hover:text-blue-500">
+            My Shelf
+          </Link>
+          <FaBell className='text-xl text-gray-700 cursor-pointer hover:text-blue-500' />
+          <img 
+            src='/user-avatar.jpg'
+            alt="Avatar"
+            className="rounded-full w-8 h-7 cursor-pointer"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+         />
+         {dropdownOpen && (
+          <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
+            <Link href='/sign-in'>
+              <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                Sign In 
+              </div>
+            </Link>
+            <Link href="/signout">
+                  <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
+            </Link>
+          </div>
+         )}
         </div>
-        <div className="w-[1,062px] h-[53px] flex justify-between relative bottom-[35px] font-sans left-[320px]">
-            <div className="w-[238px] h-[25px]">
-              <div className="w-[67px] h-[25px]">
-             <p className="text-[#0661E8] cursor-pointer font-semibold font-sans text-[14px] leading-[25.14px]">
-              Library
-             </p>
-             <div className="w-[83px] h-[25px] cursor-pointer font-sans relative bottom-[25px] left-[100px]">
-             <span className="text-[14px] font-semibold leading-[25.14px] w-[400px]">
-               My Shelf 
-             </span>
-             </div>
+      </header>
 
-            <div className="w-[17.88px] h-[21.81px] relative bottom-[48px] left-[900px]">
-             <FaBell className='text-xl text-gray-700 cursor-pointer hover:text-blue-500'>
-              </FaBell>  
-              <img 
-               src='/user-avatar.jpg'
-               alt="Avatar"
-               className="rounded-full cursor-pointer relative left-[50px] w-[64px] h-[20px] bottom-[19px]"
-               />
-            </div> 
-                
-             </div>
-            </div>
-        </div>
+      {/* Find a Book */}
+      <div className="mb-6">
+        <p className="text-xl font-semibold">Find a Book</p>
+      </div>
 
-       {/* find a book */}
-
-        <div className="w-[195px] h-[40px] top-[135px] left-[80px]">
-          <p className="w-[400px] font-semibold font-sans text-[22px] leading-[40.22px]">
-            Find a Book
-          </p>
-        </div>
-
-      {/*Search input */}
-
-        <div className="w-[992px] h-[66px] flex rounded-md justify-between p-8">
-          <div className="relative">
-            <input 
+      {/* Search and Filter */}
+      <div className="flex flex-col sm:flex-row items-center justify-between mb-6 space-y-4 sm:space-y-0">
+        <div className="relative flex-grow">
+          <input 
             type="text" 
             value={searchTerm}
-            className="border p-6 font-sans w-[1112px] h-[66px] bottom-[25px] right-[35px] relative rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"      
+            className="border p-3 sm:p-4 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"      
             placeholder="Type book name or author"
             onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          
-           {/* Search Icon */}
-      <FaSearch 
-      className="text-gray-500 w-3 h-6 relative bottom-[70px] left-[1040px] cursor-pointer" 
-      />
-        
+          />
+          <FaSearch 
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer" 
+          />
+        </div>
+        <button 
+          onClick={() => setSelectedCategory('All')}
+          className="flex items-center px-8 py-2 ml-4 bg-[#0661E8] text-white rounded-md hover:bg-blue-600"
+        >
+          <FaFilter className="mr-2 text-lg opacity-40" /> {/* Filter Icon */}
+          Filter
+        </button>
+      </div>
 
-        <div className="w-[172px] h-[58px] relative bottom-[110px] left-[1090px] rounded-md border pt-[14px] pr-[10px] pb-[14px] pl-[10px] hover:bg-blue-500 bg-[#0661E8] cursor-pointer">
-  <button 
-    type="submit"
-    onClick={() => setSelectedCategory('All')}
-    className="text-white font-sans text-[14px] flex items-center justify-center gap-2"
-  >
-    <FaFilter className="text-white text-lg opacity-40" /> {/* Filter Icon */}
-    Filter
-  </button>
- </div>
-
-{/* Category Filter */}
-    <div className="mt-6 flex gap-4">
-        {['All', 'Adventure', 'Drama', 'Thriller', 'Romance', 'Fantasy', 'Business'].map((category) => (
+      {/* Category Filter */}
+      <div className="flex flex-wrap justify-between font-semibold gap-4 sm:gap-4 mb-8 sm:justify-start">
+        {['All', 'Adventure', 'Drama', 'Thriller', 'Romance', 'Fantasy', 'Business', 'Education', 'Geography'].map((category) => (
           <button
             key={category}
-            className={`px-4 py-2 rounded-md ${
+            className={`px-4 py-2 rounded-md m-2 text-sm sm:text-base ${
               selectedCategory === category ? 'bg-blue-600 text-white' : 'bg-blue-200 text-black'
             }`}
             onClick={() => setSelectedCategory(category)}
@@ -125,25 +147,24 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Book List */}
-      <div className="flex gap-8 mt-8">
+      {/* Book Collection */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
         {filteredBooks.map((book) => (
-          <div key={book.id} className="p-4 rounded-md">
-            <Image
-              src={book.cover}
-              alt={book.title}
-              width={192}
-              height={300}
-              className="rounded-md cursor-pointer"
-            />
-            <h2 className="mt-4 text-sm font-semibold">{book.title}</h2>
-          </div>
+          <Link key={book.id} href={`/book/${book.id}`}>
+            <div className="p-4 rounded-md hover:shadow-lg transition-shadow cursor-pointer">
+              <Image
+                src={book.cover}
+                alt={book.title}
+                width={192}
+                height={300}
+                className="rounded-md w-full h-auto"
+              />
+              <h2 className="mt-2 font-semibold text-lg">{book.title}</h2>
+              <p className="text-sm text-gray-500">{book.author}</p>
+            </div>
+          </Link>
         ))}
       </div>
-
-          </div>
-      </div>
-      </div>
-           
+    </div>
   );
 }

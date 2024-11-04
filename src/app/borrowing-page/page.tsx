@@ -1,10 +1,11 @@
 "use client";
 
 import { FaBell, FaArrowLeft } from "react-icons/fa";
-import { useState, useEffect, useRef } from "react";
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, useEffect, useRef, use } from "react";
+import { useRouter } from 'next/navigation';
+import Image from "next/image";
 import Link from "next/link";
-import { use } from 'react';
+
 
 // Sample book data
 const books = [
@@ -22,28 +23,27 @@ const books = [
   { id: 12, title: "Spring Book", category: "Romance", author:'Deena Roberts', cover: "/spring book.jpg", synopsis: "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night."},
 ];
 
-export default function BorrowPage() {
+export default function BorrowPage({ params }: { params: Promise<{bookId: string}> }) {
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const title = searchParams.get('title'); // Extract title from query params
+    const { bookId } = use(params);
+    const book = books.find((b) => b.id === parseInt(bookId, 10));
     const [collectionDate, setConfirmationDate] = useState<string>('');
     const [returnDate, setReturnDate] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setDropdownOpen(false);
-      }
-    }
-  
+    
     useEffect(() => {
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
   
+    const handleClickOutside = (event: MouseEvent) => {
+      if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -52,7 +52,7 @@ export default function BorrowPage() {
         const response = await fetch('/api/borrow', { // Update this URL as needed
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title, collectionDate, returnDate }),
+            body: JSON.stringify({ collectionDate, returnDate }),
         });
 
         if (response.ok) {
@@ -72,7 +72,7 @@ export default function BorrowPage() {
                     <Link href="/homepage" className="text-[#0061E8] font-semibold md:relative right-[640px] hover:text-blue-500">Library</Link>
                     <Link href="/dashboard" className="font-semibold md:relative right-[640px] hover:text-blue-500">My Shelf</Link>
                     <FaBell className="text-lg text-gray-600 cursor-pointer hover:text-blue-500" />
-                    <img src="/user-avatar.jpg" alt="Avatar" className="w-8 h-7 rounded-full cursor-pointer"
+                    <Image src="/user-avatar.jpg" alt="Avatar" width={40} height={20} className="rounded-full cursor-pointer"
                     onClick={() => setDropdownOpen(!dropdownOpen)} />
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
@@ -92,12 +92,16 @@ export default function BorrowPage() {
                 <Link href="/homepage">
                     <FaArrowLeft className="text-md text-gray-700 cursor-pointer hover:text-blue-500" />
                 </Link>
+
+              <img src={book?.cover} alt={book?.title} className="w-64 h-full mt-14 rounded-md" />    
             </div>
 
+
+           
             {/* Borrow Section */}
             <div className="flex flex-col items-center mt-8 ml-20">
                 <h2 className="font-sans text-2xl font-semibold relative right-[120px]">You are borrowing:</h2>
-                <h3 className="text-xl font-semibold">{title}</h3>
+                <h3 className="text-xl font-semibold"></h3>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-4 w-full max-w-md">
                     <label className="font-sans text-sm font-semibold">Collection Date</label>
@@ -130,3 +134,4 @@ export default function BorrowPage() {
         </div>
     );
 }
+

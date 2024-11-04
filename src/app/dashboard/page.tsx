@@ -65,16 +65,17 @@ export default function Dashboard() {
     setFilteredBooks(genreFilteredBooks);
   }, [selectedGenre]);
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+
   const handleClickOutside = (event: MouseEvent) => {
       if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false);
       }
   }
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   return (
     <div className="container mx-auto p-4">
@@ -85,7 +86,7 @@ export default function Dashboard() {
           <Link href="/homepage" className="text-gray-700 md:relative right-[640px] font-semibold hover:text-blue-500">Books</Link>
           <Link href="/dashboard" className="text-[#0061E8] md:relative right-[600px] font-semibold hover:text-blue-500">My Shelf</Link>
           <FaBell className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <img src="/user-avatar.jpg" alt="Avatar" className="w-8 h-7 rounded-full cursor-pointer"
+          <Image src="/user-avatar.jpg" alt="Avatar" width={40} height={20} className="rounded-full cursor-pointer"
           onClick={() => setDropdownOpen(!dropdownOpen)} />
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">

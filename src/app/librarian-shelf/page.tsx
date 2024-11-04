@@ -65,7 +65,11 @@ export default function LibrarianShelf() {
       : allBooks.filter(book => book.genre === selectedGenre);
     setFilteredBooks(genreFilteredBooks);
   }, [selectedGenre]);
-
+ 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleClickOutside = (event: MouseEvent) => {
     if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)){
@@ -73,10 +77,6 @@ export default function LibrarianShelf() {
     }
   }
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   return (
     <div className="container mx-auto p-4">
@@ -86,7 +86,7 @@ export default function LibrarianShelf() {
         <div className="flex items-center space-x-4 ml-auto">
           <Link href="/homepage" className="text-blue-500 relative right-[640px] font-semibold hover:text-blue-500">Library</Link>
           <FaBell className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <img src="/user-avatar.jpg" alt="Avatar" className="w-8 h-7 rounded-full cursor-pointer" 
+          <Image src="/user-avatar.jpg" alt="Avatar" width={40} height={20} className="rounded-full cursor-pointer" 
           onClick={() => setDropdownOpen(!dropdownOpen)}
           />
           {dropdownOpen && (

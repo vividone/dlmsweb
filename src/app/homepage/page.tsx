@@ -59,16 +59,16 @@ export default function Home() {
   }, [searchTerm, selectedCategory]);
 
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const handleClickOutside = (event: MouseEvent) => {
     if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setDropdownOpen(false);
     }
   }
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -83,10 +83,12 @@ export default function Home() {
             My Shelf
           </Link>
           <FaBell className='text-xl text-gray-700 cursor-pointer hover:text-blue-500' />
-          <img 
+          <Image  
             src='/user-avatar.jpg'
             alt="Avatar"
-            className="rounded-full w-8 h-7 cursor-pointer"
+            width={40}
+            height={20}
+            className="rounded-full cursor-pointer"
             onClick={() => setDropdownOpen(!dropdownOpen)}
          />
          {dropdownOpen && (
