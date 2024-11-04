@@ -76,10 +76,10 @@ export default function Home() {
       <header className="flex flex-col sm:flex-row justify-between items-center mb-8 mb-6 space-y-4 sm:space-y-0">
         <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
         <div className="flex items-center space-x-4 mt-4 sm:mt-0">
-          <Link href="/homepage" className="text-[#0661E8] relative right-[640px] font-semibold text-sm sm:text-base hover:text-blue-500">
+          <Link href="/homepage" className="text-[#0661E8] md:relative right-[640px] font-semibold text-sm sm:text-base hover:text-blue-500">
             Library
           </Link>
-          <Link href="/dashboard" className="font-semibold relative right-[600px] text-sm sm:text-base hover:text-blue-500">
+          <Link href="/dashboard" className="font-semibold md:relative right-[600px] text-sm sm:text-base hover:text-blue-500">
             My Shelf
           </Link>
           <FaBell className='text-xl text-gray-700 cursor-pointer hover:text-blue-500' />
