@@ -11,7 +11,7 @@ export default function BorrowingConfirmation({ params }: { params: Promise<{ bo
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState<string>('');
   const router = useRouter();
 
   const handleClickOutside = (event: MouseEvent) => {

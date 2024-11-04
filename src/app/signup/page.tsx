@@ -5,9 +5,9 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function SignUp() {
-    const [fullname, setFullname] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [fullname, setFullname] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState(false);
 

@@ -84,7 +84,7 @@ export default function LibrarianShelf() {
             placeholder="Type book name or author"
             className="w-full p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <FaSearch className="absolute right-3 top-3 text-gray-500" />
+          <FaSearch className="absolute right-3 top-5 text-gray-500" />
         </div>
         <div className="mt-4 sm:mt-0 flex items-center space-x-4">
           <select

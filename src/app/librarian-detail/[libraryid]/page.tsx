@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FaSearch, FaBell } from 'react-icons/fa';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface Book {
   id: number;
@@ -45,6 +45,9 @@ export default function DetailsPage() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([...books, ...dashboardTwos, ...dashboardThrees]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
 
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
@@ -62,6 +65,17 @@ export default function DetailsPage() {
     setFilteredBooks(genreFilteredBooks);
   }, [selectedGenre]);
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)){
+       setDropdownOpen(false);
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, []);
+
   return (
     <div className="container mx-auto p-4">
       {/* Header Section */}
@@ -70,7 +84,20 @@ export default function DetailsPage() {
         <div className="flex items-center space-x-4 ml-auto">
           <Link href="/homepage" className="text-blue-500 relative right-[640px] font-semibold hover:text-blue-500">Library</Link>
           <FaBell className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <img src="/user-avatar.jpg" alt="Avatar" className="w-8 h-7 rounded-full cursor-pointer" />
+          <img src="/user-avatar.jpg" alt="Avatar" className="w-8 h-7 rounded-full cursor-pointer" 
+           onClick={() => setDropdownOpen(!dropdownOpen)}
+          />
+          
+          {dropdownOpen && (
+            <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
+              <Link href='/sign-in'>
+                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
+              </Link>
+              <Link href='/signout'>
+               <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
+              </Link>
+            </div>
+          )}
         </div>
       </header>
 
@@ -84,7 +111,7 @@ export default function DetailsPage() {
             placeholder="Type book name or author"
             className="w-full p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <FaSearch className="absolute right-3 top-3 text-gray-500" />
+          <FaSearch className="absolute right-3 top-5 text-gray-500" />
         </div>
         <div className="mt-4 sm:mt-0 flex items-center space-x-4">
           <select

@@ -133,11 +133,11 @@ export default function Home() {
       </div>
 
       {/* Category Filter */}
-      <div className="flex flex-wrap justify-between gap-10 sm:gap-4 mb-8 sm:justify-start">
+      <div className="flex flex-wrap justify-between gap-4 sm:gap-4 mb-8 sm:justify-start">
         {['All', 'Adventure', 'Drama', 'Thriller', 'Romance', 'Fantasy', 'Business', 'Education', 'Geography'].map((category) => (
           <button
             key={category}
-            className={`px-4 py-2 rounded-md text-sm sm:text-base ${
+            className={`px-4 py-2 rounded-md m-3 text-sm sm:text-base ${
               selectedCategory === category ? 'bg-blue-600 text-white' : 'bg-blue-200 text-black'
             }`}
             onClick={() => setSelectedCategory(category)}

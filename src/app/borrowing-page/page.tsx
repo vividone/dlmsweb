@@ -26,8 +26,8 @@ export default function BorrowPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const title = searchParams.get('title'); // Extract title from query params
-    const [collectionDate, setConfirmationDate] = useState('');
-    const [returnDate, setReturnDate] = useState('');
+    const [collectionDate, setConfirmationDate] = useState<string>('');
+    const [returnDate, setReturnDate] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
