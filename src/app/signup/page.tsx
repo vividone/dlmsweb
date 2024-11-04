@@ -75,7 +75,7 @@ export default function SignUp() {
                         className="w-full px-4 py-3 border rounded-md"
                         aria-required="true"
                     />
-                    <p className="text-xs text-gray-600 mt-1">
+                    <p className="text-xs font-semibold text-gray-600 mt-1">
                         Password must include an uppercase, a lowercase, and a special character
                     </p>
                     <div
