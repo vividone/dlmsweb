@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { FaSearch, FaBell } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 
@@ -145,8 +146,14 @@ export default function LibrarianPage() {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {filteredBooks.map((book) => (
           <Link key={book.id} href={`/book/${book.id}`}>
-            <div className="p-4 rounded-md shadow-md hover:shadow-lg cursor-pointer">
-              <img src={book.cover} alt={book.title} className="rounded-md w-full h-48 object-cover" />
+            <div className="p-4 rounded-md hover:shadow-lg cursor-pointer">
+              <Image
+                src={book.cover}
+                alt={book.title}
+                width={192}
+                height={300}
+                className="rounded-md w-full h-auto"
+              />
               <h2 className="mt-2 font-semibold">{book.title}</h2>
               <p className="text-sm text-gray-500">{book.genre}</p>
             </div>
