@@ -34,7 +34,7 @@ export default function SignUp() {
             <h2 className="text-lg mt-10 font-semibold lg:relative right-[168px] sm:text-2xl mb-2">
               Hi, there!
               </h2>
-            <p className="text-sm text-gray-700 mb-8 text-center max-w-sm lg:relative right-[78px]">
+            <p className="text-sm text-gray-700 mb-8 text-center max-w-sm lg:relative right-[74px]">
                 Ready to join a family of leaders? Signup now
             </p>
 
