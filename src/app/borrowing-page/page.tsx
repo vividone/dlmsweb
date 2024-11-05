@@ -89,7 +89,7 @@ export default function BorrowPage({ params }: { params: Promise<{bookId: string
 
             {/* Back arrow */}
             <div className="flex items-center mb-4">
-                <Link href="/homepage">
+                <Link href="/book/1">
                     <FaArrowLeft className="text-md text-gray-700 cursor-pointer hover:text-blue-500" />
                 </Link>
 
