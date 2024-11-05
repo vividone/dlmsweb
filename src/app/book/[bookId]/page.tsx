@@ -89,9 +89,9 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
             <h2 className="mt-1 p-14 text-lg text-gray-600"><strong>AUTHOR:</strong> {book.author}</h2>
             <h2 className="text-gray-600 ml-14 text-lg"><strong>STATUS:</strong> {book.category}</h2>
           </div>
-          <h2 className="mt-4 text-gray-700 ml-14 m-2"><strong> SYNOPSIS</strong> <br />{book.synopsis}</h2>
+          <h2 className="mt-4 text-gray-700 ml-14 m-2"><strong> SYNOPSIS</strong> <br /> <br />{book.synopsis}</h2>
            <div className='flex justify-center'>
-          <Link href='/borrowing-page'>
+          <Link href='/borrow-page/1'>
           <button className="flex justify-center items-center mt-6 bg-blue-600 text-white px-2 py-2 w-60 rounded-md gap-2"
           onClick={handleBorrowClick}>
             Borrow This Book
