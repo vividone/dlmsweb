@@ -52,7 +52,7 @@ export default function BorrowingConfirmation(){
           <Link href="/homepage" className="text-gray-700 text-[#0061E8] md:relative right-[640px] font-semibold hover:text-blue-500">Library</Link>
           <Link href="/dashboard" className="text-gray-700 md:relative right-[600px] font-semibold hover:text-blue-500">My Shelf</Link>
           <FaBell className="text-lg text-gray-600 cursor-pointer hover:text-blue-500" />
-          <Image src="/user-avatar.jpg" alt="Avatar" width={40} height={20} className="w-9 h-9 border rounded-full cursor-pointer"
+          <Image src="/user-avatar.jpg" alt="Avatar" width={40} height={20} className="w-8 h-8 border rounded-full cursor-pointer"
             onClick={() => setDropdownOpen(!dropdownOpen)} />
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">

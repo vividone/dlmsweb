@@ -85,7 +85,7 @@ export default function DetailsPage() {
         <div className="flex items-center space-x-4 ml-auto">
           <Link href="/homepage" className="text-blue-500 relative right-[640px] font-semibold hover:text-blue-500">Library</Link>
           <FaBell className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <Image src="/user-avatar.jpg" alt="Avatar" width={40} height={20} className="w-9 h-9 border rounded-full cursor-pointer" 
+          <Image src="/user-avatar.jpg" alt="Avatar" width={40} height={20} className="w-8 h-8 border rounded-full cursor-pointer" 
            onClick={() => setDropdownOpen(!dropdownOpen)}
           />
           
