@@ -88,7 +88,7 @@ export default function Home() {
             alt="Avatar"
             width={40}
             height={20}
-            className="rounded-full cursor-pointer"
+            className="w-9 h-9 border rounded-full cursor-pointer"
             onClick={() => setDropdownOpen(!dropdownOpen)}
          />
          {dropdownOpen && (
