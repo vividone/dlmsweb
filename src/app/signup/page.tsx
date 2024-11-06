@@ -26,7 +26,7 @@ export default function SignUp() {
     };
 
     return (
-        <div className="flex flex-col items-center p-4 sm:p-8">
+        <div className="flex flex-col items-center p-4 sm:p-8 overflow-x-hidden">
             <h1 className="text-[#0661E8] text-4xl lg:relative right-[122px]  font-bold mt-8 sm:mt-16 mb-4">
                 BookaThon
             </h1>
