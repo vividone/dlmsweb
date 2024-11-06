@@ -115,7 +115,7 @@ export default function Home() {
 
       {/* Search and Filter */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-6 space-y-4 sm:space-y-0">
-        <div className="relative flex-grow">
+        <div className="relative flex-grow sm:w-auto">
           <input 
             type="text" 
             value={searchTerm}
