@@ -21,14 +21,14 @@ interface Book {
 const books: Book[] = [
   { id: 1, title: "Lone Wolf Adventure", category: "Sci-fi", author: 'Emerngard Nausicaa', cover: "/lone wolf.png" },
   { id: 2, title: "Hide and Seek", category: "Fantasy", author: 'Olivia Wison', cover: "/Hide and seek.jpg" },
-  { id: 3, title: "Don't Look Back", category: "Drama", author: 'Isaac Nelson', cover: "/Dont Look.png" },
+  { id: 3, title: "Dont Look Back", category: "Drama", author: 'Isaac Nelson', cover: "/Dont Look.png" },
   { id: 4, title: "Spring Book", category: "Romance", author: 'Deena Roberts', cover: "/spring book.jpg" },
   { id: 5, title: "Harry Potter", category: "Business", author: 'Isaac Nelson', cover: "/harry potter.jpg" },
   { id: 6, title: "A Promise Kept", category: "Fantasy", author: 'Robert Lee Hatcher', cover: "/Robin lee.jpg" },
 ];
 
 const booksTwo: Book[] = [
-  { id: 7, title: "Don't Look Back", category: "Drama", author: 'Isaac Nelson', cover: "/Dont Look.png" },
+  { id: 7, title: "Dont Look Back", category: "Drama", author: 'Isaac Nelson', cover: "/Dont Look.png" },
   { id: 8, title: "Hide and Seek", category: "Fantasy", author: 'Olivia Wison', cover: "/Hide and seek.jpg" },
   { id: 9, title: "Harry Potter", category: "Business", author: 'Isaac Nelson', cover: "/harry potter.jpg" },
   { id: 10, title: "A Promise Kept", category: "Fantasy", author: 'Robert Lee Hatcher', cover: "/Robin lee.jpg" },

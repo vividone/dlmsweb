@@ -19,14 +19,14 @@ interface Book {
 const books: Book[] = [
   { id: 1, title: "Lone Wolf Adventure", category: "Adventure", author: 'Emerngard Nausicaa', cover: "/lone wolf.png" },
   { id: 2, title: "Hide and Seek", category: "Mystery", author: 'Olivia Wison', cover: "/Hide and seek.jpg" },
-  { id: 3, title: "Don't Look Back", category: "Thriller", author: 'Isaac Nelson', cover: "/Dont Look.png" },
+  { id: 3, title: "Dont Look Back", category: "Thriller", author: 'Isaac Nelson', cover: "/Dont Look.png" },
   { id: 4, title: "Spring Book", category: "Romance", author: 'Deena Roberts', cover: "/spring book.jpg" },
   { id: 5, title: "Harry Potter", category: "Fantasy", author: 'Isaac Nelson', cover: "/harry potter.jpg" },
   { id: 6, title: "A Promise Kept", category: "Drama", author: 'Robert Lee Hatcher', cover: "/Robin lee.jpg" },
 ];
 
 const booksTwo: Book[] = [
-  { id: 7, title: "Don't Look Back", category: "Thriller", author: 'Isaac Nelson', cover: "/Dont Look.png" },
+  { id: 7, title: "Dont Look Back", category: "Thriller", author: 'Isaac Nelson', cover: "/Dont Look.png" },
   { id: 8, title: "Hide and Seek", category: "Mystery", author: 'Olivia Wison', cover: "/Hide and seek.jpg" },
   { id: 9, title: "Harry Potter", category: "Fantasy", author: 'Isaac Nelson', cover: "/harry potter.jpg" },
   { id: 10, title: "A Promise Kept", category: "Drama", author: 'Robert Lee Hatcher', cover: "/Robin lee.jpg" },
@@ -83,10 +83,12 @@ export default function Home() {
             My Shelf
           </Link>
           <FaBell className='text-xl text-gray-700 cursor-pointer hover:text-blue-500' />
-          <img 
+          <Image  
             src='/user-avatar.jpg'
             alt="Avatar"
-            className="rounded-full w-8 h-7 cursor-pointer"
+            width={40}
+            height={20}
+            className="rounded-full w-8 h-8 cursor-pointer"
             onClick={() => setDropdownOpen(!dropdownOpen)}
          />
          {dropdownOpen && (
