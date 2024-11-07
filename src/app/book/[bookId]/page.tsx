@@ -53,16 +53,21 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
   return (
     <div className="container mx-auto p-4">
       {/* Header section */}
-      <div className="flex items-center justify-between items-center mb-8">
+      <div className="flex items-center justify-between mb-8">
+        <div className='flex items-center space-x-8'>
         <h1 className="text-3xl font-bold text-[#0061E8]">BookaThon</h1>
+         <nav className='sm:flex space-x-6 px-6'>
+        <Link href="/homepage" className="text-[#0061E8] font-semibold hover:text-blue-500">Library</Link>
+        <Link href="/dashboard" className="text-gray-700  font-semibold hover:text-blue-500">My Shelf</Link>
+        </nav>
+        </div>
+
         <div className="flex items-center space-x-4 ml-auto">
-        <Link href="/homepage" className="text-gray-700 text-[#0061E8] md:relative right-[640px] font-semibold hover:text-blue-500">Library</Link>
-          <Link href="/dashboard" className="text-gray-700 md:relative right-[600px] font-semibold hover:text-blue-500">My Shelf</Link>
-          <FaBell className="text-lg text-gray-600 cursor-pointer hover:text-blue-500" />
-          <Image src="/user-avatar.jpg" alt="Avatar" width={40} height={20} className="w-8 h-8 border rounded-full cursor-pointer" 
+          <FaBell className="text-sm text-gray-600 cursor-pointer hover:text-blue-500" />
+          <Image src="/user-avatar.jpg" alt="Avatar" width={20} height={10} className="w-6 h-6 border rounded-full cursor-pointer" 
           onClick={() => setDropdownOpen(!dropdownOpen)} />
           {dropdownOpen && (
-            <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
+            <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 text-sm bg-white border rounded-md shadow-lg">
              <Link href="/sign-in">
                   <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
                 </Link>
