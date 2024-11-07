@@ -8,10 +8,10 @@ import Image from "next/image";
 
 // Book details component
 export default function BorrowingConfirmation(){ 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState<boolean>(false);
   const [token, setToken] = useState<string>('');
   
 

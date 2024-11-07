@@ -8,8 +8,8 @@ export default function SignIn() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
-    const [rememberMe, setRememberMe] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

@@ -46,7 +46,7 @@ export default function LibrarianPage() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([...books, ...dashboardTwos, ...dashboardThrees]);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
 

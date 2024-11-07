@@ -17,7 +17,6 @@ interface Book {
 }
 
 
-
 const books: Book[] = [
   { id: 1, title: "Lone Wolf Adventure", category: "Sci-fi", author: 'Emerngard Nausicaa', cover: "/lone wolf.png" },
   { id: 2, title: "Hide and Seek", category: "Fantasy", author: 'Olivia Wison', cover: "/Hide and seek.jpg" },
@@ -41,7 +40,7 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
 

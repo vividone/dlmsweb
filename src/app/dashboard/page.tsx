@@ -30,11 +30,11 @@ const dashboardTwos: Book[] = [
   { id: 9, title: '', genre: '', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
   { id: 10, title: '', genre: '', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
   { id: 11, title: '', genre: '', cover: "/walk in the shadow.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 12, title: '', genre: '', cover: "/All This Time.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-10' },
+  { id: 12, title: '', genre: '', cover: "/All this Time.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-10' },
 ];
 
 const dashboardThrees: Book[] = [
-  { id: 13, title: '', genre: '', cover: "/All This Time.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 13, title: '', genre: '', cover: "/All this Time.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
   { id: 14, title: '', genre: '', cover: "/Tigers heart.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
   { id: 15, title: '', genre: '', cover: "/walk in the shadow.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
   { id: 16, title: '', genre: '', cover: "/Robin lee.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
@@ -46,7 +46,7 @@ export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([...books, ...dashboardTwos, ...dashboardThrees]);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

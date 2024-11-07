@@ -29,7 +29,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
     const [collectionDate, setCollectionDate] = useState<string>('');
     const [returnDate, setReturnDate] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {

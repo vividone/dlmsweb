@@ -28,7 +28,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
   const router = useRouter();
   const { bookId } = use(params);
   const book = books.find((b) => b.id === parseInt(bookId, 10));
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
  
   useEffect(() => {
