@@ -122,7 +122,7 @@ export default function Dashboard() {
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
-            className="p-2 border rounded-md cursor-pointer"
+            className="p-2 text-sm border rounded-md cursor-pointer"
           >
             <option value="All">Genre</option>
             <option value="Adventure">Adventure</option>
@@ -131,20 +131,20 @@ export default function Dashboard() {
             <option value="Fantasy">Fantasy</option>
             <option value="Drama">Drama</option>
           </select>
-          <select className="p-2 border rounded-md cursor-pointer">
+          <select className="p-2 text-sm border rounded-md cursor-pointer">
             <option value="All">Borrowal Status</option>
           </select>
-          <select className="p-2 border rounded-md cursor-pointer">
+          <select className="p-2 text-sm border rounded-md cursor-pointer">
             <option value="All">Return Date</option>
           </select>
-          <select className="p-2 border rounded-md cursor-pointer">
+          <select className="p-2 text-sm border rounded-md cursor-pointer">
             <option value="All">Date Borrowed</option>
           </select>
         </div>
       </div>
 
       <div className="flex justify-between items-center">
-        <h1 className="font-bold text-2xl">Returned Rentals</h1>
+        <h3 className="font-bold text-lg">Returned Rentals</h3>
       </div>
 
       {/* Book Collection */}
