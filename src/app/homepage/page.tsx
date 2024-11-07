@@ -40,7 +40,7 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
 
@@ -74,22 +74,27 @@ export default function Home() {
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
       {/* Header */}
-      <header className="flex flex-col sm:flex-row justify-between items-center mb-8 mb-6 space-y-4 sm:space-y-0">
+      <header className="flex justify-between items-center sm:flex-row  mb-8 mb-6 space-y-4 sm:space-y-0">
+      <div className="flex items-center space-x-8">
         <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-        <div className="flex items-center space-x-4 mt-4 sm:mt-0">
-          <Link href="/homepage" className="text-[#0661E8] md:relative right-[640px] font-semibold text-sm sm:text-base hover:text-blue-500">
+          <nav className="sm:flex space-x-2">
+          <Link href="/homepage" className="text-[#0661E8] text-base font-semibold text-sm sm:text-base hover:text-blue-500">
             Library
           </Link>
-          <Link href="/dashboard" className="font-semibold md:relative right-[600px] text-sm sm:text-base hover:text-blue-500">
+          <Link href="/dashboard" className="font-semibold text-base text-sm sm:text-base hover:text-blue-500">
             My Shelf
           </Link>
-          <FaBell className='text-xl text-gray-700 cursor-pointer hover:text-blue-500' />
+          </nav>
+          </div>
+
+          <div className="flex items-center space-x-4 ml-auto">
+          <FaBell className='text-sm text-gray-700 cursor-pointer hover:text-blue-500' />
           <Image  
             src='/user-avatar.jpg'
             alt="Avatar"
-            width={40}
-            height={20}
-            className="w-8 h-8 border rounded-full cursor-pointer"
+            width={20}
+            height={10}
+            className="w-6 h-6 border rounded-full cursor-pointer"
             onClick={() => setDropdownOpen(!dropdownOpen)}
          />
          {dropdownOpen && (
@@ -104,7 +109,7 @@ export default function Home() {
             </Link>
           </div>
          )}
-        </div>
+         </div>
       </header>
 
       {/* Find a Book */}
@@ -136,11 +141,11 @@ export default function Home() {
       </div>
 
       {/* Category Filter */}
-      <div className="flex flex-wrap justify-between font-semibold gap-4 sm:gap-4 mb-8 sm:justify-start">
+      <div className="flex overflow-x-auto sm:overflow-visible gap-2 sm:justify-between mb-6">
         {['All', 'Sci-fi', 'Fantasy', 'Romance', 'Drama', 'Business', 'Education', 'Geography'].map((category) => (
           <button
             key={category}
-            className={`px-4 py-2 rounded-md m-2 text-sm sm:text-base ${
+            className={`px-4 py-2 whitespace-nowrap rounded-md text-sm  ${
               selectedCategory === category ? 'bg-blue-600 text-white' : 'bg-blue-200 text-black'
             }`}
             onClick={() => setSelectedCategory(category)}
