@@ -80,16 +80,21 @@ export default function Dashboard() {
   return (
     <div className="container mx-auto p-4">
       {/* Header Section */}
-      <header className="flex justify-between items-center mb-8">
+      <header className="flex justify-between items-center mb-8 sm:flex-row space-y-4 sm:space-y-0">
+        <div className="flex items-center space-x-8">
         <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-        <div className="flex items-center space-x-4 ml-auto">
-          <Link href="/homepage" className="text-gray-700 md:relative right-[640px] font-semibold hover:text-blue-500">Books</Link>
-          <Link href="/dashboard" className="text-[#0061E8] md:relative right-[600px] font-semibold hover:text-blue-500">My Shelf</Link>
-          <FaBell className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <Image src="/user-avatar.jpg" alt="Avatar" width={40} height={20} className="w-8 h-8 border rounded-full cursor-pointer"
+        <nav className="sm:flex space-x-6">
+          <Link href="/homepage" className="text-gray-700 font-semibold hover:text-blue-500">Books</Link>
+          <Link href="/dashboard" className="text-[#0061E8] font-semibold hover:text-blue-500">My Shelf</Link>
+          </nav>
+          </div>
+
+          <div className="flex items-center space-x-4 ml-auto"> 
+          <FaBell className="text-sm text-gray-700 hover:text-blue-500 cursor-pointer" />
+          <Image src="/user-avatar.jpg" alt="Avatar" width={20} height={10} className="w-6 h-6 border rounded-full cursor-pointer"
           onClick={() => setDropdownOpen(!dropdownOpen)} />
           {dropdownOpen && (
-            <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
+            <div ref={dropdownRef} className="absolute right-0 mt-2 text-sm w-48 bg-white border rounded-md shadow-lg">
                <Link href="/sign-in">
                   <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
                 </Link>
@@ -98,7 +103,7 @@ export default function Dashboard() {
                 </Link>
             </div>
           )}
-        </div>
+          </div>
       </header>
 
       {/* Search & Filter Section */}
@@ -109,9 +114,9 @@ export default function Dashboard() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Type book name or author"
-            className="w-full p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full text-sm p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <FaSearch className="absolute right-3 top-5 text-gray-500" />
+          <FaSearch className="absolute text-sm right-3 top-5 text-gray-500" />
         </div>
         <div className="mt-4 sm:mt-0 flex items-center space-x-4">
           <select

@@ -72,16 +72,16 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto p-4 sm:p-6 lg:p-8">
+    <div className="container mx-auto p-4">
       {/* Header */}
-      <header className="flex justify-between items-center sm:flex-row  mb-8 mb-6 space-y-4 sm:space-y-0">
+      <header className="flex justify-between items-center sm:flex-row mb-8 mb-6 space-y-4 sm:space-y-0">
       <div className="flex items-center space-x-8">
         <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-          <nav className="sm:flex space-x-2">
-          <Link href="/homepage" className="text-[#0661E8] text-base font-semibold text-sm sm:text-base hover:text-blue-500">
+          <nav className="sm:flex space-x-6">
+          <Link href="/homepage" className="text-[#0061E8] text-base font-semibold sm:text-base hover:text-blue-500">
             Library
           </Link>
-          <Link href="/dashboard" className="font-semibold text-base text-sm sm:text-base hover:text-blue-500">
+          <Link href="/dashboard" className="font-semibold text-base sm:text-base hover:text-blue-500">
             My Shelf
           </Link>
           </nav>
@@ -98,7 +98,7 @@ export default function Home() {
             onClick={() => setDropdownOpen(!dropdownOpen)}
          />
          {dropdownOpen && (
-          <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
+          <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 text-sm bg-white border rounded-md shadow-lg">
             <Link href='/sign-in'>
               <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
                 Sign In 
@@ -113,30 +113,30 @@ export default function Home() {
       </header>
 
       {/* Find a Book */}
-      <div className="mb-6">
+      <div className="mb-6 ml-6">
         <p className="text-xl font-semibold">Find a Book</p>
       </div>
 
       {/* Search and Filter */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-6 space-y-4 sm:space-y-0">
-        <div className="relative flex-grow sm:w-auto">
+        <div className="relative flex-grow sm:w-auto ml-6">
           <input 
             type="text" 
             value={searchTerm}
-            className="border p-3 sm:p-4 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"      
+            className="border text-sm opacity-40 p-3 sm:p-4 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"      
             placeholder="Type book name or author"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <FaSearch 
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer" 
+            className="absolute text-sm right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer" 
           />
         </div>
         <button 
           onClick={() => setSelectedCategory('All')}
-          className="flex items-center px-8 py-2 ml-4 bg-[#0661E8] text-white rounded-md hover:bg-blue-600"
+          className="flex items-center px-8 py-2 ml-4 text-white bg-[#0661E8] rounded-md hover:bg-blue-600"
         >
-          <FaFilter className="mr-2 text-lg opacity-40" /> {/* Filter Icon */}
-          Filter
+          <FaFilter className="mr-2 text-sm opacity-40" /> {/* Filter Icon */}
+         <p className="text-sm text-white">Filter</p>
         </button>
       </div>
 
@@ -149,7 +149,7 @@ export default function Home() {
               selectedCategory === category ? 'bg-blue-600 text-white' : 'bg-blue-200 text-black'
             }`}
             onClick={() => setSelectedCategory(category)}
-          >
+          > 
             {category}
           </button>
         ))}
