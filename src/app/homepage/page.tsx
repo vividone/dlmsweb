@@ -141,7 +141,7 @@ export default function Home() {
       </div>
 
       {/* Category Filter */}
-      <div className="flex overflow-x-auto sm:overflow-visible gap-2 sm:justify-between mb-6">
+      <div className="flex overflow-x-auto sm:overflow-visible gap-2 font-semibold sm:justify-between mb-6">
         {['All', 'Sci-fi', 'Fantasy', 'Romance', 'Drama', 'Business', 'Education', 'Geography'].map((category) => (
           <button
             key={category}
@@ -167,7 +167,7 @@ export default function Home() {
                 height={300}
                 className="rounded-md w-full h-auto"
               />
-              <h2 className="mt-2 font-semibold text-lg">{book.title}</h2>
+              <h2 className="mt-2 font-semibold text-sm">{book.title}</h2>
               <p className="text-sm text-gray-500">{book.author}</p>
             </div>
           </Link>
