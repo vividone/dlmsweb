@@ -53,7 +53,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
   return (
     <div className="container mx-auto p-4">
       {/* Header section */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between sm:flow-row mb-8">
         <div className='flex items-center space-x-8'>
         <h1 className="text-3xl font-bold text-[#0061E8]">BookaThon</h1>
          <nav className='sm:flex space-x-6 px-6'>
