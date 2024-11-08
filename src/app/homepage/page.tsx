@@ -73,7 +73,7 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 overflow-x-hidden">
       {/* Header */}
       <header className="flex justify-between items-center sm:flex-row mb-8 mb-6 space-y-4 sm:space-y-0">
       <div className="flex items-center space-x-8">
@@ -145,7 +145,7 @@ export default function Home() {
       </div>
 
       {/* Search and Filter */}
-      <div className="flex items-center mb-6 space-x-2 sm:space-x-4">
+      <div className="flex items-center mb-6 space-x-2 sm:space-x-4 md:space-x-4">
         <div className="relative flex-grow">
           <input 
             type="text" 
