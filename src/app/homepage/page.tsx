@@ -168,7 +168,7 @@ export default function Home() {
       </div>
 
       {/* Category Filter */}
-      <div className="flex overflow-x-auto sm:overflow-visible gap-2 font-semibold sm:justify-between mb-6">
+      <div className="flex overflow-x-auto sm:overflow-visible gap-2 font-semibold sm:justify-between mb-6 animate-scroll">
         {['All', 'Sci-fi', 'Fantasy', 'Romance', 'Drama', 'Business', 'Education', 'Geography'].map((category) => (
           <button
             key={category}
