@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from 'next/link';
-import { FaBell, FaSearch, FaFilter } from "react-icons/fa";
+import { FaBell, FaSearch, FaFilter, FaBars } from "react-icons/fa";
 import { useState, useEffect, useRef } from 'react';
 
 
@@ -41,6 +41,7 @@ export default function Home() {
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
 
@@ -77,7 +78,9 @@ export default function Home() {
       <header className="flex justify-between items-center sm:flex-row mb-8 mb-6 space-y-4 sm:space-y-0">
       <div className="flex items-center space-x-8">
         <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-          <nav className="sm:flex space-x-6">
+          
+          {/*full nav links for larger screen */}
+          <nav className="hidden sm:flex space-x-6">
           <Link href="/homepage" className="text-[#0061E8] text-base font-semibold sm:text-base hover:text-blue-500">
             Library
           </Link>
@@ -85,9 +88,33 @@ export default function Home() {
             My Shelf
           </Link>
           </nav>
+
+          {/*Hamburger menu for mobile */}
+
+          <div className="sm:hidden flex items-center">
+            <FaBars className="text-md cursor-pointer"
+            onClick={() => setMenuOpen(!menuOpen)}
+            />
+            
+            {menuOpen && (
+            <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
+              <Link href="/homepage">
+                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                  Library
+                </div>
+              </Link>
+              <Link href="/dashboard">
+                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                  My Shelf
+                </div>
+              </Link>
+            </div>
+          )}
+          </div>
           </div>
 
-          <div className="flex items-center space-x-4 ml-auto">
+        {/* Notification and Profile */}
+          <div className="flex items-center space-x-2 sm:space-x-4 ml-auto">
           <FaBell className='text-sm text-gray-700 cursor-pointer hover:text-blue-500' />
           <Image  
             src='/user-avatar.jpg'
@@ -98,7 +125,7 @@ export default function Home() {
             onClick={() => setDropdownOpen(!dropdownOpen)}
          />
          {dropdownOpen && (
-          <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 text-sm bg-white border rounded-md shadow-lg">
+          <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
             <Link href='/sign-in'>
               <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
                 Sign In 
@@ -118,8 +145,8 @@ export default function Home() {
       </div>
 
       {/* Search and Filter */}
-      <div className="flex flex-col sm:flex-row items-center justify-between mb-6 space-y-4 sm:space-y-0">
-        <div className="relative flex-grow sm:w-auto ml-6">
+      <div className="flex items-center mb-6 space-x-2 sm:space-x-4">
+        <div className="relative flex-grow">
           <input 
             type="text" 
             value={searchTerm}

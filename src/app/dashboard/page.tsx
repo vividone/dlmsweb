@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FaSearch, FaBell } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 
+
 interface Book {
   id: number;
   title: string;
@@ -118,7 +119,8 @@ export default function Dashboard() {
           />
           <FaSearch className="absolute text-sm right-3 top-5 text-gray-500" />
         </div>
-        <div className="mt-4 sm:mt-0 flex items-center space-x-4">
+       
+        <div className={`mt-4 sm:mt-0 flex items-center space-x-4 overflow-x-auto`}>
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
