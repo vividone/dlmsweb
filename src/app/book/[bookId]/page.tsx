@@ -138,7 +138,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
           </div>
       </div>
       {/* Borrow Button */}
-      <div className="flex justify-center p-2 items-center">
+      <div className="flex justify-center p-4 md:relative bottom-8 items-center">
         <Link href='/borrow-page/1'>
         <button 
           type='submit'
