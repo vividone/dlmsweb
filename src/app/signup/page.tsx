@@ -20,9 +20,12 @@ export default function SignUp() {
         if (!fullname) setError("Fullname is required");
         if (!email || !password) setError("Both email and password are required.");
         if (!validateEmail(email)) setError("Please enter a valid email address");
-    
-        
-    // Perform API call for Sign Up
+         
+        submitSignup();
+    };
+
+    const submitSignup = async() => {
+            // Perform API call for Sign Up
     try {
         const response = await fetch("https://dlms-backend.onrender.com/auth/user/register", {
             method: "POST",
@@ -45,7 +48,7 @@ export default function SignUp() {
     } catch (err) {
         setError("An error occurred. Please try again later.")
     }
-    };
+    }
 
     const validateEmail = (email: string) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
