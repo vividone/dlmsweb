@@ -30,11 +30,11 @@ const dashboardTwos: Book[] = [
   { id: 9,  title: '', genre: 'Fantasy', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
   { id: 10, title: '', genre: 'Sci-fi', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
   { id: 11, title: '', genre: 'Education', cover: "/walk in the shadow.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 12, title: '', genre: 'Drama', cover: "/All This Time.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-10' },
+  { id: 12, title: '', genre: 'Drama', cover: "/All this Time.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-10' },
 ];
 
 const dashboardThrees: Book[] = [
-  { id: 13, title: '', genre: 'Drama', cover: "/All This Time.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 13, title: '', genre: 'Drama', cover: "/All this Time.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
   { id: 14, title: '', genre: 'Romance', cover: "/Tigers heart.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
   { id: 15, title: '', genre: 'Fantasy', cover: "/walk in the shadow.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
   { id: 16, title: '', genre: 'Sci-fi', cover: "/Robin lee.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
@@ -153,7 +153,7 @@ export default function LibrarianShelf() {
         </div>
        
         {/*filter dropdowns */}
-        <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center text-black">
+        <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center text-black p-2">
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
