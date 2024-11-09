@@ -95,7 +95,7 @@ export default function DetailsPage() {
 
         {/* Hamburger menu for mobile */}
 
-        <div className="sm:hidden flex items-center">
+        <div className="sm:hidden flex items-center text-black">
           <FaBars className="text-md cursor-pointer"
           onClick={() => setMenuOpen(!menuOpen)}  
           />
@@ -139,7 +139,7 @@ export default function DetailsPage() {
       </header>
 
       {/* Search & Filter Section */}
-      <div className="flex flex-col sm:flex-row items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row items-center justify-between mb-6 text-black">
         <div className="relative w-full sm:w-1/2">
           <input
             type="text"
@@ -152,7 +152,7 @@ export default function DetailsPage() {
         </div>
 
         {/*Filter dropdowns */}
-        <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center">
+        <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center text-black">
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
@@ -181,7 +181,7 @@ export default function DetailsPage() {
       </div>
 
      {/* All Rentals */}
-      <div className="flex justify-between items-center p-6">
+      <div className="flex justify-between items-center p-6 text-black">
         <h1 className="font-bold text-xl">All</h1>
       </div>
 
