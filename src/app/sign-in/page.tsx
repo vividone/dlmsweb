@@ -27,7 +27,36 @@ export default function SignIn() {
         console.log("Email:", email);
         console.log("Password:", password);
         console.log("Remember me:", rememberMe);
+
+        submitSignIn();
     };
+
+    const submitSignIn = async() => {
+        try {
+            const response = await fetch("https://dlms-backend.onrender.com/auth/user/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email,
+                    password,
+                    rememberMe,
+                }),
+            });
+
+            if(response.ok) {
+                const data = await response.json();
+                console.log("Login successful:", data);
+                setError(null);
+            } else {
+                const errorData = await response.json();
+                setError(errorData.message || "Login failed. Please check your credientials.")
+            }
+        } catch (err) {
+            setError("An error occurred. Please try again later.");
+        }
+    }
 
     const validateEmail = (email: string) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
