@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FaSearch, FaBell } from 'react-icons/fa';
+import { FaSearch, FaBell, FaBars } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 
 
@@ -48,6 +48,7 @@ export default function Dashboard() {
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([...books, ...dashboardTwos, ...dashboardThrees]);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -84,16 +85,52 @@ export default function Dashboard() {
       <header className="flex justify-between items-center mb-8 sm:flex-row space-y-4 sm:space-y-0">
         <div className="flex items-center space-x-8">
         <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-        <nav className="sm:flex space-x-6">
-          <Link href="/homepage" className="text-gray-700 font-semibold hover:text-blue-500">Books</Link>
-          <Link href="/dashboard" className="text-[#0061E8] font-semibold hover:text-blue-500">My Shelf</Link>
+       
+         {/*full nav links for larger screen */}
+        <nav className="hidden sm:flex space-x-6">
+          <Link href="/homepage" className="text-gray-700 font-semibold hover:text-blue-500">
+          Books
+          </Link>
+          <Link href="/dashboard" className="text-[#0061E8] font-semibold hover:text-blue-500">
+          My Shelf
+          </Link>
           </nav>
-          </div>
+          
 
-          <div className="flex items-center space-x-4 ml-auto"> 
+        {/* Hamburger menu for mobile */}
+        <div className="sm:hidden flex items-center">
+          <FaBars className="text-md cursor-pointer"
+          onClick={() => setMenuOpen(!menuOpen)}
+          />
+
+          {menuOpen && (
+            <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
+              <Link href='/homepage'>
+                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                  Library 
+                </div>
+              </Link>
+              <Link href='/dashboard'>
+               <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                 My Shelf 
+               </div>
+              </Link>
+            </div>
+          )}
+        </div>
+        </div>
+          
+          {/*Notification and Profile */}
+          <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2"> 
           <FaBell className="text-sm text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <Image src="/user-avatar.jpg" alt="Avatar" width={20} height={10} className="w-6 h-6 border rounded-full cursor-pointer"
-          onClick={() => setDropdownOpen(!dropdownOpen)} />
+          <Image 
+          src="/user-avatar.jpg" 
+          alt="Avatar" 
+          width={20} 
+          height={10} 
+          className="w-6 h-6 border rounded-full cursor-pointer"
+          onClick={() => setDropdownOpen(!dropdownOpen)} 
+          />
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 text-sm w-48 bg-white border rounded-md shadow-lg">
                <Link href="/sign-in">
@@ -120,11 +157,12 @@ export default function Dashboard() {
           <FaSearch className="absolute text-sm right-3 top-5 text-gray-500" />
         </div>
        
-        <div className={`mt-4 sm:mt-0 flex items-center space-x-4 overflow-x-auto`}>
+       {/*Filter dropdowns */}
+        <div className={`mt-4 sm:mt-0 items-center space-x-4 flex overflow-x-auto`}>
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
-            className="p-2 text-sm border rounded-md cursor-pointer"
+            className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap"
           >
             <option value="All">Genre</option>
             <option value="Adventure">Adventure</option>
@@ -133,18 +171,19 @@ export default function Dashboard() {
             <option value="Fantasy">Fantasy</option>
             <option value="Drama">Drama</option>
           </select>
-          <select className="p-2 text-sm border rounded-md cursor-pointer">
+          <select className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap">
             <option value="All">Borrowal Status</option>
           </select>
-          <select className="p-2 text-sm border rounded-md cursor-pointer">
+          <select className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap">
             <option value="All">Return Date</option>
           </select>
-          <select className="p-2 text-sm border rounded-md cursor-pointer">
+          <select className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap">
             <option value="All">Date Borrowed</option>
           </select>
         </div>
       </div>
 
+      {/* Returned Rentals */}
       <div className="flex justify-between items-center">
         <h3 className="font-bold text-lg">Returned Rentals</h3>
       </div>

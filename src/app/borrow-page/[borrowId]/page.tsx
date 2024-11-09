@@ -1,6 +1,6 @@
 "use client";
 
-import { FaBell, FaArrowLeft } from "react-icons/fa";
+import { FaBell, FaArrowLeft, FaBars } from "react-icons/fa";
 import { useState, useEffect, useRef, use } from "react";
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
@@ -31,6 +31,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
     const [error, setError] = useState<string | null>(null);
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const[menuOpen, setMenuOpen] = useState<boolean>(false);
 
     useEffect(() => {
       document.addEventListener("mousedown", handleClickOutside);
@@ -66,18 +67,62 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
 
     return (
         <div className="container mx-auto p-4">
-            <div className="flex items-center justify-between mb-8">
+             {/* Header */}
+            <header className="flex justify-between items-center sm:flex-row mb-8 space-y-4 sm:space-y-0">
+                <div className="flex items-center space-x-8">
                 <h1 className="text-3xl font-bold text-[#0061E8]">BookaThon</h1>
-                <div className="flex items-center space-x-4">
-                    <Link href="/homepage" className="font-semibold text-[#0061E8] md:absolute right-[680px] hover:text-blue-500">Library</Link>
-                    <Link href="/dashboard" className="font-semibold md:relative right-[440px] hover:text-blue-500">My Shelf</Link>
-                    <FaBell className="text-lg text-gray-600 cursor-pointer hover:text-blue-500" />
-                    <Image src="/user-avatar.jpg" alt="Avatar" width={40} height={20} className="w-8 h-8 border rounded-full cursor-pointer"
-                    onClick={() => setDropdownOpen(!dropdownOpen)} />
+               
+                {/*full nav links for larger screen */}
+                <nav className="hidden sm:flex space-x-6">
+                    <Link href="/homepage" className="font-semibold text-[#0061E8] text-base sm:text-base hover:text-blue-500">
+                    Library
+                    </Link>
+                    <Link href="/dashboard" className="font-semibold text-base sm:text-base hover:text-blue-500">
+                    My Shelf
+                    </Link>
+                    </nav>
+
+                {/*Hamburger menu for mobile */}
+
+                <div className="sm:hidden flex items-center">
+                 <FaBars className="text-md cursor-pointer"
+                 onClick={() => setMenuOpen(!menuOpen)}
+                 />
+
+                  {menuOpen && (
+                    <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
+                      <Link href='/homepage'>
+                        <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                          Library 
+                        </div>
+                      </Link>
+                      <Link href='/dashboard'>
+                        <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                          My Shelf 
+                        </div>
+                      </Link>
+                    </div>
+                  )}
+                  </div>
+                </div>
+                 
+                {/* Notification and Profile */}
+                    <div className="flex items-center space-x-2 sm:space-x-2 absolute top-2 pr-6 right-0 sm:absolute top-2">
+                    <FaBell className="text-sm text-gray-600 cursor-pointer hover:text-blue-500" />
+                    <Image 
+                    src="/user-avatar.jpg" 
+                    alt="Avatar" 
+                    width={20} 
+                    height={10} 
+                    className="w-6 h-6 border rounded-full cursor-pointer"
+                    onClick={() => setDropdownOpen(!dropdownOpen)} 
+                    />
                     {dropdownOpen && (
-                        <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
+                        <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
                             <Link href="/sign-in">
-                                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
+                                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                                    Sign In
+                                </div>
                             </Link>
                             <Link href="/signout">
                                 <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
@@ -85,8 +130,9 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                         </div>
                     )}
                 </div>
-            </div>
+            </header>
 
+           {/*Arrow Redirect */}
             <div className="flex items-center mb-4">
                 <Link href="/book/1">
                     <FaArrowLeft className="text-md text-gray-700 cursor-pointer hover:text-blue-500" />
@@ -94,12 +140,18 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
             </div>
            
             {/* Borrow Section */}
-            <Image src={borrow.cover} alt={borrow.title} width={270} height={50} className="mt-14 rounded-md" />
-            <div className="flex flex-col items-center">
-                <h2 className="font-sans text-2xl font-semibold text-blue-900 md:absolute top-[180px] md:absolute left-[460px]">You are borrowing:</h2>
-                <h3 className="text-xl font-semibold md:absolute top-[220px] md:absolute left-[460px]">{borrow.title}</h3>
-
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-12 w-full max-w-md md:absolute top-[250px] md:absolute left-[460px]">
+            <Image 
+            src={borrow.cover} 
+            alt={borrow.title} 
+            width={270} height={50} 
+            className="mt-14 rounded-md" />
+            <div className="flex flex-col items-center absolute top-40 right-72 mr-40 sm:ml-40 sm:absolute left-72 sm: text-sm">
+                <h2 className="font-sans text-2xl font-semibold text-blue-900 p-2">You are borrowing:</h2>
+                <h3 className="text-xl font-semibold">{borrow.title}</h3>
+                 
+            {/*Form submission + Logic */}
+                <div className="flex justify-center items-center">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-md pt-8">
                     <label className="font-sans text-sm font-semibold">Collection Date</label>
                     <input 
                         type="text" 
@@ -121,12 +173,15 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                     />
                     {error && <p className="text-red-500">{error}</p>}
                     <div className="flex justify-center p-8 items-center">
+                        <Link href='/borrowing-confirmation'>
                         <button type="submit" className="bg-blue-600 w-72 text-white rounded-md items-center p-2 hover:bg-blue-700">
                             Submit
                         </button>
+                        </Link>
                     </div>
                 </form>
             </div>
+        </div>
         </div>
     );
 }

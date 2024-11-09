@@ -75,7 +75,7 @@ export default function Home() {
   return (
     <div className="container mx-auto p-4 overflow-x-hidden">
       {/* Header */}
-      <header className="flex justify-between items-center sm:flex-row mb-8 mb-6 space-y-4 sm:space-y-0">
+      <header className="flex justify-between items-center sm:flex-row mb-8 space-y-4 sm:space-y-0">
       <div className="flex items-center space-x-8">
         <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
           
@@ -114,7 +114,7 @@ export default function Home() {
           </div>
 
         {/* Notification and Profile */}
-          <div className="flex items-center space-x-2 sm:space-x-4 ml-auto">
+          <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
           <FaBell className='text-sm text-gray-700 cursor-pointer hover:text-blue-500' />
           <Image  
             src='/user-avatar.jpg'
@@ -168,11 +168,11 @@ export default function Home() {
       </div>
 
       {/* Category Filter */}
-      <div className="flex overflow-x-auto sm:overflow-visible gap-2 font-semibold sm:justify-between mb-6 animate-scroll">
+      <div className="flex overflow-x-auto flex lg:overflow-x-auto flex sm:overflow-visible gap-20 font-semibold sm:justify-between mb-6 animate-scroll">
         {['All', 'Sci-fi', 'Fantasy', 'Romance', 'Drama', 'Business', 'Education', 'Geography'].map((category) => (
           <button
             key={category}
-            className={`px-4 py-2 whitespace-nowrap rounded-md text-sm  ${
+            className={`px-4 py-2 whitespace-nowrap lg:whitespace-nowrap rounded-md text-sm  ${
               selectedCategory === category ? 'bg-blue-600 text-white' : 'bg-blue-200 text-black'
             }`}
             onClick={() => setSelectedCategory(category)}
@@ -183,7 +183,7 @@ export default function Home() {
       </div>
 
       {/* Book Collection */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
         {filteredBooks.map((book) => (
           <Link key={book.id} href={`/book/${book.id}`}>
             <div className="p-4 rounded-md hover:shadow-lg transition-shadow cursor-pointer">

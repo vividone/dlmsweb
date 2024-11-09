@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FaSearch, FaBell } from 'react-icons/fa';
+import { FaSearch, FaBell, FaBars } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 
 interface Book {
@@ -48,7 +48,7 @@ export default function LibrarianPage() {
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([...books, ...dashboardTwos, ...dashboardThrees]);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
@@ -81,12 +81,44 @@ export default function LibrarianPage() {
   return (
     <div className="container mx-auto p-4">
       {/* Header Section */}
-      <header className="flex justify-between items-center mb-8">
+      <header className="flex justify-between items-center mb-8 sm:flex-row space-y-4 sm:space-y-0">
+        <div className="flex items-center space-x-8">
         <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-        <div className="flex items-center space-x-4 ml-auto">
-          <Link href="/homepage" className="text-blue-500 relative right-[640px] font-semibold hover:text-blue-500">Library</Link>
-          <FaBell className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <Image src="/user-avatar.jpg" alt="Avatar" width={40} height={20} className="w-8 h-8 border rounded-full cursor-pointer" 
+
+         {/*full nav links for large screen */}
+          
+          <nav className="hidden sm:flex space-x-6">
+          <Link href="/homepage" className="text-blue-500 font-semibold hover:text-blue-500">
+          Library
+          </Link>
+          </nav>
+
+        {/*Hamburger menu for mobile */}
+        <div className="sm:hidden flex items-center">
+          <FaBars className="text-md cursor-pointer"
+          onClick={() => setMenuOpen(!menuOpen)}
+          />
+
+          {menuOpen && (
+            <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
+             <Link href='/homepage'>
+              Library 
+             </Link>
+            </div>
+          )}
+          </div>
+        </div>
+
+         
+        {/*Notifcation and Profile */}
+         <div className="flex items-center space-x-2 sm:space-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
+          <FaBell className="text-sm text-gray-700 hover:text-blue-500 cursor-pointer" />
+          <Image 
+          src="/user-avatar.jpg" 
+          alt="Avatar" 
+          width={20}
+          height={10} 
+          className="w-6 h-6 border rounded-full cursor-pointer" 
           onClick={() => setDropdownOpen(!dropdownOpen)}
           />
           {dropdownOpen && (
@@ -114,11 +146,13 @@ export default function LibrarianPage() {
           />
           <FaSearch className="absolute right-3 top-5 text-gray-500" />
         </div>
+       
+        {/*filter dropdowns */}
         <div className="mt-4 sm:mt-0 flex items-center space-x-4">
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
-            className="p-2 border rounded-md cursor-pointer"
+            className="p-2 text-sm border rounded-md cursor-pointer"
           >
             <option value="All">Genre</option>
             <option value="Adventure">Adventure</option>
@@ -139,6 +173,8 @@ export default function LibrarianPage() {
         </div>
       </div>
 
+      
+      {/*All Rentals*/ }
       <div className="flex justify-between items-center p-6">
         <h1 className="font-bold text-2xl">All</h1>
       </div>

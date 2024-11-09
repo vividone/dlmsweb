@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
-import { FaBell, FaArrowLeft } from "react-icons/fa";
+import { FaBell, FaArrowLeft, FaBars } from "react-icons/fa";
 import Link from "next/link";
 import { use } from 'react';
 import { useState, useEffect, useRef } from 'react';
@@ -30,7 +30,8 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
   const book = books.find((b) => b.id === parseInt(bookId, 10));
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
- 
+  const[menuOpen, setMenuOpen] = useState<boolean>(false);
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -53,21 +54,54 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
   return (
     <div className="container mx-auto p-4">
       {/* Header section */}
-      <div className="flex items-center justify-between sm:flow-row mb-8">
+      <header className="flex items-center justify-between sm:flow-row mb-8 space-y-4 sm:space-y-0">
         <div className='flex items-center space-x-8'>
         <h1 className="text-3xl font-bold text-[#0061E8]">BookaThon</h1>
-         <nav className='sm:flex space-x-6 px-6'>
-        <Link href="/homepage" className="text-[#0061E8] font-semibold hover:text-blue-500">Library</Link>
-        <Link href="/dashboard" className="text-gray-700  font-semibold hover:text-blue-500">My Shelf</Link>
+        
+        {/*full nav links for larger screen */}
+         <nav className='hidden sm:flex space-x-6 px-6'>
+        <Link href="/homepage" className="text-[#0061E8] font-semibold hover:text-blue-500">
+        Library
+        </Link>
+        <Link href="/dashboard" className="text-gray-700  font-semibold hover:text-blue-500">
+        My Shelf
+        </Link>
         </nav>
-        </div>
-
-        <div className="flex items-center space-x-4 ml-auto">
+      
+      {/* Hamburger menu for mobile */}
+      <div className="sm:hidden flex items-center">
+            <FaBars className="text-md cursor-pointer"
+            onClick={() => setMenuOpen(!menuOpen)}
+            />
+            
+            {menuOpen && (
+            <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
+              <Link href="/homepage">
+                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                  Library
+                </div>
+              </Link>
+              <Link href="/dashboard">
+                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                  My Shelf
+                </div>
+              </Link>
+            </div>
+          )}
+          </div>
+          </div>
+        
+        {/* Notification and Profile */}
+        <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
           <FaBell className="text-sm text-gray-600 cursor-pointer hover:text-blue-500" />
-          <Image src="/user-avatar.jpg" alt="Avatar" width={20} height={10} className="w-6 h-6 border rounded-full cursor-pointer" 
-          onClick={() => setDropdownOpen(!dropdownOpen)} />
+          <Image 
+          src="/user-avatar.jpg" 
+          alt="Avatar" width={20} height={10} 
+          className="w-6 h-6 border rounded-full cursor-pointer" 
+          onClick={() => setDropdownOpen(!dropdownOpen)} 
+          />
           {dropdownOpen && (
-            <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 text-sm bg-white border rounded-md shadow-lg">
+            <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
              <Link href="/sign-in">
                   <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
                 </Link>
@@ -76,8 +110,8 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
                 </Link>
             </div>
           )}
-        </div>
       </div>
+      </header>
 
       {/* Book Details */}
       <div className="flex gap-8 p-8">
@@ -86,17 +120,24 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
           <Link href={'/homepage'}>
             <FaArrowLeft className="text-lg absolute left-32 text-gray-600 cursor-pointer hover:text-blue-500" />
           </Link>
-
-        <Image src={book.cover} alt={book.title} width={270} height={50} className="mt-14 rounded-md" />
+        
+        {/*Book cover and Content */}
+        <Image 
+        src={book.cover} 
+        alt={book.title} 
+        width={270} 
+        height={50} 
+        className="mt-14 rounded-md sm:w-20 h:10" />
         <div className="flex flex-col justify-between">
-          <div>
+          <div className='flow-root float-left sm:float-end sm:text-md md:text-md'>
             <h2 className="mt-1 p-14 text-lg text-gray-600"><strong>AUTHOR:</strong> {book.author}</h2>
             <h2 className="text-gray-600 ml-14 text-lg"><strong>STATUS:</strong> {book.category}</h2>
-          </div>
           <h2 className="mt-4 text-gray-700 ml-14 m-2"><strong> SYNOPSIS</strong> <br /> <br />{book.synopsis}</h2>
+          </div>
+
            <div className='flex justify-center'>
           <Link href='/borrow-page/1'>
-          <button className="flex justify-center items-center mt-6 bg-blue-600 text-white px-2 py-2 w-60 rounded-md gap-2"
+          <button className="mt-6 bg-blue-600 text-white px-2 py-2 w-60 rounded-md gap-2"
           onClick={handleBorrowClick}>
             Borrow This Book
           </button>

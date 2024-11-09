@@ -28,6 +28,9 @@ body {
 }
 
 .animate-scroll {
-  display: inline-flex;
-  animation: scroll 8s linear infinite;
+  display: flex;
+  animation: scroll 5s linear;
+  overflow-x: auto;
 }
+
+
