@@ -185,7 +185,7 @@ export default function Home() {
       </div>
 
       {/* Book Collection */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-black">
         {filteredBooks.map((book) => (
           <Link key={book.id} href={`/book/${book.id}`}>
             <div className="p-4 rounded-md hover:shadow-lg transition-shadow cursor-pointer">
