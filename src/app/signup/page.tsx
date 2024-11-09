@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-export default async function SignUp() {
+export default function SignUp() {
     const [fullname, setFullname] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
