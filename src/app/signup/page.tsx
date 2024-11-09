@@ -12,6 +12,10 @@ export default function SignUp() {
     const [success, setSuccess] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState<boolean>(false);
     
+    // password validation state
+    const [isUppercase, setIsUppercase] = useState<boolean>(false);
+    const [isLowercase, setIsLowercase] = useState<boolean>(false);
+    const [hasSpecialChar, setHasSpecialChar] = useState<boolean>(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -20,7 +24,12 @@ export default function SignUp() {
         if (!fullname) setError("Fullname is required");
         if (!email || !password) setError("Both email and password are required.");
         if (!validateEmail(email)) setError("Please enter a valid email address");
-         
+        if (!isUppercase || !isLowercase || !hasSpecialChar) {
+            setError("Password must include an uppercase, a lowercase, and a special character.");
+        } 
+
+        if(error) return;
+
         submitSignup();
     };
 
@@ -55,6 +64,15 @@ export default function SignUp() {
         return regex.test(email);
     };
 
+    const validatePassword = (password: string) => {
+        const upperCase = /[A-Z]/.test(password);
+        const lowerCase = /[a-z]/.test(password);
+        const specialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+        setIsUppercase(upperCase);
+        setIsLowercase(lowerCase);
+        setHasSpecialChar(specialChar);
+    }
     return (
         <div className="flex flex-col items-center p-4 sm:p-8 overflow-x-hidden">
             <h1 className="text-[#0661E8] text-4xl lg:relative right-[122px]  font-bold mt-8 sm:mt-16 mb-4">

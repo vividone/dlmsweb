@@ -59,20 +59,7 @@ export default function Home() {
     fetchBooks();
   }, []);
 
-   // Filter books based on search and category
-   useEffect(() => {
-    if (filteredBooks.length > 0) {
-      const filtered = filteredBooks.filter((book) => {
-        const matchesSearch =
-          book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          book.author.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = selectedCategory === 'All' || book.category === selectedCategory;
-        return matchesSearch && matchesCategory;
-      });
-      setFilteredBooks(filtered);
-    }
-  }, [searchTerm, selectedCategory, filteredBooks]);
-
+   
   // Handle search and filtering
   useEffect(() => {
     const filterData = (bookList: Book[]) =>
