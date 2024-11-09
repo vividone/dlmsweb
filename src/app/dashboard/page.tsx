@@ -116,7 +116,7 @@ export default function Dashboard() {
        
          {/*full nav links for larger screen */}
         <nav className="hidden sm:flex space-x-6">
-          <Link href="/homepage" className="text-gray-700 font-semibold hover:text-blue-500">
+          <Link href="/homepage" className="text-black font-semibold hover:text-blue-500">
           Books
           </Link>
           <Link href="/dashboard" className="text-[#0061E8] font-semibold hover:text-blue-500">
@@ -134,12 +134,12 @@ export default function Dashboard() {
           {menuOpen && (
             <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
               <Link href='/homepage'>
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                   Library 
                 </div>
               </Link>
               <Link href='/dashboard'>
-               <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+               <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                  My Shelf 
                </div>
               </Link>
@@ -162,10 +162,10 @@ export default function Dashboard() {
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 text-sm w-48 bg-white border rounded-md shadow-lg">
                <Link href="/sign-in">
-                  <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
+                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign In</div>
                 </Link>
                 <Link href="/homepage">
-                  <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
+                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign Out</div>
                 </Link>
             </div>
           )}
@@ -180,7 +180,7 @@ export default function Dashboard() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Type book name or author"
-            className="w-full text-sm p-4 border rounded-md opacity-40 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full text-sm text-black p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <FaSearch className="absolute text-sm right-3 top-5 sm:top-5 text-gray-500" />
         </div>
@@ -190,7 +190,7 @@ export default function Dashboard() {
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
-            className="p-2 text-sm border rounded-md cursor-pointer"
+            className="p-2 text-sm text-black border rounded-md cursor-pointer"
           >
             <option value="All">Genre</option>
             <option value="Sci-fi">Sci-fi</option>

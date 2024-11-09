@@ -63,7 +63,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
         <Link href="/homepage" className="text-[#0061E8] font-semibold hover:text-blue-500">
         Library
         </Link>
-        <Link href="/dashboard" className="text-gray-700  font-semibold hover:text-blue-500">
+        <Link href="/dashboard" className="text-black  font-semibold hover:text-blue-500">
         My Shelf
         </Link>
         </nav>
@@ -77,12 +77,12 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
             {menuOpen && (
             <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
               <Link href="/homepage">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                <div className="px-4 py-2 black hover:bg-gray-100 cursor-pointer">
                   Library
                 </div>
               </Link>
               <Link href="/dashboard">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                <div className="px-4 py-2 black hover:bg-gray-100 cursor-pointer">
                   My Shelf
                 </div>
               </Link>
@@ -103,10 +103,10 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
              <Link href="/sign-in">
-                  <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
+                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign In</div>
                 </Link>
                 <Link href="/homepage">
-                  <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
+                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign Out</div>
                 </Link>
             </div>
           )}
@@ -117,7 +117,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
       <div className="relative flex flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14">
          {/*Arrow left */}  
           <Link href={'/homepage'}>
-            <FaArrowLeft className="absolute top-0 left-0 ml-2 mt-2 text-md text-gray-700 cursor-pointer hover:text-blue-500" />
+            <FaArrowLeft className="absolute top-0 left-0 ml-2 mt-2 text-md text-gray-800 cursor-pointer hover:text-blue-500" />
           </Link>
         
         {/*Book cover and Content */}
@@ -130,9 +130,9 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
         className="mt-0 rounded-md" />
        
         <div className="mt-6 sm:mt-0 sm:w-1/2 w-full text-center sm:text-left">
-            <h2 className="text-gray-600 text-lg mb-4 sm:mb-2"><strong>AUTHOR:</strong> {book.author}</h2>
-            <h2 className="text-gray-600 text-lg mb-4 sm:mb-2"><strong>STATUS:</strong> {book.category}</h2>
-          <h2 className="text-gray-700 text-md"><strong> SYNOPSIS</strong> <br /> <br />{book.synopsis}</h2>
+            <h2 className="text-gray-800 text-lg mb-4 sm:mb-2"><strong>AUTHOR:</strong> {book.author}</h2>
+            <h2 className="text-gray-800 text-lg mb-4 sm:mb-2"><strong>STATUS:</strong> {book.category}</h2>
+          <h2 className="text-gray-800 text-md"><strong> SYNOPSIS</strong> <br /> <br />{book.synopsis}</h2>
           </div>
            
           </div>

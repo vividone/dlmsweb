@@ -77,7 +77,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                     <Link href="/homepage" className="font-semibold text-[#0061E8] text-base sm:text-base hover:text-blue-500">
                     Library
                     </Link>
-                    <Link href="/dashboard" className="font-semibold text-base sm:text-base hover:text-blue-500">
+                    <Link href="/dashboard" className="text-black font-semibold text-base sm:text-base hover:text-blue-500">
                     My Shelf
                     </Link>
                     </nav>
@@ -92,12 +92,12 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                   {menuOpen && (
                     <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
                       <Link href='/homepage'>
-                        <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                        <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                           Library 
                         </div>
                       </Link>
                       <Link href='/dashboard'>
-                        <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                        <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                           My Shelf 
                         </div>
                       </Link>
@@ -120,12 +120,12 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                     {dropdownOpen && (
                         <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
                             <Link href="/sign-in">
-                                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                                     Sign In
                                 </div>
                             </Link>
                             <Link href="/homepage">
-                                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
+                                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign Out</div>
                             </Link>
                         </div>
                     )}
@@ -135,7 +135,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
            {/*Arrow Redirect */}
             <div className="flex items-center mb-4">
                 <Link href="/book/1">
-                    <FaArrowLeft className="text-md text-gray-700 cursor-pointer hover:text-blue-500" />
+                    <FaArrowLeft className="text-md text-gray-800 cursor-pointer hover:text-blue-500" />
                 </Link>
             </div>
            

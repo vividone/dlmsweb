@@ -101,12 +101,12 @@ export default function Home() {
             {menuOpen && (
             <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
               <Link href="/homepage">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                   Library
                 </div>
               </Link>
               <Link href="/dashboard">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                   My Shelf
                 </div>
               </Link>
@@ -129,12 +129,12 @@ export default function Home() {
          {dropdownOpen && (
           <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
             <Link href='/sign-in'>
-              <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+              <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                 Sign In 
               </div>
             </Link>
             <Link href="/homepage">
-                  <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
+                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign Out</div>
             </Link>
           </div>
          )}
@@ -152,7 +152,7 @@ export default function Home() {
           <input 
             type="text" 
             value={searchTerm}
-            className="border text-sm opacity-40 p-3 sm:p-4 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"      
+            className="border text-sm tetx-black p-3 sm:p-4 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"      
             placeholder="Type book name or author"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -197,7 +197,7 @@ export default function Home() {
                 className="rounded-md w-full h-auto"
               />
               <h2 className="mt-2 font-semibold text-sm">{book.title}</h2>
-              <p className="text-sm text-gray-500">{book.author}</p>
+              <p className="text-sm text-black">{book.author}</p>
             </div>
           </Link>
         ))}

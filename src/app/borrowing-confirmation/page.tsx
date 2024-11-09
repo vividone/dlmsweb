@@ -55,7 +55,7 @@ export default function BorrowingConfirmation(){
 
         <nav className="hidden sm:flex space-x-6">
           <Link href="/homepage" className="text-[#0061E8] text-base sm:text-base font-semibold hover:text-blue-500">Library</Link>
-          <Link href="/dashboard" className="text-gray-700 text-base sm:text-base font-semibold hover:text-blue-500">My Shelf</Link>
+          <Link href="/dashboard" className="text-black text-base sm:text-base font-semibold hover:text-blue-500">My Shelf</Link>
         </nav>
           
          {/*Hamburger menu for mobile */}
@@ -68,12 +68,12 @@ export default function BorrowingConfirmation(){
             {menuOpen && (
             <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
               <Link href="/homepage">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                   Library
                 </div>
               </Link>
               <Link href="/dashboard">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                   My Shelf
                 </div>
               </Link>
@@ -96,10 +96,10 @@ export default function BorrowingConfirmation(){
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
               <Link href="/sign-in">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
+                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign In</div>
               </Link>
               <Link href="/homepage">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
+                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign Out</div>
               </Link>
             </div>
           )}
@@ -109,7 +109,7 @@ export default function BorrowingConfirmation(){
       {/* Book Details */}
       <div className="flex flex-col items-center p-8">
       <Link href={'/borrowing-page'}>
-          <FaArrowLeft className="text-lg  absolute sm:absolute left-2 absolute md:absolute left-16 text-gray-600 cursor-pointer hover:text-blue-500" />
+          <FaArrowLeft className="text-lg  absolute sm:absolute left-2 absolute md:absolute left-16 text-gray-800 cursor-pointer hover:text-blue-500" />
         </Link>
 
         {/* Success Message */}
