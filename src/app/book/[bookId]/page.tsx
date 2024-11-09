@@ -127,7 +127,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
         alt={book.title} 
         width={270} 
         height={50} 
-        className="mt-14 rounded-md sm:w-20 h:10" />
+        className="mt-14 rounded-md h:10" />
         <div className="flex flex-col justify-between">
           <div className='flow-root float-left sm:float-end sm:text-md md:text-md'>
             <h2 className="mt-1 p-14 text-lg text-gray-600"><strong>AUTHOR:</strong> {book.author}</h2>

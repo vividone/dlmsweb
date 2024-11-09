@@ -161,13 +161,13 @@ export default function LibrarianPage() {
             <option value="Fantasy">Fantasy</option>
             <option value="Drama">Drama</option>
           </select>
-          <select className="p-2 border rounded-md cursor-pointer">
+          <select className="p-2 text-sm border rounded-md cursor-pointer">
             <option value="All">Borrowal Status</option>
           </select>
-          <select className="p-2 border rounded-md cursor-pointer">
+          <select className="p-2 text-sm border rounded-md cursor-pointer">
             <option value="All">Return Date</option>
           </select>
-          <select className="p-2 border rounded-md cursor-pointer">
+          <select className="p-2 text-sm border rounded-md cursor-pointer">
             <option value="All">Date Borrowed</option>
           </select>
         </div>
@@ -176,7 +176,7 @@ export default function LibrarianPage() {
       
       {/*All Rentals*/ }
       <div className="flex justify-between items-center p-6">
-        <h1 className="font-bold text-2xl">All</h1>
+        <h1 className="font-bold text-xl">All</h1>
       </div>
 
       {/* Book Collection */}
