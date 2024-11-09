@@ -126,7 +126,7 @@ export default function Dashboard() {
           
 
         {/* Hamburger menu for mobile */}
-        <div className="sm:hidden flex items-center">
+        <div className="sm:hidden flex items-center text-black">
           <FaBars className="text-md cursor-pointer"
           onClick={() => setMenuOpen(!menuOpen)}
           />
@@ -205,7 +205,7 @@ export default function Dashboard() {
         <select 
           value={selectedBorrowStatus}
           onChange={(e) => setSelectedBorrowStatus(e.target.value)}
-          className="p-2 text-sm border rounded-md cursor-pointer">
+          className="p-2 text-sm text-black border rounded-md cursor-pointer">
             <option value="All">Borrowal Status</option>
             <option value="Borrowed">Borrowed</option>
              <option value="Returned">Returned</option>
@@ -214,7 +214,7 @@ export default function Dashboard() {
         <select 
           value={selectedReturnDate}
           onChange={(e) => setSelectedReturnDate(e.target.value)}           
-          className="p-2 text-sm border rounded-md cursor-pointer">
+          className="p-2 text-sm text-black border rounded-md cursor-pointer">
             <option value="All">Return Date</option>
             <option value="2024-10-10">2024-10-10</option>
             <option value="2024-11-05">2024-11-05</option>
@@ -223,7 +223,7 @@ export default function Dashboard() {
         <select 
            value={selectedBorrowedDate}
            onChange={(e) => setSelectedBorrowedDate(e.target.value)}  
-           className="p-2 text-sm border rounded-md cursor-pointer">
+           className="p-2 text-sm text-black border rounded-md cursor-pointer">
             <option value="All">Date Borrowed</option>
             <option value="2024-09-15">2024-09-15</option>
             <option value="2024-10-01">2024-10-01</option>
@@ -232,7 +232,7 @@ export default function Dashboard() {
       </div>
 
       {/* Returned Rentals */}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center text-black">
         <h3 className="font-bold text-lg">Returned Rentals</h3>
       </div>
 
