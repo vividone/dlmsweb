@@ -124,7 +124,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                                     Sign In
                                 </div>
                             </Link>
-                            <Link href="/signout">
+                            <Link href="/homepage">
                                 <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
                             </Link>
                         </div>
