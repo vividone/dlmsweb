@@ -50,6 +50,10 @@ export default function Dashboard() {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [selectedBorrowStatus, setSelectedBorrowStatus] = useState<string>("All");
+  const [selectedReturnDate, setSelectedReturnDate] = useState<string>("All");
+  const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
+
 
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
@@ -59,6 +63,28 @@ export default function Dashboard() {
     setFilteredBooks(searchFilteredBooks);
   }, [searchTerm]);
 
+  
+   // Handle other filters (borrow status, return date, etc.)
+   useEffect(() => {
+    const allBooks = [...books];
+    let filteredBooks = allBooks;
+
+    if (selectedBorrowStatus !== 'All') {
+      filteredBooks = filteredBooks.filter(book => book.borrowStatus === selectedBorrowStatus);
+    }
+
+    if (selectedReturnDate !== 'All') {
+      filteredBooks = filteredBooks.filter(book => book.returnDate === selectedReturnDate);
+    }
+
+    if (selectedBorrowedDate !== 'All') {
+      filteredBooks = filteredBooks.filter(book => book.borrowedDate === selectedBorrowedDate);
+    }
+
+    setFilteredBooks(filteredBooks);
+  }, [selectedBorrowStatus, selectedReturnDate, selectedBorrowedDate]);
+
+
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
     const genreFilteredBooks = selectedGenre === 'All'
@@ -67,6 +93,8 @@ export default function Dashboard() {
     setFilteredBooks(genreFilteredBooks);
   }, [selectedGenre]);
 
+
+  {/*perform event listen to the avatar dropdown */}
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -136,7 +164,7 @@ export default function Dashboard() {
                <Link href="/sign-in">
                   <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
                 </Link>
-                <Link href="/signout">
+                <Link href="/homepage">
                   <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
                 </Link>
             </div>
@@ -171,14 +199,32 @@ export default function Dashboard() {
             <option value="Fantasy">Fantasy</option>
             <option value="Drama">Drama</option>
           </select>
-          <select className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap">
+          
+        <select 
+          value={selectedBorrowStatus}
+          onChange={(e) => setSelectedBorrowStatus(e.target.value)}
+          className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap">
             <option value="All">Borrowal Status</option>
+            <option value="Borrowed">Borrowed</option>
+             <option value="Returned">Returned</option>
           </select>
-          <select className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap">
+
+        <select 
+          value={selectedReturnDate}
+          onChange={(e) => setSelectedReturnDate(e.target.value)}           
+          className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap">
             <option value="All">Return Date</option>
+            <option value="2024-10-10">2024-10-10</option>
+            <option value="2024-11-05">2024-11-05</option>
           </select>
-          <select className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap">
+
+        <select 
+           value={selectedBorrowedDate}
+           onChange={(e) => setSelectedBorrowedDate(e.target.value)}  
+           className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap">
             <option value="All">Date Borrowed</option>
+            <option value="2024-09-15">2024-09-15</option>
+            <option value="2024-10-01">2024-10-01</option>
           </select>
         </div>
       </div>
