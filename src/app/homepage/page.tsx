@@ -93,7 +93,7 @@ export default function Home() {
 
           {/*Hamburger menu for mobile */}
 
-          <div className="sm:hidden flex items-center">
+          <div className="sm:hidden flex items-center text-black">
             <FaBars className="text-md cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
             />
