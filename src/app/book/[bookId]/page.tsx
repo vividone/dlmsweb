@@ -122,28 +122,33 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
           </Link>
         
         {/*Book cover and Content */}
+        <div className='flex flex-col sm:flex-row justify-between mt-6 sm:mt-0'>
         <Image 
         src={book.cover} 
         alt={book.title} 
         width={270} 
         height={50} 
-        className="mt-14 rounded-md h:10" />
-        <div className="flex flex-col justify-between">
-          <div className='flow-root float-left sm:float-end sm:text-md md:text-md'>
-            <h2 className="mt-1 p-14 text-lg text-gray-600"><strong>AUTHOR:</strong> {book.author}</h2>
-            <h2 className="text-gray-600 ml-14 text-lg"><strong>STATUS:</strong> {book.category}</h2>
-          <h2 className="mt-4 text-gray-700 ml-14 m-2"><strong> SYNOPSIS</strong> <br /> <br />{book.synopsis}</h2>
+        className="mt-4 sm:mt-14 sm:w-auto rounded-md mx-auto sm:mx-0" />
+       
+        <div className="flex flex-col sm:flex-1 justify-center text-center sm:text-left p-4 sm:p-14">
+            <h2 className="text-gray-600 text-lg mb-4 sm:mb-2"><strong>AUTHOR:</strong> {book.author}</h2>
+            <h2 className="text-gray-600 text-lg mb-4 sm:mb-2"><strong>STATUS:</strong> {book.category}</h2>
+          <h2 className="text-gray-700 text-md"><strong> SYNOPSIS</strong> <br /> <br />{book.synopsis}</h2>
           </div>
+          </div>
+      </div>
 
-           <div className='flex justify-center'>
-          <Link href='/borrow-page/1'>
-          <button className="mt-6 bg-blue-600 text-white px-2 py-2 w-60 rounded-md gap-2"
-          onClick={handleBorrowClick}>
-            Borrow This Book
-          </button>
-          </Link>  
-          </div>
-        </div>
+
+        {/* Borrow Button */}
+        <div className="text-center flex justify-center items-center">
+        <Link href='/borrow-page/1'>
+        <button
+          onClick={handleBorrowClick}
+          className="px-2 py-2 bg-blue-500  text-white rounded-md hover:bg-blue-600 transition"
+        >
+          Borrow This Book 
+        </button>
+        </Link>
       </div>
       </div>
   );
