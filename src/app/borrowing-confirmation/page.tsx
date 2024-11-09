@@ -60,7 +60,7 @@ export default function BorrowingConfirmation(){
           
          {/*Hamburger menu for mobile */}
 
-         <div className="sm:hidden flex items-center">
+         <div className="sm:hidden flex items-center text-black">
             <FaBars className="text-md cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
             />
@@ -128,7 +128,7 @@ export default function BorrowingConfirmation(){
 
         {/*form submission */}
         <form onSubmit={handleSubmit} className="w-full max-w-lg flex flex-col gap-4 mt-28 items-center">
-          <label htmlFor="token" className="text-sm font-semibold">
+          <label htmlFor="token" className="text-sm font-semibold text-black">
             Your Unique Borrow Token
           </label>
           <input
@@ -137,7 +137,7 @@ export default function BorrowingConfirmation(){
             value={token}
             onChange={(e) => setToken(e.target.value)}
             placeholder="APEA43267"
-            className="w-full h-12 border rounded-md p-4 focus:ring-2 focus:ring-blue-400"
+            className="w-full h-12 text-black border rounded-md p-4 focus:ring-2 focus:ring-blue-400"
             aria-required="true"
           />
           {error && <p className="text-red-500">{error}</p>}
