@@ -159,12 +159,12 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                         type="text" 
                         value={collectionDate}
                         placeholder="DD/MM/YYYY"
-                        className="w-full px-4 py-3 border rounded-md" 
+                        className="w-full px-4 py-3 border rounded-md text-black" 
                         onChange={(e) => setCollectionDate(e.target.value)} 
                         required 
                     />
 
-                    <label className="font-sans text-sm font-semibold">Return Date</label>
+                    <label className="font-sans text-sm font-semibold text-black">Return Date</label>
                     <input 
                         type="text" 
                         value={returnDate}
