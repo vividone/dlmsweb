@@ -164,7 +164,7 @@ export default function Dashboard() {
                <Link href="/sign-in">
                   <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
                 </Link>
-                <Link href="/homepage">
+                <Link href="/signout">
                   <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
                 </Link>
             </div>

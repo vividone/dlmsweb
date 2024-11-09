@@ -139,19 +139,21 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                 </Link>
             </div>
            
+           <div className="flex flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14">
             {/* Borrow Section */}
             <Image 
             src={borrow.cover} 
             alt={borrow.title} 
             width={270} height={50} 
-            className="mt-14 rounded-md" />
-            <div className="flex flex-col items-center absolute top-40 right-72 mr-40 sm:ml-40 sm:absolute left-72 sm: text-sm">
+            className="mt-0 rounded-md" 
+            />
+
+            <div className="mt-6 sm:mt-0 sm:w-1/2 w-full text-center sm:text-left">
                 <h2 className="font-sans text-2xl font-semibold text-blue-900 p-2">You are borrowing:</h2>
                 <h3 className="text-xl font-semibold">{borrow.title}</h3>
                  
             {/*Form submission + Logic */}
-                <div className="flex justify-center items-center">
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-md pt-8">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 pt-8">
                     <label className="font-sans text-sm font-semibold">Collection Date</label>
                     <input 
                         type="text" 
