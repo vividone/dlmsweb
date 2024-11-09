@@ -69,7 +69,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
         </nav>
       
       {/* Hamburger menu for mobile */}
-      <div className="sm:hidden flex items-center">
+      <div className="sm:hidden flex items-center text-black">
             <FaBars className="text-md cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
             />
@@ -77,12 +77,12 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
             {menuOpen && (
             <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
               <Link href="/homepage">
-                <div className="px-4 py-2 black hover:bg-gray-100 cursor-pointer">
+                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                   Library
                 </div>
               </Link>
               <Link href="/dashboard">
-                <div className="px-4 py-2 black hover:bg-gray-100 cursor-pointer">
+                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                   My Shelf
                 </div>
               </Link>
@@ -114,10 +114,10 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
       </header>
 
       {/* Book Details */}
-      <div className="relative flex flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14">
+      <div className="relative flex text-black flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14">
          {/*Arrow left */}  
           <Link href={'/homepage'}>
-            <FaArrowLeft className="absolute top-0 left-0 ml-2 mt-2 text-md text-gray-800 cursor-pointer hover:text-blue-500" />
+            <FaArrowLeft className="absolute top-0 left-0 ml-2 mt-2 text-md cursor-pointer hover:text-blue-500" />
           </Link>
         
         {/*Book cover and Content */}
