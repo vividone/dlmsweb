@@ -190,7 +190,7 @@ export default function Dashboard() {
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
-            className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap"
+            className="p-2 text-sm border rounded-md cursor-pointer"
           >
             <option value="All">Genre</option>
             <option value="Sci-fi">Sci-fi</option>
@@ -205,7 +205,7 @@ export default function Dashboard() {
         <select 
           value={selectedBorrowStatus}
           onChange={(e) => setSelectedBorrowStatus(e.target.value)}
-          className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap">
+          className="p-2 text-sm border rounded-md cursor-pointer">
             <option value="All">Borrowal Status</option>
             <option value="Borrowed">Borrowed</option>
              <option value="Returned">Returned</option>
@@ -214,7 +214,7 @@ export default function Dashboard() {
         <select 
           value={selectedReturnDate}
           onChange={(e) => setSelectedReturnDate(e.target.value)}           
-          className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap">
+          className="p-2 text-sm border rounded-md cursor-pointer">
             <option value="All">Return Date</option>
             <option value="2024-10-10">2024-10-10</option>
             <option value="2024-11-05">2024-11-05</option>
@@ -223,7 +223,7 @@ export default function Dashboard() {
         <select 
            value={selectedBorrowedDate}
            onChange={(e) => setSelectedBorrowedDate(e.target.value)}  
-           className="p-2 text-sm border rounded-md cursor-pointer whitespace-nowrap">
+           className="p-2 text-sm border rounded-md cursor-pointer">
             <option value="All">Date Borrowed</option>
             <option value="2024-09-15">2024-09-15</option>
             <option value="2024-10-01">2024-10-01</option>
