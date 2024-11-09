@@ -84,7 +84,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
 
                 {/*Hamburger menu for mobile */}
 
-                <div className="sm:hidden flex items-center">
+                <div className="sm:hidden flex items-center text-black">
                  <FaBars className="text-md cursor-pointer"
                  onClick={() => setMenuOpen(!menuOpen)}
                  />
@@ -150,11 +150,11 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
 
             <div className="mt-6 sm:mt-0 sm:w-1/2 w-full text-center sm:text-left">
                 <h2 className="font-sans text-2xl font-semibold text-blue-900 p-2">You are borrowing:</h2>
-                <h3 className="text-xl font-semibold">{borrow.title}</h3>
+                <h3 className="text-xl text-black font-semibold">{borrow.title}</h3>
                  
             {/*Form submission + Logic */}
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 pt-8">
-                    <label className="font-sans text-sm font-semibold">Collection Date</label>
+                    <label className="font-sans text-sm font-semibold text-black">Collection Date</label>
                     <input 
                         type="text" 
                         value={collectionDate}
@@ -169,7 +169,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                         type="text" 
                         value={returnDate}
                         placeholder="DD/MM/YYYY"
-                        className="w-full px-4 py-3 border rounded-md" 
+                        className="w-full px-4 py-3 border rounded-md text-black" 
                         onChange={(e) => setReturnDate(e.target.value)} 
                         required 
                     />
