@@ -114,23 +114,22 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
       </header>
 
       {/* Book Details */}
-      <div className="flex gap-8 p-8">
-       
+      <div className="relative flex flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14">
          {/*Arrow left */}  
           <Link href={'/homepage'}>
-            <FaArrowLeft className="text-lg absolute left-24 sm:left-28 text-gray-600 cursor-pointer hover:text-blue-500" />
+            <FaArrowLeft className="absolute top-0 left-0 ml-2 mt-2 text-md text-gray-700 cursor-pointer hover:text-blue-500" />
           </Link>
         
         {/*Book cover and Content */}
-        <div className='flex flex-col sm:flex-row justify-between mt-6 sm:mt-0'>
+        <div className='flex flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14'>
         <Image 
         src={book.cover} 
         alt={book.title} 
         width={270} 
         height={50} 
-        className="mt-4 sm:mt-14 sm:w-auto rounded-md mx-auto sm:mx-0" />
+        className="mt-0 rounded-md" />
        
-        <div className="flex flex-col sm:flex-1 justify-center text-center sm:text-left p-4 sm:p-14">
+        <div className="mt-6 sm:mt-0 sm:w-1/2 w-full text-center sm:text-left">
             <h2 className="text-gray-600 text-lg mb-4 sm:mb-2"><strong>AUTHOR:</strong> {book.author}</h2>
             <h2 className="text-gray-600 text-lg mb-4 sm:mb-2"><strong>STATUS:</strong> {book.category}</h2>
           <h2 className="text-gray-700 text-md"><strong> SYNOPSIS</strong> <br /> <br />{book.synopsis}</h2>
@@ -139,11 +138,12 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
           </div>
       </div>
       {/* Borrow Button */}
-      <div className="text-center flex justify-center items-center">
+      <div className="flex justify-center p-2 items-center">
         <Link href='/borrow-page/1'>
-        <button
+        <button 
+          type='submit'
           onClick={handleBorrowClick}
-          className="px-2 py-2 bg-blue-500  text-white rounded-md hover:bg-blue-600 transition"
+          className="bg-blue-600 w-72 text-white rounded-md items-center p-2 hover:bg-blue-700"
         >
           Borrow This Book 
         </button>
