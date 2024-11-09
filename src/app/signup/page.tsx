@@ -4,20 +4,47 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-export default function SignUp() {
+export default async function SignUp() {
     const [fullname, setFullname] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
 
         if (!fullname) setError("Fullname is required");
         if (!email || !password) setError("Both email and password are required.");
         if (!validateEmail(email)) setError("Please enter a valid email address");
+    
+        
+    // Perform API call for Sign Up
+    try {
+        const response = await fetch("https://dlms-backend.onrender.com/auth/user/register", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({fullname, email, password})
+        })
+    
+        if(response.ok){
+            const data = await response.json();
+            setSuccess("Signup successful! Please login.");
+            setFullname('');
+            setEmail('');
+            setPassword('');
+        } else {
+            const errorData = await response.json();
+            setError(errorData.message || "Signup failed. Please try again.")
+        }
+    } catch (err) {
+        setError("An error occurred. Please try again later.")
+    }
     };
 
     const validateEmail = (email: string) => {
@@ -40,7 +67,8 @@ export default function SignUp() {
 
             <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
                 {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
-                
+                {success && <div className="text-green-500 text-sm mb-4">{success}</div>}
+
                 <div className="space-y-1">
                     <label className="block text-sm font-semibold">Full Name</label>
                     <input

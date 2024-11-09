@@ -118,7 +118,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
        
          {/*Arrow left */}  
           <Link href={'/homepage'}>
-            <FaArrowLeft className="text-lg absolute left-32 text-gray-600 cursor-pointer hover:text-blue-500" />
+            <FaArrowLeft className="text-lg absolute left-24 sm:left-28 text-gray-600 cursor-pointer hover:text-blue-500" />
           </Link>
         
         {/*Book cover and Content */}
@@ -135,12 +135,11 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
             <h2 className="text-gray-600 text-lg mb-4 sm:mb-2"><strong>STATUS:</strong> {book.category}</h2>
           <h2 className="text-gray-700 text-md"><strong> SYNOPSIS</strong> <br /> <br />{book.synopsis}</h2>
           </div>
+           
           </div>
       </div>
-
-
-        {/* Borrow Button */}
-        <div className="text-center flex justify-center items-center">
+      {/* Borrow Button */}
+      <div className="text-center flex justify-center items-center">
         <Link href='/borrow-page/1'>
         <button
           onClick={handleBorrowClick}

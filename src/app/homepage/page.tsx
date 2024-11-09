@@ -44,6 +44,34 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // Load books from API
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch("https://dlms-backend.onrender.com/books/id");
+      const data = await response.json();
+      setFilteredBooks(data);
+    } catch(error) {
+      console.error("Error Fetching Books:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
+   // Filter books based on search and category
+   useEffect(() => {
+    if (filteredBooks.length > 0) {
+      const filtered = filteredBooks.filter((book) => {
+        const matchesSearch =
+          book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          book.author.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory = selectedCategory === 'All' || book.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+      });
+      setFilteredBooks(filtered);
+    }
+  }, [searchTerm, selectedCategory, filteredBooks]);
 
   // Handle search and filtering
   useEffect(() => {
