@@ -99,7 +99,7 @@ export default function LibrarianShelf() {
           </nav>
 
         {/*Hamburger menu for mobile */}
-        <div className="sm:hidden flex items-center">
+        <div className="sm:hidden flex items-center text-black">
           <FaBars className="text-md cursor-pointer"
           onClick={() => setMenuOpen(!menuOpen)}
           />
@@ -153,7 +153,7 @@ export default function LibrarianShelf() {
         </div>
        
         {/*filter dropdowns */}
-        <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center">
+        <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center text-black">
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
@@ -182,7 +182,7 @@ export default function LibrarianShelf() {
 
       
       {/*All Rentals*/ }
-      <div className="flex justify-between items-center p-6">
+      <div className="flex justify-between items-center p-6 text-black">
         <h1 className="font-bold text-xl">All</h1>
       </div>
 
@@ -209,7 +209,7 @@ export default function LibrarianShelf() {
             </div>
 
             {/* Flip Back - Book Details */}
-            <div className="back absolute inset-0 flex flex-col justify-center items-center bg-white p-4 rounded-md shadow-lg">
+            <div className="back text-black absolute inset-0 flex flex-col justify-center items-center bg-white p-4 rounded-md shadow-lg">
               <h2 className="font-semibold text-center text-sm sm:text-base">{book.title}</h2>
               <p className="text-xs sm:text-sm text-gray-500 text-center">
                 Borrowed on: {book.borrowedDate}
