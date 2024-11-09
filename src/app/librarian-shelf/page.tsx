@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FaSearch, FaBell } from 'react-icons/fa';
+import { FaSearch, FaBell, FaBars } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 
 interface Book {
@@ -48,7 +48,7 @@ export default function LibrarianShelf() {
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([...books, ...dashboardTwos, ...dashboardThrees]);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
@@ -65,7 +65,7 @@ export default function LibrarianShelf() {
       : allBooks.filter(book => book.genre === selectedGenre);
     setFilteredBooks(genreFilteredBooks);
   }, [selectedGenre]);
- 
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -81,26 +81,54 @@ export default function LibrarianShelf() {
   return (
     <div className="container mx-auto p-4">
       {/* Header Section */}
-      <header className="flex justify-between items-center mb-8">
+      <header className="flex justify-between items-center mb-8 sm:flex-row space-y-4 sm:space-y-0">
+        <div className="flex items-center space-x-8">
         <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-        <div className="flex items-center space-x-4 ml-auto">
-          <Link href="/homepage" className="text-blue-500 relative right-[640px] font-semibold hover:text-blue-500">Library</Link>
-          <FaBell className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <Image src="/user-avatar.jpg" alt="Avatar" width={40} height={20} className="w-8 h-8 border rounded-full cursor-pointer" 
+
+         {/*full nav links for large screen */}
+          
+          <nav className="hidden sm:flex space-x-6">
+          <Link href="/homepage" className="text-blue-500 font-semibold hover:text-blue-500">
+          Library
+          </Link>
+          </nav>
+
+        {/*Hamburger menu for mobile */}
+        <div className="sm:hidden flex items-center">
+          <FaBars className="text-md cursor-pointer"
+          onClick={() => setMenuOpen(!menuOpen)}
+          />
+
+          {menuOpen && (
+            <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
+             <Link href='/homepage'>
+              Library 
+             </Link>
+            </div>
+          )}
+          </div>
+        </div>
+
+         
+        {/*Notifcation and Profile */}
+         <div className="flex items-center space-x-2 sm:space-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
+          <FaBell className="text-sm text-gray-700 hover:text-blue-500 cursor-pointer" />
+          <Image 
+          src="/user-avatar.jpg" 
+          alt="Avatar" 
+          width={20}
+          height={10} 
+          className="w-6 h-6 border rounded-full cursor-pointer" 
           onClick={() => setDropdownOpen(!dropdownOpen)}
           />
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
-              <Link href='/sign-in'>
-               <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                Sign In 
-               </div>
-              </Link>
-              <Link href='/signout'>
-               <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                Sign Out 
-               </div>
-              </Link>
+             <Link href='/sign-in'>
+             <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
+             </Link>
+             <Link href='/signout'>
+             <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
+             </Link>
             </div>
           )}
         </div>
@@ -114,15 +142,17 @@ export default function LibrarianShelf() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Type book name or author"
-            className="w-full p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-4 border text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <FaSearch className="absolute right-3 top-5 text-gray-500" />
+          <FaSearch className="text-sm absolute right-3 top-5 text-gray-500" />
         </div>
+       
+        {/*filter dropdowns */}
         <div className="mt-4 sm:mt-0 flex items-center space-x-4">
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
-            className="p-2 border rounded-md cursor-pointer"
+            className="p-2 text-sm border rounded-md cursor-pointer"
           >
             <option value="All">Genre</option>
             <option value="Adventure">Adventure</option>
@@ -131,27 +161,29 @@ export default function LibrarianShelf() {
             <option value="Fantasy">Fantasy</option>
             <option value="Drama">Drama</option>
           </select>
-          <select className="p-2 border rounded-md cursor-pointer">
+          <select className="p-2 text-sm border rounded-md cursor-pointer">
             <option value="All">Borrowal Status</option>
           </select>
-          <select className="p-2 border rounded-md cursor-pointer">
+          <select className="p-2 text-sm border rounded-md cursor-pointer">
             <option value="All">Return Date</option>
           </select>
-          <select className="p-2 border rounded-md cursor-pointer">
+          <select className="p-2 text-sm border rounded-md cursor-pointer">
             <option value="All">Date Borrowed</option>
           </select>
         </div>
       </div>
 
+      
+      {/*All Rentals*/ }
       <div className="flex justify-between items-center p-6">
-        <h1 className="font-bold text-2xl">All</h1>
+        <h1 className="font-bold text-xl">All</h1>
       </div>
 
       {/* Book Collection */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {filteredBooks.map((book) => (
           <Link key={book.id} href={`/book/${book.id}`}>
-            <div className="p-4 rounded-md  hover:shadow-lg cursor-pointer">
+            <div className="p-4 rounded-md hover:shadow-lg cursor-pointer">
               <Image
                 src={book.cover}
                 alt={book.title}

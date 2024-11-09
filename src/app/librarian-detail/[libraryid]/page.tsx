@@ -146,9 +146,9 @@ export default function DetailsPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Type book name or author"
-            className="w-full p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full text-sm p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <FaSearch className="absolute right-3 top-5 text-gray-500" />
+          <FaSearch className="text-sm absolute right-3 top-5 text-gray-500" />
         </div>
         <div className="mt-4 sm:mt-0 flex items-center space-x-4">
           <select
