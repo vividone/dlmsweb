@@ -25,9 +25,9 @@ const books: Book[] = [
 ];
 
 const dashboardTwos: Book[] = [
-  { id: 7, title: '', genre: 'Geography', cover: "/harry potter.jpg", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-  { id: 8, title: '', genre: 'Romance', cover: "/Hide and seek.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-  { id: 9, title: '', genre: 'Fantasy', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+  { id: 7,  title: '', genre: 'Geography', cover: "/harry potter.jpg", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 8,  title: '', genre: 'Romance', cover: "/Hide and seek.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+  { id: 9,  title: '', genre: 'Fantasy', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
   { id: 10, title: '', genre: 'Sci-fi', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
   { id: 11, title: '', genre: 'Education', cover: "/walk in the shadow.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
   { id: 12, title: '', genre: 'Drama', cover: "/All This Time.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-10' },
@@ -49,6 +49,7 @@ export default function LibrarianShelf() {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [flippedBooks, setFlippedBooks] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
@@ -57,6 +58,10 @@ export default function LibrarianShelf() {
     );
     setFilteredBooks(searchFilteredBooks);
   }, [searchTerm]);
+
+  const handleFlip = (id: number) => {
+    setFlippedBooks((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
 
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
@@ -148,7 +153,7 @@ export default function LibrarianShelf() {
         </div>
        
         {/*filter dropdowns */}
-        <div className="mt-4 sm:mt-0 flex items-center space-x-4">
+        <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center">
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
@@ -181,11 +186,19 @@ export default function LibrarianShelf() {
         <h1 className="font-bold text-xl">All</h1>
       </div>
 
+
       {/* Book Collection */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {filteredBooks.map((book) => (
-          <Link key={book.id} href={`/book/${book.id}`}>
-            <div className="p-4 rounded-md hover:shadow-lg cursor-pointer">
+          <div
+            key={book.id}
+            className={`relative p-4 rounded-md hover:shadow-lg cursor-pointer flip-container ${
+              flippedBooks[book.id] ? "flipped" : ""
+            }`}
+            onClick={() => handleFlip(book.id)}
+          >
+            {/* Flip Front - Book Cover */}
+            <div className="front">
               <Image
                 src={book.cover}
                 alt={book.title}
@@ -193,12 +206,24 @@ export default function LibrarianShelf() {
                 height={300}
                 className="rounded-md w-full h-auto"
               />
-              <h2 className="mt-2 font-semibold">{book.title}</h2>
-              <p className="text-sm text-gray-500">{book.genre}</p>
             </div>
-          </Link>
+
+            {/* Flip Back - Book Details */}
+            <div className="back absolute inset-0 flex flex-col justify-center items-center bg-white p-4 rounded-md shadow-lg">
+              <h2 className="font-semibold text-center text-sm sm:text-base">{book.title}</h2>
+              <p className="text-xs sm:text-sm text-gray-500 text-center">
+                Borrowed on: {book.borrowedDate}
+              </p>
+              <p className="text-xs sm:text-sm text-gray-500 text-center">
+                Return by: {book.returnDate}
+              </p>
+              <p className="text-xs sm:text-sm text-gray-500 text-center">
+                Status: {book.borrowStatus}
+              </p>
+            </div>
+          </div>
         ))}
-      </div>
+    </div>
     </div>
   );
 }
