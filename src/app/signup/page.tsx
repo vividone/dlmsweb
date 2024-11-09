@@ -79,10 +79,10 @@ export default function SignUp() {
                 BookaThon
             </h1>
 
-            <h2 className="text-lg mt-10 font-semibold lg:relative right-[168px] sm:text-2xl mb-2">
+            <h2 className="text-lg text-black mt-10 font-semibold lg:relative right-[168px] sm:text-2xl mb-2">
               Hi, there!
               </h2>
-            <p className="text-sm text-gray-700 mb-8 text-center max-w-sm lg:relative right-[74px]">
+            <p className="text-sm text-black text-gray-700 mb-8 text-center max-w-sm lg:relative right-[74px]">
                 Ready to join a family of leaders? Signup now
             </p>
 
@@ -90,7 +90,7 @@ export default function SignUp() {
                 {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
                 {success && <div className="text-green-500 text-sm mb-4">{success}</div>}
 
-                <div className="space-y-1">
+                <div className="space-y-1 text-black">
                     <label className="block text-sm font-semibold">Full Name</label>
                     <input
                         type="text"
@@ -102,7 +102,7 @@ export default function SignUp() {
                     />
                 </div>
 
-                <div className="space-y-1">
+                <div className="space-y-1 text-black">
                     <label className="block text-sm font-semibold">Email Address</label>
                     <input
                         type="email"
@@ -114,7 +114,7 @@ export default function SignUp() {
                     />
                 </div>
 
-                <div className="relative space-y-1">
+                <div className="relative space-y-1 text-black">
                     <label className="block text-sm font-semibold">Password</label>
                     <input
                         type={showPassword ? "text" : "password"}
@@ -149,7 +149,7 @@ export default function SignUp() {
                 </button>
             </form>
 
-            <div className="mt-6 text-sm text-center">
+            <div className="mt-6 text-sm text-center text-black">
                 <span>
                     Already have an account?{" "}
                     <Link href="/sign-in" className="text-[#0661E8] hover:text-blue-700">
