@@ -29,13 +29,13 @@ export default function ForgotPassword() {
 
       <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10 space-y-8">
         <div className="relative">
-          <label className="font-semibold text-sm">New Password</label>
+          <label className="font-semibold text-sm text-black">New Password</label>
           <input
             type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your new password"
-            className="w-full p-4 mt-2 rounded-md border"
+            className="w-full p-4 mt-2 rounded-md border text-black"
             aria-required="true"
           />
           <div
@@ -47,13 +47,13 @@ export default function ForgotPassword() {
         </div>
 
         <div className="relative">
-          <label className="font-semibold text-sm">Confirm New Password</label>
+          <label className="font-semibold text-sm text-black">Confirm New Password</label>
           <input
             type={showConfirmPassword ? "text" : "password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm your new password"
-            className="w-full p-4 mt-2 rounded-md border"
+            className="w-full p-4 mt-2 rounded-md border text-black"
             aria-required="true"
           />
           <div
