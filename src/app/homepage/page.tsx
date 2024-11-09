@@ -142,7 +142,7 @@ export default function Home() {
       </header>
 
       {/* Find a Book */}
-      <div className="mb-6 ml-6">
+      <div className="mb-6 ml-6 text-black">
         <p className="text-xl font-semibold">Find a Book</p>
       </div>
 
@@ -152,7 +152,7 @@ export default function Home() {
           <input 
             type="text" 
             value={searchTerm}
-            className="border text-sm tetx-black p-3 sm:p-4 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"      
+            className="border text-sm text-black p-3 sm:p-4 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"      
             placeholder="Type book name or author"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -196,7 +196,7 @@ export default function Home() {
                 height={300}
                 className="rounded-md w-full h-auto"
               />
-              <h2 className="mt-2 font-semibold text-sm">{book.title}</h2>
+              <h2 className="mt-2 font-semibold text-black text-sm">{book.title}</h2>
               <p className="text-sm text-black">{book.author}</p>
             </div>
           </Link>
