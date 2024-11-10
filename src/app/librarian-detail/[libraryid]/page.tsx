@@ -153,6 +153,7 @@ export default function DetailsPage() {
 
         {/*Filter dropdowns */}
         <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center text-black p-2">
+          <span className="text-black text-sm">Sort by:</span>
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}

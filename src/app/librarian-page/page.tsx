@@ -149,6 +149,7 @@ export default function LibrarianPage() {
        
         {/*filter dropdowns */}
         <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center text-black p-2">
+          <span className="text-sm text-black">Sort by:</span>
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
