@@ -44,7 +44,9 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-
+  // Load books from API
+  
+   
   // Handle search and filtering
   useEffect(() => {
     const filterData = (bookList: Book[]) =>
@@ -91,7 +93,7 @@ export default function Home() {
 
           {/*Hamburger menu for mobile */}
 
-          <div className="sm:hidden flex items-center">
+          <div className="sm:hidden flex items-center text-black">
             <FaBars className="text-md cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
             />
@@ -99,12 +101,12 @@ export default function Home() {
             {menuOpen && (
             <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
               <Link href="/homepage">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                   Library
                 </div>
               </Link>
               <Link href="/dashboard">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                   My Shelf
                 </div>
               </Link>
@@ -127,12 +129,12 @@ export default function Home() {
          {dropdownOpen && (
           <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
             <Link href='/sign-in'>
-              <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+              <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                 Sign In 
               </div>
             </Link>
-            <Link href="/signout">
-                  <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
+            <Link href="/homepage">
+                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign Out</div>
             </Link>
           </div>
          )}
@@ -140,7 +142,7 @@ export default function Home() {
       </header>
 
       {/* Find a Book */}
-      <div className="mb-6 ml-6">
+      <div className="mb-6 ml-6 text-black">
         <p className="text-xl font-semibold">Find a Book</p>
       </div>
 
@@ -150,7 +152,7 @@ export default function Home() {
           <input 
             type="text" 
             value={searchTerm}
-            className="border text-sm opacity-40 p-3 sm:p-4 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"      
+            className="border text-sm text-black p-3 sm:p-4 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"      
             placeholder="Type book name or author"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -183,7 +185,7 @@ export default function Home() {
       </div>
 
       {/* Book Collection */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-black">
         {filteredBooks.map((book) => (
           <Link key={book.id} href={`/book/${book.id}`}>
             <div className="p-4 rounded-md hover:shadow-lg transition-shadow cursor-pointer">
@@ -194,8 +196,8 @@ export default function Home() {
                 height={300}
                 className="rounded-md w-full h-auto"
               />
-              <h2 className="mt-2 font-semibold text-sm">{book.title}</h2>
-              <p className="text-sm text-gray-500">{book.author}</p>
+              <h2 className="mt-2 font-semibold text-black text-sm">{book.title}</h2>
+              <p className="text-sm text-black">{book.author}</p>
             </div>
           </Link>
         ))}
