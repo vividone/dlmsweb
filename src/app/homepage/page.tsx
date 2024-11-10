@@ -90,32 +90,38 @@ export default function Home() {
             My Shelf
           </Link>
           </nav>
+  
 
-          {/*Hamburger menu for mobile */}
 
-          <div className="sm:hidden flex items-center text-black">
-            <FaBars className="text-md cursor-pointer"
-            onClick={() => setMenuOpen(!menuOpen)}
-            />
-            
-            {menuOpen && (
-            <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
-              <Link href="/homepage">
-                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                  Library
-                </div>
-              </Link>
-              <Link href="/dashboard">
-                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                  My Shelf
-                </div>
-              </Link>
+         {/* Notification, Profile, and Hamburger Menu for mobile */}
+  <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
+    {/* Mobile hamburger menu */}
+    <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
+      <FaBars 
+        className="text-md cursor-pointer" 
+        onClick={() => setMenuOpen(!menuOpen)} 
+      />
+      {menuOpen && (
+        <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
+          <Link href="/homepage">
+            <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+              Library
             </div>
-          )}
-          </div>
-          </div>
+          </Link>
+          <Link href="/dashboard">
+            <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+              My Shelf
+            </div>
+          </Link>
+        </div>
+      )}
+      </div>
+    </div>
+    </div>
+
 
         {/* Notification and Profile */}
+    
           <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
           <FaBell className='text-sm text-gray-700 cursor-pointer hover:text-blue-500' />
           <Image  
