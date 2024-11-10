@@ -152,7 +152,7 @@ export default function Home() {
           <input 
             type="text" 
             value={searchTerm}
-            className="border text-sm text-black p-3 sm:p-4 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"      
+            className="border text-sm text-black p-2 sm:p-3 md:p-4 w-full sm:w-3/4 md:w-full rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"      
             placeholder="Type book name or author"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -162,7 +162,7 @@ export default function Home() {
         </div>
         <button 
           onClick={() => setSelectedCategory('All')}
-          className="flex items-center px-8 py-2 ml-4 text-white bg-[#0661E8] rounded-md hover:bg-blue-600"
+          className="flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-2 ml-2 text-white bg-[#0661E8] rounded-md hover:bg-blue-600"
         >
           <FaFilter className="mr-2 text-sm opacity-40" /> {/* Filter Icon */}
          <p className="text-sm text-white">Filter</p>
