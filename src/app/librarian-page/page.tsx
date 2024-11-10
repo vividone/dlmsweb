@@ -93,21 +93,39 @@ export default function LibrarianPage() {
           </Link>
           </nav>
 
-        {/*Hamburger menu for mobile */}
-        <div className="sm:hidden flex items-center text-black">
-          <FaBars className="text-md cursor-pointer"
-          onClick={() => setMenuOpen(!menuOpen)}
-          />
-
-          {menuOpen && (
-            <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
-             <Link href='/homepage'>
-              Library 
-             </Link>
-            </div>
-          )}
+{/* Notification, Profile, and Hamburger Menu for mobile */}
+  <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
+    {/* Mobile hamburger menu */}
+    <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
+      <FaBars 
+        className="text-md cursor-pointer" 
+        onClick={() => setMenuOpen(!menuOpen)} 
+      />
+         {/* Conditionally render the pop-up menu with smooth transition */}
+    {menuOpen && (
+      <div 
+        className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
+        style={{
+          opacity: menuOpen ? 1 : 0,
+          transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
+        }}
+      >
+        <Link href="/homepage">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            Library
           </div>
-        </div>
+        </Link>
+        <Link href="/dashboard">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            My Shelf
+          </div>
+        </Link>
+      </div>
+    )}
+    </div>
+    </div>
+    </div>
+
 
          
         {/*Notifcation and Profile */}
