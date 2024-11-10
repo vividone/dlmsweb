@@ -93,7 +93,7 @@ export default function Home() {
   
 
 
-         {/* Notification, Profile, and Hamburger Menu for mobile */}
+    {/* Notification, Profile, and Hamburger Menu for mobile */}
   <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
     {/* Mobile hamburger menu */}
     <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
