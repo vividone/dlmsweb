@@ -1,6 +1,9 @@
 "use client";
 
+import { useCookies } from "@/helpers/useCookies";
+import { useLocalStorage } from "@/helpers/useLocaStorage";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
@@ -8,32 +11,41 @@ export default function SignIn() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const { setCookie } = useCookies()
+    const [ setUserData ] = useLocalStorage("user", {})
+    const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
+
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
+        
+        let isError = false
 
-        if (!email || !password) {
-            setError("Both email and password are required.");
-        }
+        if (email === "" || password === "") {
+            setError("Both email and password are required.")
+            isError = true
+        };
 
         if (!validateEmail(email)) {
-            setError("Please enter a valid email address.");
+            setError("Email address not valid");
+            isError = true
             return;
         }
 
-        console.log("Email:", email);
-        console.log("Password:", password);
-        console.log("Remember me:", rememberMe);
+        if(isError) return;
 
         submitSignIn();
     };
 
     const submitSignIn = async() => {
+        setIsLoading(true)
         try {
-            const response = await fetch("https://dlms-backend.onrender.com/auth/user/register", {
+            const response = await fetch("https://dlms-backend.onrender.com/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -41,17 +53,21 @@ export default function SignIn() {
                 body: JSON.stringify({
                     email,
                     password,
-                    rememberMe,
                 }),
             });
 
             if(response.ok) {
                 const data = await response.json();
-                console.log("Login successful:", data);
+                setSuccess("Login successful!");
+                setCookie("token", data.token.access_token)
+                setUserData(data.data)
+                setIsLoading(false)
                 setError(null);
+                router.push("/dashboard")
             } else {
                 const errorData = await response.json();
                 setError(errorData.message || "Login failed. Please check your credientials.")
+                setIsLoading(false)
             }
         } catch (err) {
             setError("An error occurred. Please try again later.");
@@ -78,6 +94,7 @@ export default function SignIn() {
 
             <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
                 {error && <div className="text-red-500 text-sm">{error}</div>}
+                {success && <div className="text-green-500 text-sm">{success}</div>}
                 
                 <div className="space-y-1 text-black">
                     <label className="block text-sm font-semibold">Email Address</label>
@@ -130,10 +147,14 @@ export default function SignIn() {
 
                 <button
                     type="submit"
-                    className="w-full py-3 bg-[#0661E8] text-white rounded-md hover:bg-blue-600"
-                    aria-label="Login"
+                    className="w-full py-3 bg-[#0661E8] text-white rounded-md hover:bg-blue-600 flex items-center justify-center"
+                    aria-label="Signup"
                 >
-                    Login
+                    { isLoading ? 
+                        <div
+                        className=" w-6 h-6 rounded-full border-2 animate-spin border-white border-b-transparent"
+                    />
+                    : "Login" }
                 </button>
             </form>
 

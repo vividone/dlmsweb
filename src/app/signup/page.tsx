@@ -7,52 +7,66 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 export default function SignUp() {
     const [fullname, setFullname] = useState<string>('');
     const [email, setEmail] = useState<string>('');
+    const [homeAddress, setHomeAddress] = useState<string>('');
+    const [role, setRole] = useState<string>('individual');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    
-    // password validation state
-    const [isUppercase, setIsUppercase] = useState<boolean>(false);
-    const [isLowercase, setIsLowercase] = useState<boolean>(false);
-    const [hasSpecialChar, setHasSpecialChar] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
 
-        if (!fullname) setError("Fullname is required");
-        if (!email || !password) setError("Both email and password are required.");
-        if (!validateEmail(email)) setError("Please enter a valid email address");
-        if (!isUppercase || !isLowercase || !hasSpecialChar) {
+        let isError = false
+
+        if (fullname.length < 4) {
+            setError("Fullname is required")
+            isError = true
+        };
+        if (email === "" || password === "") {
+            setError("Both email and password are required.")
+            isError = true
+        };
+        if (homeAddress === "") {
+            setError("Home Address is required.")
+            isError = true
+        };
+        if (!validateEmail(email)) {
+            setError("Please enter a valid email address")
+            isError = true
+        };
+        if (!validatePassword(password)) {
             setError("Password must include an uppercase, a lowercase, and a special character.");
+            isError = true
         } 
 
-        if(error) return;
+        if(isError) return;
 
         submitSignup();
     };
 
     const submitSignup = async() => {
             // Perform API call for Sign Up
+        setIsLoading(true)
     try {
-        const response = await fetch("https://dlms-backend.onrender.com/auth/user/register", {
+        const response = await fetch(`https://dlms-backend.onrender.com/auth/${role === "individual" ? "user" : "librarian"}/register`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
             },
-            body: JSON.stringify({fullname, email, password})
+            body: JSON.stringify({fullname, email, password, homeAddress, role, name: role === "individual" ? "user" : "librarian"})
         })
     
         if(response.ok){
             const data = await response.json();
             setSuccess("Signup successful! Please login.");
-            setFullname('');
-            setEmail('');
-            setPassword('');
+            setIsLoading(false)
         } else {
             const errorData = await response.json();
             setError(errorData.message || "Signup failed. Please try again.")
+            setIsLoading(false)
         }
     } catch (err) {
         setError("An error occurred. Please try again later.")
@@ -65,13 +79,11 @@ export default function SignUp() {
     };
 
     const validatePassword = (password: string) => {
-        const upperCase = /[A-Z]/.test(password);
-        const lowerCase = /[a-z]/.test(password);
-        const specialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-        setIsUppercase(upperCase);
-        setIsLowercase(lowerCase);
-        setHasSpecialChar(specialChar);
+        if(/[A-Z]/.test(password) && /[a-z]/.test(password) && /[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            console.log(true)
+            return true
+        }
+        else return false
     }
     return (
         <div className="flex flex-col items-center p-4 sm:p-8 overflow-x-hidden">
@@ -113,6 +125,29 @@ export default function SignUp() {
                         aria-required="true"
                     />
                 </div>
+                <div className="space-y-1 text-black">
+                    <label className="block text-sm font-semibold">Home Address</label>
+                    <input
+                        type="text"
+                        value={homeAddress}
+                        onChange={(e) => setHomeAddress(e.target.value)}
+                        placeholder="Enter your home address"
+                        className="w-full px-4 py-3 border rounded-md"
+                        aria-required="true"
+                    />
+                </div>
+                <div className="space-y-1 text-black">
+                    <label className="block text-sm font-semibold">Role</label>
+                    <select
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        className="w-full px-4 py-3 border rounded-md"
+                        aria-required="true"
+                    >
+                        <option>Individual</option>
+                        <option>Librarian</option>
+                    </select>
+                </div>
 
                 <div className="relative space-y-1 text-black">
                     <label className="block text-sm font-semibold">Password</label>
@@ -142,10 +177,14 @@ export default function SignUp() {
 
                 <button
                     type="submit"
-                    className="w-full py-3 bg-[#0661E8] text-white rounded-md hover:bg-blue-600"
+                    className="w-full py-3 bg-[#0661E8] text-white rounded-md hover:bg-blue-600 flex items-center justify-center"
                     aria-label="Signup"
                 >
-                    Submit
+                    { isLoading ? 
+                        <div
+                        className=" w-6 h-6 rounded-full border-2 animate-spin border-white border-b-transparent"
+                    />
+                    : "Submit" }
                 </button>
             </form>
 

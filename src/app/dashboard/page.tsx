@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaSearch, FaBell, FaBars } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
+import axios from "axios";
 
 
 interface Book {
@@ -16,37 +17,38 @@ interface Book {
   borrowedDate: string;
 }
 
-const books: Book[] = [
-  { id: 1, title: '', genre: '', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-  { id: 2, title: '', genre: '', cover: "/Robin lee.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-  { id: 3, title: "", genre: '', cover: "/Dont Look.png", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-  { id: 4, title: '', genre: '', cover: "/Tigers heart.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-  { id: 5, title: '', genre: '', cover: "/Norse Myth.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 6, title: '', genre: '', cover: "/spring book.jpg", borrowStatus: 'Borrowed', returnDate: '2024-10-24', borrowedDate: '2024-08-04' },
-];
+// const books: Book[] = [
+//   { id: 1, title: '', genre: '', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+//   { id: 2, title: '', genre: '', cover: "/Robin lee.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+//   { id: 3, title: "", genre: '', cover: "/Dont Look.png", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+//   { id: 4, title: '', genre: '', cover: "/Tigers heart.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+//   { id: 5, title: '', genre: '', cover: "/Norse Myth.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+//   { id: 6, title: '', genre: '', cover: "/spring book.jpg", borrowStatus: 'Borrowed', returnDate: '2024-10-24', borrowedDate: '2024-08-04' },
+// ];
 
-const dashboardTwos: Book[] = [
-  { id: 7, title: '', genre: '', cover: "/harry potter.jpg", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-  { id: 8, title: '', genre: '', cover: "/Hide and seek.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-  { id: 9, title: '', genre: '', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-  { id: 10, title: '', genre: '', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-  { id: 11, title: '', genre: '', cover: "/walk in the shadow.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 12, title: '', genre: '', cover: "/All this Time.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-10' },
-];
+// const dashboardTwos: Book[] = [
+//   { id: 7, title: '', genre: '', cover: "/harry potter.jpg", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+//   { id: 8, title: '', genre: '', cover: "/Hide and seek.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+//   { id: 9, title: '', genre: '', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+//   { id: 10, title: '', genre: '', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+//   { id: 11, title: '', genre: '', cover: "/walk in the shadow.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+//   { id: 12, title: '', genre: '', cover: "/All this Time.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-10' },
+// ];
 
-const dashboardThrees: Book[] = [
-  { id: 13, title: '', genre: '', cover: "/All this Time.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-  { id: 14, title: '', genre: '', cover: "/Tigers heart.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-  { id: 15, title: '', genre: '', cover: "/walk in the shadow.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-  { id: 16, title: '', genre: '', cover: "/Robin lee.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-  { id: 17, title: "", genre: '', cover: "/Dont Look.png", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 18, title: '', genre: '', cover: "/Norse Myth.jpg", borrowStatus: 'Returned', returnDate: 'N/A', borrowedDate: '2024-10-12' },
-];
+// const dashboardThrees: Book[] = [
+//   { id: 13, title: '', genre: '', cover: "/All this Time.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+//   { id: 14, title: '', genre: '', cover: "/Tigers heart.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
+//   { id: 15, title: '', genre: '', cover: "/walk in the shadow.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
+//   { id: 16, title: '', genre: '', cover: "/Robin lee.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
+//   { id: 17, title: "", genre: '', cover: "/Dont Look.png", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
+//   { id: 18, title: '', genre: '', cover: "/Norse Myth.jpg", borrowStatus: 'Returned', returnDate: 'N/A', borrowedDate: '2024-10-12' },
+// ];
 
 export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
-  const [filteredBooks, setFilteredBooks] = useState<Book[]>([...books, ...dashboardTwos, ...dashboardThrees]);
+  const [data, setData] = useState([])
+  const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -54,44 +56,61 @@ export default function Dashboard() {
   const [selectedReturnDate, setSelectedReturnDate] = useState<string>("All");
   const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
 
+  useEffect(() => {
+    async function GetAllBooks() {
+      try {
+        const response = await axios.get(`https://dlms-backend.onrender.com/books`)
+        
+        if(response.status === 200) {
+            setData(response.data)
+        }
+        else {
+            console.log("An error occured. please try again later")
+        }
+      } catch (err) {
+          console.log("An error occurred. Please try again later.")
+      }
+    }
+    GetAllBooks()
+  }, [])
 
   useEffect(() => {
-    const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
-    const searchFilteredBooks = allBooks.filter((book) =>
+    const allBooks = data;
+    const searchFilteredBooks = allBooks.filter((book: any) =>
       book.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredBooks(searchFilteredBooks);
-  }, [searchTerm]);
+  }, [searchTerm, data]);
 
   
    // Handle other filters (borrow status, return date, etc.)
    useEffect(() => {
-    const allBooks = [...books];
+    const allBooks = data;
     let filteredBooks = allBooks;
 
     if (selectedBorrowStatus !== 'All') {
-      filteredBooks = filteredBooks.filter(book => book.borrowStatus === selectedBorrowStatus);
+      filteredBooks = filteredBooks.filter((book: any) => book.borrowStatus === selectedBorrowStatus);
     }
 
     if (selectedReturnDate !== 'All') {
-      filteredBooks = filteredBooks.filter(book => book.returnDate === selectedReturnDate);
+      filteredBooks = filteredBooks.filter((book: any) => book.returnDate === selectedReturnDate);
     }
 
     if (selectedBorrowedDate !== 'All') {
-      filteredBooks = filteredBooks.filter(book => book.borrowedDate === selectedBorrowedDate);
+      filteredBooks = filteredBooks.filter((book: any) => book.borrowedDate === selectedBorrowedDate);
     }
 
     setFilteredBooks(filteredBooks);
-  }, [selectedBorrowStatus, selectedReturnDate, selectedBorrowedDate]);
+  }, [selectedBorrowStatus, selectedReturnDate, selectedBorrowedDate, data]);
 
 
   useEffect(() => {
-    const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
+    const allBooks = data;
     const genreFilteredBooks = selectedGenre === 'All'
       ? allBooks
-      : allBooks.filter(book => book.genre === selectedGenre);
+      : allBooks.filter((book: any )=> book.genre === selectedGenre);
     setFilteredBooks(genreFilteredBooks);
-  }, [selectedGenre]);
+  }, [selectedGenre, data]);
 
 
   {/*perform event listen to the avatar dropdown */}
