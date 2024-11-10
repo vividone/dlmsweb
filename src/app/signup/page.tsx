@@ -127,15 +127,17 @@ export default function SignUp() {
 
                  {/* Role */}
                  <div className="space-y-1 text-black">
-                    <label className="block text-sm font-semibold">Role</label>
-                    <input
-                        type="text"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                        placeholder="eg: Librarian accountant."
-                        className="w-full px-4 py-3 border rounded-md"
-                        required
-                    />
+                <label className="block text-sm font-semibold">Role</label>
+                  <select
+                   value={role}
+                   onChange={(e) => setRole(e.target.value)}
+                   className="w-full px-4 py-3 border rounded-md"
+                   required
+                >
+                <option value="" disabled>Select your role</option>
+                <option value="Individual">Individual</option>
+                <option value="Librarian">Librarian</option>
+                </select>
                 </div>
 
                 {/* Password */}
