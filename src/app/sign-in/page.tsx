@@ -11,9 +11,36 @@ export default function SignIn() {
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
+         
+        if (!email || !password) {
+            setError("Both email and password are required.");
+            return;
+        }
+
+        if (!validateEmail(email)) {
+            setError("Please enter a valid email address.");
+            return;
+        }
+
+        // api implementation
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+            if(!response.ok) throw new Error(data.error || 'Login failed');
+
+            console.log("Login successful:", data);
+        } catch (err: any) {
+            setError(err.message);
+        }
 
         if (!email || !password) {
             setError("Both email and password are required.");
@@ -27,36 +54,7 @@ export default function SignIn() {
         console.log("Email:", email);
         console.log("Password:", password);
         console.log("Remember me:", rememberMe);
-
-        submitSignIn();
     };
-
-    const submitSignIn = async() => {
-        try {
-            const response = await fetch("https://dlms-backend.onrender.com/auth/user/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email,
-                    password,
-                    rememberMe,
-                }),
-            });
-
-            if(response.ok) {
-                const data = await response.json();
-                console.log("Login successful:", data);
-                setError(null);
-            } else {
-                const errorData = await response.json();
-                setError(errorData.message || "Login failed. Please check your credientials.")
-            }
-        } catch (err) {
-            setError("An error occurred. Please try again later.");
-        }
-    }
 
     const validateEmail = (email: string) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -78,7 +76,8 @@ export default function SignIn() {
 
             <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
                 {error && <div className="text-red-500 text-sm">{error}</div>}
-                
+
+            {/*Input field for Email Address */}           
                 <div className="space-y-1 text-black">
                     <label className="block text-sm font-semibold">Email Address</label>
                     <input
@@ -91,6 +90,7 @@ export default function SignIn() {
                     />
                 </div>
 
+            {/*Input field for Password */}
                 <div className="relative space-y-1 text-black">
                     <label className="block text-sm font-semibold">Password</label>
                     <input
@@ -102,7 +102,7 @@ export default function SignIn() {
                         aria-required="true"
                     />
                     <div
-                        className="absolute inset-y-0 right-4 flex items-center cursor-pointer"
+                        className="absolute inset-y-0 top-2 right-4 flex items-center cursor-pointer"
                         onClick={() => setShowPassword(!showPassword)}
                     >
                         {showPassword ? (
@@ -113,6 +113,7 @@ export default function SignIn() {
                     </div>
                 </div>
 
+            {/*Remember me checkbox */}
                 <div className="flex justify-between items-center">
                     <label className="flex items-center gap-2 text-sm text-black font-semibold">
                         <input
