@@ -42,13 +42,14 @@ export default function SignUp() {
             return;
         }
 
-
-        try {
-            const response = await fetch("https://dlms-backend.onrender.com/auth/user/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({fullname, email, password, homeAddress, role, name: role === "individual" ? "user" : "librarian"}),
-            });
+            try {
+                const response = await fetch(`https://dlms-backend.onrender.com/auth/${role === "individual" ? "user" : "librarian"}/register`, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: JSON.stringify({fullname, email, password, homeAddress, role, name: role === "individual" ? "user" : "librarian"})
+                })
 
             if (response.ok) {
                 const data = await response.json();
@@ -137,8 +138,8 @@ export default function SignUp() {
                    required
                 >
                 <option value="" disabled>Select your role</option>
-                <option value="Individual">Individual</option>
-                <option value="Librarian">Librarian</option>
+                <option value="individual">Individual</option>
+                <option value="librarian">Librarian</option>
                 </select>
                 </div>
 
