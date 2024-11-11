@@ -14,6 +14,7 @@ export default function SignUp() {
     const [success, setSuccess] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
+
     // password validation state
     const [isUppercase, setIsUppercase] = useState<boolean>(false);
     const [isLowercase, setIsLowercase] = useState<boolean>(false);
@@ -41,11 +42,12 @@ export default function SignUp() {
             return;
         }
 
+
         try {
-            const response = await fetch("/api/auth/user/register", {
+            const response = await fetch("https://dlms-backend.onrender.com/auth/user/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, homeAddress, password }),
+                body: JSON.stringify({fullname, email, password, homeAddress, role, name: role === "individual" ? "user" : "librarian"}),
             });
 
             if (response.ok) {

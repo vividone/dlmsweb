@@ -2,13 +2,15 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
     try {
-        const { fullname, email, homeAddress, password} = await request.json();
+        const { fullname, email, homeAddress, role,  password,} = await request.json();
 
-    const response = await fetch("https://dlms-backend.onrender.com/auth/user/register", {
+    const response = await fetch("/api/auth/user/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullname, email, homeAddress, password }), 
+        body: JSON.stringify({ fullname, email, homeAddress, role, password }), 
     });
+
+    
 
     if(!response.ok) {
         const errorData = await response.json();

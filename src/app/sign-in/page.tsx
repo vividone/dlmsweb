@@ -2,14 +2,18 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation"
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function SignIn() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -28,34 +32,32 @@ export default function SignIn() {
         // api implementation
 
         try {
-            const response = await fetch('/api/auth/login', {
+            const response = await fetch('https://dlms-backend.onrender.com/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json'},
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify
+                ({ 
+                    email, 
+                    password 
+                }),
             });
 
-            const data = await response.json();
-            if(!response.ok) throw new Error(data.error || 'Login failed');
 
-            console.log("Login successful:", data);
-        } catch (err: any) {
-            setError(err.message);
+            if(response.ok) {
+                const data = await response.json();
+                setSuccess("Login successful!");
+                setError(null);
+                router.push("/dashboard")
+            } else {
+                const errorData = await response.json();
+                setError(errorData.message || "Login failed. Please check your credientials.")
+            }
+        } catch (err) {
+            setError("An error occurred. Please try again later.");
         }
+    }
 
-        if (!email || !password) {
-            setError("Both email and password are required.");
-        }
-
-        if (!validateEmail(email)) {
-            setError("Please enter a valid email address.");
-            return;
-        }
-
-        console.log("Email:", email);
-        console.log("Password:", password);
-        console.log("Remember me:", rememberMe);
-    };
-
+    
     const validateEmail = (email: string) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
@@ -76,6 +78,7 @@ export default function SignIn() {
 
             <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
                 {error && <div className="text-red-500 text-sm">{error}</div>}
+                {success && <div className="text-green-500 text-sm">{success}</div>}
 
             {/*Input field for Email Address */}           
                 <div className="space-y-1 text-black">
@@ -148,4 +151,4 @@ export default function SignIn() {
             </div>
         </div>
     );
-}
+};
