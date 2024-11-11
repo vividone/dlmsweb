@@ -32,6 +32,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
   const dropdownRef = useRef<HTMLDivElement>(null);
   const[menuOpen, setMenuOpen] = useState<boolean>(false);
 
+  
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -41,6 +42,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
     return <p>Book not found.</p>;
   }
 
+  
   const handleBorrowClick = () => {
     router.push(`/borrowing-page?title=${encodeURIComponent(book.title)}`);
   };
