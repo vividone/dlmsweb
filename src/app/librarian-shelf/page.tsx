@@ -50,6 +50,7 @@ export default function LibrarianShelf() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [flippedBooks, setFlippedBooks] = useState<Record<number, boolean>>({});
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
@@ -77,8 +78,14 @@ export default function LibrarianShelf() {
   }, []);
 
   const handleClickOutside = (event: MouseEvent) => {
+    // close dropdown if clicked
     if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)){
       setDropdownOpen(false);
+    }
+
+    // close menu if clicked outside
+    if(menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setMenuOpen(false);
     }
   }
 
@@ -109,6 +116,7 @@ export default function LibrarianShelf() {
          {/* Conditionally render the pop-up menu with smooth transition */}
     {menuOpen && (
       <div 
+        ref={menuRef}
         className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
         style={{
           opacity: menuOpen ? 1 : 0,
