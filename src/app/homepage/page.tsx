@@ -45,20 +45,7 @@ export default function Home() {
   const menuRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Fetch books from the API
-   const fetchBooks = async () => {
-    try {
-      const response = await fetch('https://dlms-backend.onrender.com/books'); // Adjust the API endpoint if needed
-      if (!response.ok) {
-        throw new Error('Failed to fetch books');
-      }
-      const booksData: Book[] = await response.json();
-      setFilteredBooks(booksData); // Set the books data
-    } catch (error) {
-      console.error("Error fetching books:", error);
-    }
-    fetchBooks();
-  };
+
    
   // Handle search and filtering
   useEffect(() => {

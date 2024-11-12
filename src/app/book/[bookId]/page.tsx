@@ -61,7 +61,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
   }, []);
   
   const handleBorrowClick = () => {
-    if (book) router.push(`/borrowing-page?title=${encodeURIComponent(book.title)}`);
+    if (book) router.push("/borrow-page/1");
   };
 
   if (loading) return <p>Loading book details...</p>;
