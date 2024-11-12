@@ -27,39 +27,27 @@ const books = [
 export default function BookId({ params }: { params: Promise<{ bookId: string }> }) {
   const router = useRouter();
   const { bookId } = use(params);
-  const [book, setBook] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const book = books.find((b) => b.id === parseInt(bookId, 10));
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
   
-  useEffect(() => {
-    const fetchBook = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(`https://dlms-backend.onrender.com/api/book/${bookId}`);
-        
-        if (!res.ok) throw new Error("Book not found");
-
-        const data = await res.json();
-        setBook(data); 
-        setLoading(false); 
-      } catch (err) {
-        setError("Failed to load book details.");
-        setLoading(false); 
-      }
-    };
-
-    fetchBook();
-  }, [bookId]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  if (!book) {
+    return <p>Book not found.</p>;
+  }
+
   
+  const handleBorrowClick = () => {
+    router.push('/borrow-page/1');
+  };
+
   const handleClickOutside = (event: MouseEvent) => {
     // close dropdown if clicked
     if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -71,17 +59,6 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
       setMenuOpen(false);
     }
   }
-
-
-  const handleBorrowClick = () => {
-    if (book) router.push("/borrow-page");
-  };
-
-  if (loading) return <p>Loading book details...</p>;
-  if (error) return <p>{error}</p>;
-  if (!book) return <p>Book not found.</p>;
-
-
 
   return (
     <div className="container mx-auto p-4">
@@ -180,10 +157,9 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
            
           </div>
       </div>
-
       {/* Borrow Button */}
       <div className="flex justify-center p-4 md:relative bottom-8 items-center">
-        
+    
         <button 
           type='submit'
           onClick={handleBorrowClick}
@@ -191,6 +167,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
         >
           Borrow This Book 
         </button>
+    
       </div>
       </div>
   );

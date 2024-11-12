@@ -181,6 +181,7 @@ export default function Dashboard() {
     </div>
     </div>
           
+          
           {/*Notification and Profile */}
           <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2"> 
           <FaBell className="text-sm text-gray-700 hover:text-blue-500 cursor-pointer" />
