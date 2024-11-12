@@ -189,7 +189,7 @@ export default function BorrowingConfirmation(){
         </form>
 
         {/* Back to Homepage Button */}
-        <div className="w-full max-w-lg flex justify-center mt-10">
+        <div className="w-full max-w-lg flex flex-col gap-4 items-center justify-center mt-10">
           <button 
           className="w-80 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center"
           onClick={handleSubmit}
