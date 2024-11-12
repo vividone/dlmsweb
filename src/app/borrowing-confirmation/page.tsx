@@ -14,34 +14,69 @@ export default function BorrowingConfirmation(){
   const [success, setSuccess] = useState<boolean>(false);
   const [token, setToken] = useState<string>('');
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [bookDetails, setBookDetails] = useState<any>(null);
 
-  
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleClickOutside = (event: MouseEvent) => {
+    // close dropdown if clicked
     if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setDropdownOpen(false);
     }
-  }
-
-
-  // handle submit
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // prevents page to refresh.
-    if (token.trim() === "") {
-      setError("Please enter a valid token");
-      setSuccess(false);
-      return;
+    // close menu if clicked outside
+    if(menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setMenuOpen(false);
     }
-
-    setError(null);
-    setSuccess(true); // show success message
-    setToken("");
-    setTimeout(() => setSuccess(false), 3000);
   }
+
+
+  // Fetch book details after successful token submission
+  const fetchBorrowedBookDetails = async (userId: string) => {
+    try {
+      const response = await fetch(`https://dlms-backend.onrender.com/borrow/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setBookDetails(data);
+      } else {
+        throw new Error("Failed to fetch borrowed book details.");
+      }
+    } catch (error) {
+      setError("Error fetching borrowed book details.");
+      setSuccess(false);
+    }
+  };
+
+    // handle submit
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault(); // prevents page to refresh.
+      if (token.trim() === "") {
+        setError("Please enter a valid token");
+        setSuccess(false);
+        return;
+      }
+  
+      setError(null);
+      setSuccess(true); // show success message
+      setToken("");
+      setTimeout(() => setSuccess(false), 3000);
+  
+      const userId = "123";
+  
+      // Fetch borrowed book details after confirming the token
+      await fetchBorrowedBookDetails(userId);
+  
+      setTimeout(() => setSuccess(false), 3000);
+    }
 
   return (
     <div className="container mx-auto p-4">
@@ -58,29 +93,39 @@ export default function BorrowingConfirmation(){
           <Link href="/dashboard" className="text-black text-base sm:text-base font-semibold hover:text-blue-500">My Shelf</Link>
         </nav>
           
-         {/*Hamburger menu for mobile */}
-
-         <div className="sm:hidden flex items-center text-black">
-            <FaBars className="text-md cursor-pointer"
-            onClick={() => setMenuOpen(!menuOpen)}
-            />
-            
-            {menuOpen && (
-            <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
-              <Link href="/homepage">
-                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                  Library
-                </div>
-              </Link>
-              <Link href="/dashboard">
-                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                  My Shelf
-                </div>
-              </Link>
-            </div>
-          )}
+  {/* Notification, Profile, and Hamburger Menu for mobile */}
+  <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
+    {/* Mobile hamburger menu */}
+    <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
+      <FaBars 
+        className="text-md cursor-pointer" 
+        onClick={() => setMenuOpen(!menuOpen)} 
+      />
+         {/* Conditionally render the pop-up menu with smooth transition */}
+    {menuOpen && (
+      <div 
+        ref={menuRef}
+        className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
+        style={{
+          opacity: menuOpen ? 1 : 0,
+          transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
+        }}
+      >
+        <Link href="/homepage">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            Library
           </div>
+        </Link>
+        <Link href="/dashboard">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            My Shelf
           </div>
+        </Link>
+      </div>
+    )}
+    </div>
+    </div>
+    </div>
 
         {/* Notification and Profile */}
         <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
@@ -144,7 +189,13 @@ export default function BorrowingConfirmation(){
         </form>
 
         {/* Back to Homepage Button */}
-        <div className="w-full max-w-lg flex justify-center mt-10">
+        <div className="w-full max-w-lg flex flex-col gap-4 items-center justify-center mt-10">
+          <button 
+          className="w-80 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center"
+          onClick={handleSubmit}
+          >
+             Submit 
+          </button>
           <Link href="/homepage" className="w-80 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center">
             Back to Homepage
           </Link>

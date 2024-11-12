@@ -31,11 +31,11 @@ const dashboardTwos: Book[] = [
   { id: 9, title: '', genre: '', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
   { id: 10, title: '', genre: '', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
   { id: 11, title: '', genre: '', cover: "/walk in the shadow.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 12, title: '', genre: '', cover: "/All This Time.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-10' },
+  { id: 12, title: '', genre: '', cover: "/All this Time.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-10' },
 ];
 
 const dashboardThrees: Book[] = [
-  { id: 13, title: '', genre: '', cover: "/All This Time.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
+  { id: 13, title: '', genre: '', cover: "/All this Time.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
   { id: 14, title: '', genre: '', cover: "/Tigers heart.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
   { id: 15, title: '', genre: '', cover: "/walk in the shadow.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
   { id: 16, title: '', genre: '', cover: "/Robin lee.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
@@ -50,7 +50,7 @@ export default function DetailsPage() {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
@@ -74,8 +74,13 @@ export default function DetailsPage() {
   }, []);
 
   const handleClickOutside = (event: MouseEvent) => {
+    // close dropdown if clicked
     if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)){
        setDropdownOpen(false);
+    }
+    // close menu if clicked outside
+    if(menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setMenuOpen(false);
     }
   }
 
@@ -93,24 +98,39 @@ export default function DetailsPage() {
           </Link>
           </nav>
 
-        {/* Hamburger menu for mobile */}
-
-        <div className="sm:hidden flex items-center text-black">
-          <FaBars className="text-md cursor-pointer"
-          onClick={() => setMenuOpen(!menuOpen)}  
-          />
-
-          {menuOpen && (
-            <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
-              <Link href='/homepage'>
-               <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                Library 
-               </div>
-              </Link>
-            </div>
-          )}
+{/* Notification, Profile, and Hamburger Menu for mobile */}
+  <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
+    {/* Mobile hamburger menu */}
+    <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
+      <FaBars 
+        className="text-md cursor-pointer" 
+        onClick={() => setMenuOpen(!menuOpen)} 
+      />
+         {/* Conditionally render the pop-up menu with smooth transition */}
+    {menuOpen && (
+      <div 
+        ref={menuRef}
+        className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
+        style={{
+          opacity: menuOpen ? 1 : 0,
+          transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
+        }}
+      >
+        <Link href="/homepage">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            Library
           </div>
-        </div>
+        </Link>
+        <Link href="/dashboard">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            My Shelf
+          </div>
+        </Link>
+      </div>
+    )}
+    </div>
+    </div>
+    </div>
 
 
           {/*Notification and Profile */}
@@ -152,7 +172,8 @@ export default function DetailsPage() {
         </div>
 
         {/*Filter dropdowns */}
-        <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center text-black">
+        <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center text-black p-2">
+          <span className="text-black text-sm">Sort by:</span>
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}

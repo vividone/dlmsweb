@@ -42,10 +42,10 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Load books from API
-  
+
    
   // Handle search and filtering
   useEffect(() => {
@@ -69,8 +69,13 @@ export default function Home() {
   }, []);
 
   const handleClickOutside = (event: MouseEvent) => {
+    // close dropdown if clicked
     if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setDropdownOpen(false);
+    }
+    // close menu if clicked outside
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setMenuOpen(false);
     }
   }
 
@@ -90,32 +95,46 @@ export default function Home() {
             My Shelf
           </Link>
           </nav>
+  
 
-          {/*Hamburger menu for mobile */}
 
-          <div className="sm:hidden flex items-center text-black">
-            <FaBars className="text-md cursor-pointer"
-            onClick={() => setMenuOpen(!menuOpen)}
-            />
-            
-            {menuOpen && (
-            <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
-              <Link href="/homepage">
-                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                  Library
-                </div>
-              </Link>
-              <Link href="/dashboard">
-                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                  My Shelf
-                </div>
-              </Link>
-            </div>
-          )}
+    {/* Notification, Profile, and Hamburger Menu for mobile */}
+  <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
+    {/* Mobile hamburger menu */}
+    <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
+      <FaBars 
+        className="text-md cursor-pointer" 
+        onClick={() => setMenuOpen(!menuOpen)} 
+      />
+         {/* Conditionally render the pop-up menu with smooth transition */}
+    {menuOpen && (
+      <div 
+        ref={menuRef}
+        className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
+        style={{
+          opacity: menuOpen ? 1 : 0,
+          transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
+        }}
+      >
+        <Link href="/homepage">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            Library
           </div>
+        </Link>
+        <Link href="/dashboard">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            My Shelf
           </div>
+        </Link>
+      </div>
+    )}
+    </div>
+    </div>
+    </div>
+
 
         {/* Notification and Profile */}
+    
           <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
           <FaBell className='text-sm text-gray-700 cursor-pointer hover:text-blue-500' />
           <Image  
@@ -152,7 +171,7 @@ export default function Home() {
           <input 
             type="text" 
             value={searchTerm}
-            className="border text-sm text-black p-3 sm:p-4 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"      
+            className="border text-sm text-black p-2 sm:p-3 md:p-4 w-full sm:w-3/4 md:w-full rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"      
             placeholder="Type book name or author"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -162,8 +181,8 @@ export default function Home() {
         </div>
         <button 
           onClick={() => setSelectedCategory('All')}
-          className="flex items-center px-8 py-2 ml-4 text-white bg-[#0661E8] rounded-md hover:bg-blue-600"
-        >
+          className="flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-2 ml-2 text-white bg-[#0661E8] rounded-md hover:bg-blue-600"
+        > 
           <FaFilter className="mr-2 text-sm opacity-40" /> {/* Filter Icon */}
          <p className="text-sm text-white">Filter</p>
         </button>

@@ -51,28 +51,29 @@ export default function Dashboard() {
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [selectedBorrowStatus, setSelectedBorrowStatus] = useState<string>("All");
   const [selectedReturnDate, setSelectedReturnDate] = useState<string>("All");
   const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
 
+   // State to manage due date notifications
+   const [dueDateNotifications, setDueDateNotifications] = useState<any[]>([]);
+
+
   useEffect(() => {
-    async function GetAllBooks() {
+    const fetchDueDateNotifications = async () => {
       try {
-        const response = await axios.get(`https://dlms-backend.onrender.com/books`)
-        
-        if(response.status === 200) {
-            setData(response.data)
-        }
-        else {
-            console.log("An error occured. please try again later")
-        }
-      } catch (err) {
-          console.log("An error occurred. Please try again later.")
+        const response = await fetch("https://dlms-backend.onrender.com/notifications/due-date");
+        const data = await response.json();
+        setDueDateNotifications(data.notifications); 
+      } catch (error) {
+        console.error("Error fetching due date notifications:", error);
       }
-    }
-    GetAllBooks()
-  }, [])
+    };
+
+    fetchDueDateNotifications();
+  }, []);
 
   useEffect(() => {
     const allBooks = data;
@@ -117,12 +118,17 @@ export default function Dashboard() {
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  },[]);
 
 
   const handleClickOutside = (event: MouseEvent) => {
-      if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    //  close dropdown if clicked
+    if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false);
+      }
+      // close menu if clicked outside
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
       }
   }
 
@@ -143,29 +149,40 @@ export default function Dashboard() {
           </Link>
           </nav>
           
-
-        {/* Hamburger menu for mobile */}
-        <div className="sm:hidden flex items-center text-black">
-          <FaBars className="text-md cursor-pointer"
-          onClick={() => setMenuOpen(!menuOpen)}
-          />
-
-          {menuOpen && (
-            <div className="absolute top-16 left-4 right-4 bg-white border rounded-sm shadow-lg z-10">
-              <Link href='/homepage'>
-                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                  Library 
-                </div>
-              </Link>
-              <Link href='/dashboard'>
-               <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                 My Shelf 
-               </div>
-              </Link>
-            </div>
-          )}
-        </div>
-        </div>
+{/* Notification, Profile, and Hamburger Menu for mobile */}
+  <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
+    {/* Mobile hamburger menu */}
+    <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
+      <FaBars 
+        className="text-md cursor-pointer" 
+        onClick={() => setMenuOpen(!menuOpen)} 
+      />
+         {/* Conditionally render the pop-up menu with smooth transition */}
+    {menuOpen && (
+      <div 
+        ref={menuRef}
+        className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
+        style={{
+          opacity: menuOpen ? 1 : 0,
+          transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
+        }}
+      >
+        <Link href="/homepage">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            Library
+          </div>
+        </Link>
+        <Link href="/dashboard">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            My Shelf
+          </div>
+        </Link>
+      </div>
+    )}
+    </div>
+    </div>
+    </div>
+          
           
           {/*Notification and Profile */}
           <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2"> 
@@ -206,6 +223,7 @@ export default function Dashboard() {
        
        {/*Filter dropdowns */}
         <div className='flex flex-wrap sm:flex-nowrap gap-4 items-center'>
+           <span className="text-black text-sm">Sort by:</span>
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}

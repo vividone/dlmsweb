@@ -5,6 +5,7 @@ import { useLocalStorage } from "@/helpers/useLocaStorage";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation"
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function SignIn() {
@@ -14,22 +15,17 @@ export default function SignIn() {
     const [success, setSuccess] = useState<string | null>(null);
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    const { setCookie } = useCookies()
-    const [ setUserData ] = useLocalStorage("user", {})
-    const [isLoading, setIsLoading] = useState(false)
-    const router = useRouter()
+    
+    const router = useRouter();
 
-
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
-        
-        let isError = false
-
-        if (email === "" || password === "") {
-            setError("Both email and password are required.")
-            isError = true
-        };
+         
+        if (!email || !password) {
+            setError("Both email and password are required.");
+            return;
+        }
 
         if (!validateEmail(email)) {
             setError("Email address not valid");
@@ -37,31 +33,23 @@ export default function SignIn() {
             return;
         }
 
-        if(isError) return;
+        // api implementation
 
-        submitSignIn();
-    };
-
-    const submitSignIn = async() => {
-        setIsLoading(true)
         try {
-            const response = await fetch("https://dlms-backend.onrender.com/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email,
-                    password,
+            const response = await fetch('https://dlms-backend.onrender.com/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify
+                ({ 
+                    email, 
+                    password 
                 }),
             });
+
 
             if(response.ok) {
                 const data = await response.json();
                 setSuccess("Login successful!");
-                setCookie("token", data.token.access_token)
-                setUserData(data.data)
-                setIsLoading(false)
                 setError(null);
                 router.push("/dashboard")
             } else {
@@ -74,6 +62,7 @@ export default function SignIn() {
         }
     }
 
+    
     const validateEmail = (email: string) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
@@ -95,7 +84,8 @@ export default function SignIn() {
             <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
                 {error && <div className="text-red-500 text-sm">{error}</div>}
                 {success && <div className="text-green-500 text-sm">{success}</div>}
-                
+
+            {/*Input field for Email Address */}           
                 <div className="space-y-1 text-black">
                     <label className="block text-sm font-semibold">Email Address</label>
                     <input
@@ -108,6 +98,7 @@ export default function SignIn() {
                     />
                 </div>
 
+            {/*Input field for Password */}
                 <div className="relative space-y-1 text-black">
                     <label className="block text-sm font-semibold">Password</label>
                     <input
@@ -119,7 +110,7 @@ export default function SignIn() {
                         aria-required="true"
                     />
                     <div
-                        className="absolute inset-y-0 right-4 flex items-center cursor-pointer"
+                        className="absolute inset-y-0 top-2 right-4 flex items-center cursor-pointer"
                         onClick={() => setShowPassword(!showPassword)}
                     >
                         {showPassword ? (
@@ -130,6 +121,7 @@ export default function SignIn() {
                     </div>
                 </div>
 
+            {/*Remember me checkbox */}
                 <div className="flex justify-between items-center">
                     <label className="flex items-center gap-2 text-sm text-black font-semibold">
                         <input
@@ -168,4 +160,4 @@ export default function SignIn() {
             </div>
         </div>
     );
-}
+};
