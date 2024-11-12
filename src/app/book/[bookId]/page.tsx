@@ -60,14 +60,6 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   
-  const handleBorrowClick = () => {
-    if (book) router.push("/borrow-page");
-  };
-
-  if (loading) return <p>Loading book details...</p>;
-  if (error) return <p>{error}</p>;
-  if (!book) return <p>Book not found.</p>;
-
   const handleClickOutside = (event: MouseEvent) => {
     // close dropdown if clicked
     if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -79,6 +71,17 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
       setMenuOpen(false);
     }
   }
+
+
+  const handleBorrowClick = () => {
+    if (book) router.push("/borrow-page");
+  };
+
+  if (loading) return <p>Loading book details...</p>;
+  if (error) return <p>{error}</p>;
+  if (!book) return <p>Book not found.</p>;
+
+
 
   return (
     <div className="container mx-auto p-4">
