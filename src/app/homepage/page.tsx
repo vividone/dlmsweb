@@ -45,8 +45,20 @@ export default function Home() {
   const menuRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Load books from API
-  
+  // fetch books from internal api on component mount
+  useEffect(() => {
+    const fetchbooks = async () => {
+      try {
+        const response = await fetch("/api/books");
+        const data = await response.json();
+        setBooks(data);
+        setFilteredBooks(data);
+      } catch (error) {
+         console.error("Failed to fetch books:", error);
+      }
+    };
+    fetchbooks(); 
+  }, []); 
    
   // Handle search and filtering
   useEffect(() => {
@@ -225,3 +237,7 @@ export default function Home() {
     </div>
   );
 }
+function setBooks(data: any) {
+  throw new Error("Function not implemented.");
+}
+
