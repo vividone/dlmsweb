@@ -67,10 +67,10 @@ export default function SignUp() {
                 } else {
                     setError(errorData.error || "Signup failed. Please try again.");
                 }
-            }
+            } 
         } catch (err) {
             setError("An error occurred. Please try again later.");
-        }
+        } 
     };
 
     // Validate email format

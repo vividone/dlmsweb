@@ -45,23 +45,23 @@ export default function Home() {
   const menuRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // fetch books from internal api on component mount
-  useEffect(() => {
-    const fetchbooks = async () => {
-      try {
-        const response = await fetch("/api/books");
-        const data = await response.json();
-        setBooks(data);
-        setFilteredBooks(data);
-      } catch (error) {
-         console.error("Failed to fetch books:", error);
+  // Fetch books from the API
+   const fetchBooks = async () => {
+    try {
+      const response = await fetch('https://dlms-backend.onrender.com/books'); // Adjust the API endpoint if needed
+      if (!response.ok) {
+        throw new Error('Failed to fetch books');
       }
-    };
-    fetchbooks(); 
-  }, []); 
+      const booksData: Book[] = await response.json();
+      setFilteredBooks(booksData); // Set the books data
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    }
+  };
    
   // Handle search and filtering
   useEffect(() => {
+    fetchBooks();
     const filterData = (bookList: Book[]) =>
       bookList.filter((book) => {
         const matchesSearch =
@@ -195,7 +195,7 @@ export default function Home() {
         <button 
           onClick={() => setSelectedCategory('All')}
           className="flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-2 ml-2 text-white bg-[#0661E8] rounded-md hover:bg-blue-600"
-        >
+        > 
           <FaFilter className="mr-2 text-sm opacity-40" /> {/* Filter Icon */}
          <p className="text-sm text-white">Filter</p>
         </button>
@@ -237,7 +237,3 @@ export default function Home() {
     </div>
   );
 }
-function setBooks(data: any) {
-  throw new Error("Function not implemented.");
-}
-
