@@ -42,10 +42,10 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Load books from API
-  
+
    
   // Handle search and filtering
   useEffect(() => {
@@ -69,8 +69,13 @@ export default function Home() {
   }, []);
 
   const handleClickOutside = (event: MouseEvent) => {
+    // close dropdown if clicked
     if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setDropdownOpen(false);
+    }
+    // close menu if clicked outside
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setMenuOpen(false);
     }
   }
 
@@ -104,6 +109,7 @@ export default function Home() {
          {/* Conditionally render the pop-up menu with smooth transition */}
     {menuOpen && (
       <div 
+        ref={menuRef}
         className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
         style={{
           opacity: menuOpen ? 1 : 0,
@@ -176,7 +182,7 @@ export default function Home() {
         <button 
           onClick={() => setSelectedCategory('All')}
           className="flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-2 ml-2 text-white bg-[#0661E8] rounded-md hover:bg-blue-600"
-        >
+        > 
           <FaFilter className="mr-2 text-sm opacity-40" /> {/* Filter Icon */}
          <p className="text-sm text-white">Filter</p>
         </button>
