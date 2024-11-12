@@ -57,11 +57,11 @@ export default function Home() {
     } catch (error) {
       console.error("Error fetching books:", error);
     }
+    fetchBooks();
   };
    
   // Handle search and filtering
   useEffect(() => {
-    fetchBooks();
     const filterData = (bookList: Book[]) =>
       bookList.filter((book) => {
         const matchesSearch =
