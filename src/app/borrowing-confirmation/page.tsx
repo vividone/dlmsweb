@@ -15,7 +15,8 @@ export default function BorrowingConfirmation(){
   const [token, setToken] = useState<string>('');
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  
+  const [bookDetails, setBookDetails] = useState<any>(null);
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -33,20 +34,49 @@ export default function BorrowingConfirmation(){
   }
 
 
-  // handle submit
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // prevents page to refresh.
-    if (token.trim() === "") {
-      setError("Please enter a valid token");
-      setSuccess(false);
-      return;
-    }
+  // Fetch book details after successful token submission
+  const fetchBorrowedBookDetails = async (userId: string) => {
+    try {
+      const response = await fetch(`https://dlms-backend.onrender.com/borrow/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    setError(null);
-    setSuccess(true); // show success message
-    setToken("");
-    setTimeout(() => setSuccess(false), 3000);
-  }
+      if (response.ok) {
+        const data = await response.json();
+        setBookDetails(data);
+      } else {
+        throw new Error("Failed to fetch borrowed book details.");
+      }
+    } catch (error) {
+      setError("Error fetching borrowed book details.");
+      setSuccess(false);
+    }
+  };
+
+    // handle submit
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault(); // prevents page to refresh.
+      if (token.trim() === "") {
+        setError("Please enter a valid token");
+        setSuccess(false);
+        return;
+      }
+  
+      setError(null);
+      setSuccess(true); // show success message
+      setToken("");
+      setTimeout(() => setSuccess(false), 3000);
+  
+      const userId = "123";
+  
+      // Fetch borrowed book details after confirming the token
+      await fetchBorrowedBookDetails(userId);
+  
+      setTimeout(() => setSuccess(false), 3000);
+    }
 
   return (
     <div className="container mx-auto p-4">
@@ -160,6 +190,12 @@ export default function BorrowingConfirmation(){
 
         {/* Back to Homepage Button */}
         <div className="w-full max-w-lg flex justify-center mt-10">
+          <button 
+          className="w-80 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center"
+          onClick={handleSubmit}
+          >
+             Submit 
+          </button>
           <Link href="/homepage" className="w-80 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center">
             Back to Homepage
           </Link>
