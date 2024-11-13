@@ -1,12 +1,11 @@
 "use client";
 
-import { useCookies } from "@/helpers/useCookies";
-import { useLocalStorage } from "@/helpers/useLocaStorage";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useRouter } from "next/navigation"
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useLocalStorage } from "@/helpers/useLocaStorage";
+import { useCookies } from "@/helpers/useCookies";
 
 export default function SignIn() {
     const [email, setEmail] = useState<string>('');
@@ -15,6 +14,8 @@ export default function SignIn() {
     const [success, setSuccess] = useState<string | null>(null);
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [user, setUser] = useLocalStorage("user", {})
+    const { setCookie } = useCookies()
     
     const router = useRouter();
 
@@ -29,7 +30,6 @@ export default function SignIn() {
 
         if (!validateEmail(email)) {
             setError("Email address not valid");
-            isError = true
             return;
         }
 
@@ -49,13 +49,14 @@ export default function SignIn() {
 
             if(response.ok) {
                 const data = await response.json();
+                setUser(data.data)
+                setCookie("access_token", data.access_token)
                 setSuccess("Login successful!");
                 setError(null);
                 router.push("/dashboard")
             } else {
                 const errorData = await response.json();
                 setError(errorData.message || "Login failed. Please check your credientials.")
-                setIsLoading(false)
             }
         } catch (err) {
             setError("An error occurred. Please try again later.");
@@ -142,11 +143,11 @@ export default function SignIn() {
                     className="w-full py-3 bg-[#0661E8] text-white rounded-md hover:bg-blue-600 flex items-center justify-center"
                     aria-label="Signup"
                 >
-                    { isLoading ? 
+                    {/* { isLoading ? 
                         <div
                         className=" w-6 h-6 rounded-full border-2 animate-spin border-white border-b-transparent"
-                    />
-                    : "Login" }
+                    /> */}
+                    Login
                 </button>
             </form>
 

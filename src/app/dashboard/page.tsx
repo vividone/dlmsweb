@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FaSearch, FaBell, FaBars } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 import axios from "axios";
+import { useCookies } from "@/helpers/useCookies";
 
 
 interface Book {
@@ -56,6 +57,7 @@ export default function Dashboard() {
   const [selectedBorrowStatus, setSelectedBorrowStatus] = useState<string>("All");
   const [selectedReturnDate, setSelectedReturnDate] = useState<string>("All");
   const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
+  const { getCookies } = useCookies()
 
    // State to manage due date notifications
    const [dueDateNotifications, setDueDateNotifications] = useState<any[]>([]);
@@ -74,6 +76,26 @@ export default function Dashboard() {
 
     fetchDueDateNotifications();
   }, []);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        await axios.get("https://dlms-backend.onrender.com/books", {
+          // headers: {
+          //   "Authorization": `Bearer ${getCookies().access_token}`
+          // }
+        })
+        .then( response => {
+          setData(response.data)
+        })
+      } catch (error) {
+        console.error("Error fetching due date notifications:", error);
+      }
+    };
+
+    fetchBooks();
+  }, []);
+
 
   useEffect(() => {
     const allBooks = data;

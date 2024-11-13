@@ -197,11 +197,7 @@ export default function SignUp() {
                     disabled={!isPasswordValid}
                     aria-label="Signup"
                 >
-                    { isLoading ? 
-                        <div
-                        className=" w-6 h-6 rounded-full border-2 animate-spin border-white border-b-transparent"
-                    />
-                    : "Submit" }
+                     Submit
                 </button>
             </form>
 
