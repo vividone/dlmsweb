@@ -60,14 +60,17 @@ export default function SignUp() {
                 setRole('');
                 setPassword('');
             } else {
+                // Extract error message from response
                 const errorData = await response.json();
-                // Check for "Account already exists" message
-                if (errorData.error && errorData.error.includes("already exists")) {
+                const errorMessage = errorData.message || "Signup failed. Please try again.";
+    
+                // Check if the error message indicates the account already exists
+                if (errorMessage.includes("already exists")) {
                     setError("An account with this email already exists. Please log in.");
                 } else {
-                    setError(errorData.error || "Signup failed. Please try again.");
+                    setError(errorMessage);
                 }
-            } 
+            }
         } catch (err) {
             setError("An error occurred. Please try again later.");
         } 

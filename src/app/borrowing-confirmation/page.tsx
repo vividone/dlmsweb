@@ -51,7 +51,7 @@ export default function BorrowingConfirmation(){
         throw new Error("Failed to fetch borrowed book details.");
       }
     } catch (error) {
-      setError("Error fetching borrowed book details.");
+      //setError("Error fetching borrowed book details.");
       setSuccess(false);
     }
   };
@@ -68,7 +68,7 @@ export default function BorrowingConfirmation(){
       setError(null);
       setSuccess(true); // show success message
       setToken("");
-      setTimeout(() => setSuccess(false), 3000);
+      setTimeout(() => setSuccess(false), 5000);
   
       const userId = "123";
   
