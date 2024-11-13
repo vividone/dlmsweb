@@ -25,7 +25,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "BookaThon",
-  description: "World of Continuous Learning",
+  description: "World of Continous Learning",
 };
 
 export default function RootLayout({

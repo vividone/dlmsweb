@@ -147,7 +147,6 @@ export default function SignUp() {
                 >
                 <option value="" disabled>Select your role</option>
                 <option value="individual">Individual</option>
-                <option value="librarian">Librarian</option>
                 </select>
                 </div>
 
