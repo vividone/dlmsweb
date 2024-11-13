@@ -163,7 +163,7 @@ export default function BorrowingConfirmation(){
             <span className="text-green-600 text-3xl">&#10003;</span> {/* Checkmark */}
             <div>
               <h2 className="font-sans text-xl font-semibold">Request Sent Successfully</h2>
-              <p className="text-sm">
+              <p className="text-sm text-black">
                 Your request for “<strong>{token}</strong>” has been sent successfully. Present the borrow
                 token to the librarian to get your book.
               </p>
