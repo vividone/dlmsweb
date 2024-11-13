@@ -201,7 +201,7 @@ export default function Home() {
        {filterDropdownOpen && (
             <div
               ref={filterRef}
-              className="absolute mt-2 w-48 bg-white border rounded-md shadow-lg z-10"
+              className="absolute mt-2 w-48 bg-white border rounded-md text-black shadow-lg z-10"
             >
               {['All', 'Sci-fi', 'Fantasy', 'Romance', 'Drama', 'Business', 'Education', 'Geography'].map((category) => (
                 <button
