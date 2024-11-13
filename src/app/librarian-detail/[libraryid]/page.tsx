@@ -148,10 +148,9 @@ export default function DetailsPage() {
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
               <Link href='/sign-in'>
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign In</div>
-              </Link>
-              <Link href='/homepage'>
-               <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
+               <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                Sign Out
+                </div>
               </Link>
             </div>
           )}

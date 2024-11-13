@@ -195,11 +195,10 @@ export default function Dashboard() {
           />
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 text-sm w-48 bg-white border rounded-md shadow-lg">
-               <Link href="/sign-in">
-                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign In</div>
-                </Link>
-                <Link href="/homepage">
-                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign Out</div>
+                <Link href="/sign-in">
+                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+                    Sign Out
+                  </div>
                 </Link>
             </div>
           )}
