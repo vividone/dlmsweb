@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation"
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useLocalStorage } from "@/helpers/useLocalStorage";
+import { useCookies } from "@/helpers/useCookies";
 
 export default function SignIn() {
     const [email, setEmail] = useState<string>('');
@@ -12,7 +14,9 @@ export default function SignIn() {
     const [success, setSuccess] = useState<string | null>(null);
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    
+    const [user, setUser] = useLocalStorage("user", {})
+    const { setCookie } = useCookies()
+
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -45,6 +49,9 @@ export default function SignIn() {
 
             if(response.ok) {
                 const data = await response.json();
+                setSuccess("Login successful!");
+                setUser(data.data)
+                setCookie("access_token", data.access_token)
                 setSuccess("Login successful!");
                 setError(null);
                 router.push("/dashboard")
