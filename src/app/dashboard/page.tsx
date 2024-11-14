@@ -4,6 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaSearch, FaBell, FaBars } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
+import axios from "axios";
+import { useCookies } from "@/helpers/useCookies";
+
 
 
 interface Book {
@@ -54,6 +57,9 @@ export default function Dashboard() {
   const [selectedBorrowStatus, setSelectedBorrowStatus] = useState<string>("All");
   const [selectedReturnDate, setSelectedReturnDate] = useState<string>("All");
   const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
+  const [data, setData] = useState([])
+  const { getCookies } = useCookies()
+
 
    // State to manage due date notifications
    const [dueDateNotifications, setDueDateNotifications] = useState<any[]>([]);
@@ -74,33 +80,52 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        await axios.get("https://dlms-backend.onrender.com/books", {
+          // headers: {
+          //   "Authorization": `Bearer ${getCookies().access_token}`
+          // }
+        })
+        .then( response => {
+          setData(response.data)
+        })
+      } catch (error) {
+        console.error("Error fetching due date notifications:", error);
+      }
+    };
+
+    fetchBooks();
+  }, []);
+
+  useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
     const searchFilteredBooks = allBooks.filter((book) =>
       book.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredBooks(searchFilteredBooks);
-  }, [searchTerm]);
+  }, [searchTerm, data]);
 
   
    // Handle other filters (borrow status, return date, etc.)
    useEffect(() => {
-    const allBooks = [...books];
+    const allBooks = data;
     let filteredBooks = allBooks;
 
     if (selectedBorrowStatus !== 'All') {
-      filteredBooks = filteredBooks.filter(book => book.borrowStatus === selectedBorrowStatus);
+      filteredBooks = filteredBooks.filter((book:any) => book.borrowStatus === selectedBorrowStatus);
     }
 
     if (selectedReturnDate !== 'All') {
-      filteredBooks = filteredBooks.filter(book => book.returnDate === selectedReturnDate);
+      filteredBooks = filteredBooks.filter((book:any) => book.returnDate === selectedReturnDate);
     }
 
     if (selectedBorrowedDate !== 'All') {
-      filteredBooks = filteredBooks.filter(book => book.borrowedDate === selectedBorrowedDate);
+      filteredBooks = filteredBooks.filter((book:any) => book.borrowedDate === selectedBorrowedDate);
     }
 
     setFilteredBooks(filteredBooks);
-  }, [selectedBorrowStatus, selectedReturnDate, selectedBorrowedDate]);
+  }, [selectedBorrowStatus, selectedReturnDate, selectedBorrowedDate, data]);
 
 
   useEffect(() => {
@@ -109,7 +134,7 @@ export default function Dashboard() {
       ? allBooks
       : allBooks.filter(book => book.genre === selectedGenre);
     setFilteredBooks(genreFilteredBooks);
-  }, [selectedGenre]);
+  }, [selectedGenre, data]);
 
 
   {/*perform event listen to the avatar dropdown */}
