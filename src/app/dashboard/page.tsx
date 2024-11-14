@@ -59,7 +59,7 @@ export default function Dashboard() {
   const [selectedReturnDate, setSelectedReturnDate] = useState<string>("All");
   const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
   const [data, setData] = useState([])
-  const { getCookies } = useCookies();
+  
  
 
    // State to manage due date notifications

@@ -56,22 +56,22 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const response = await fetch(`https://dlms-backend.onrender.com/borrow/return/${borrowId}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              collectionDate, 
-              returnDate, 
-              borrowalStatus: 'returned', 
-            }),
-        });
+        // const response = await fetch(`https://dlms-backend.onrender.com/borrow/return/${borrowId}`, {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ 
+        //       collectionDate, 
+        //       returnDate, 
+        //       borrowalStatus: 'returned', 
+        //     }),
+        // });
 
-        if (response.ok) {
-            alert('Returned details saved');
-            router.push('/dashboard');
-        } else {
-            setError('Failed to save returning details.');
-        }
+        // if (response.ok) {
+        //     alert('Returned details saved');
+        //     router.push('/dashboard');
+        // } else {
+        //     setError('Failed to save returning details.');
+        // }
     };
 
     if (!borrow) {
