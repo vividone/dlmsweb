@@ -6,10 +6,6 @@ import { FaSearch, FaBell, FaBars } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 import axios from "axios";
 
-
-
-
-
 interface Book {
   id: number;
   title: string;
