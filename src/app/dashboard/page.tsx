@@ -120,7 +120,7 @@ export default function Dashboard() {
     };
 
     fetchBorrowStatus();
-},);
+});
 
 
    // Handle other filters (borrow status, return date, etc.)
