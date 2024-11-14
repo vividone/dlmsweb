@@ -6,6 +6,7 @@ import { FaSearch, FaBell, FaBars } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 import axios from "axios";
 import { useCookies } from "@/helpers/useCookies";
+import BorrowId from "../borrow-page/[borrowId]/page";
 
 
 
@@ -58,8 +59,9 @@ export default function Dashboard() {
   const [selectedReturnDate, setSelectedReturnDate] = useState<string>("All");
   const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
   const [data, setData] = useState([])
-  const { getCookies } = useCookies()
-
+  const { getCookies } = useCookies();
+  const [borrows, setBorrows] = useState([]);
+  const userId = 'user-id-here'; 
 
    // State to manage due date notifications
    const [dueDateNotifications, setDueDateNotifications] = useState<any[]>([]);
@@ -106,7 +108,21 @@ export default function Dashboard() {
     setFilteredBooks(searchFilteredBooks);
   }, [searchTerm, data]);
 
-  
+  useEffect(() => {
+    const fetchBorrowStatus = async () => {
+        try {
+            const response = await fetch(`https://dlms-backend.onrender.com/borrow/status/${userId}`);
+            const data = await response.json();
+            setBorrows(data);
+        } catch (error) {
+            console.error('Error fetching borrow status:', error);
+        }
+    };
+
+    fetchBorrowStatus();
+}, [BorrowId]);
+
+
    // Handle other filters (borrow status, return date, etc.)
    useEffect(() => {
     const allBooks = data;

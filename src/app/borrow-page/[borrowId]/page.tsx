@@ -1,3 +1,4 @@
+
 "use client";
 
 import { FaBell, FaArrowLeft, FaBars } from "react-icons/fa";
@@ -8,7 +9,7 @@ import Link from "next/link";
 
 // Sample book data
 const books = [
-  { Id: 1,  title: "Lone Wolf Adventure", category: "Adventure", author: 'Emerngard Nausicaa', cover: "/lone wolf.png", synopsis: "..." },
+  { id: 1,  title: "Lone Wolf Adventure", category: "Adventure", author: 'Emerngard Nausicaa', cover: "/lone wolf.png", synopsis: "..." },
   { id: 2,  title: "Hide and Seek", category: "Mystery", author: 'Olivia Wilson', cover: "/Hide and seek.jpg", synopsis: "..." },
   { id: 3,  title: "Dont Look Back", category: "Thriller", author:'Isaac Nelson', cover: "/Dont Look.png", synopsis: "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night."},
   { id: 4,  title: "Spring Book", category: "Romance", author:'Deena Roberts', cover: "/spring book.jpg", synopsis: "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night."},
@@ -34,6 +35,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
     const[menuOpen, setMenuOpen] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
+
     useEffect(() => {
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -54,30 +56,23 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-    //     try {
-    //       const response = await fetch(`https://dlms-backend.onrender.com/borrow/return/${borrowId}`, {
-    //           method: 'POST',
-    //           headers: {
-    //               'Content-Type': 'application/json',
-    //           },
-    //           body: JSON.stringify({
-    //               borrowId,
-    //               collectionDate,
-    //               returnDate,
-    //               borrowStatus: 'borrowed', // or based on the borrow status you want to set
-    //           }),
-    //       });
-  
-    //       if (response.ok) {
-    //           alert('Borrowing details saved!');
-    //           router.push('/dashboard'); // Redirect to dashboard or success page
-    //       } else {
-    //           throw new Error('Failed to save borrowing details');
-    //       }
-    //   } catch (error) {
-    //       setError('An error occurred: ');
-    //   }
-     };
+        const response = await fetch(`https://dlms-backend.onrender.com/borrow/return/${borrowId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              collectionDate, 
+              returnDate, 
+              borrowalStatus: 'returned', 
+            }),
+        });
+
+        if (response.ok) {
+            alert('Returned details saved');
+            router.push('/dashboard');
+        } else {
+            setError('Failed to save returning details.');
+        }
+    };
 
     if (!borrow) {
         return <p>Book not found.</p>;
