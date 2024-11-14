@@ -5,7 +5,7 @@ import Image from "next/image";
 import { FaSearch, FaBell, FaBars } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 import axios from "axios";
-import { useCookies } from "@/helpers/useCookies";
+
 
 
 
