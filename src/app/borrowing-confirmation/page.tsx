@@ -33,8 +33,6 @@ export default function BorrowingConfirmation(){
     }
   }
 
-
-
     // handle submit
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault(); // prevents page to refresh.
@@ -48,13 +46,6 @@ export default function BorrowingConfirmation(){
       setSuccess(true); // show success message
       setToken("");
       setTimeout(() => setSuccess(false), 5000);
-  
-      const userId = "123";
-  
-      // Fetch borrowed book details after confirming the token
-      await fetchBorrowedBookDetails(userId);
-  
-      setTimeout(() => setSuccess(false), 3000);
     }
 
   return (
