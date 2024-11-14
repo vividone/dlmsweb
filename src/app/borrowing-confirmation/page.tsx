@@ -15,7 +15,7 @@ export default function BorrowingConfirmation(){
   const [token, setToken] = useState<string>('');
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const [bookDetails, setBookDetails] = useState<any>(null);
+ 
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -34,27 +34,6 @@ export default function BorrowingConfirmation(){
   }
 
 
-  // Fetch book details after successful token submission
-  const fetchBorrowedBookDetails = async (userId: string) => {
-    try {
-      const response = await fetch(`https://dlms-backend.onrender.com/borrow/${userId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setBookDetails(data);
-      } else {
-        throw new Error("Failed to fetch borrowed book details.");
-      }
-    } catch (error) {
-      //setError("Error fetching borrowed book details.");
-      setSuccess(false);
-    }
-  };
 
     // handle submit
     const handleSubmit = async (e: React.FormEvent) => {
