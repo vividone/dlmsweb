@@ -143,7 +143,7 @@ export default function SignUp() {
                    value={role}
                    onChange={(e) => setRole(e.target.value)}
                    className="w-full px-4 py-3 border rounded-md"
-                   required
+                   required 
                 >
                 <option value="" disabled>Select your role</option>
                 <option value="individual">Individual</option>
