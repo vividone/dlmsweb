@@ -187,7 +187,7 @@ export default function Home() {
         > 
         </button>
 
-        {/* filter button */}
+        {/* filter button*/}
         <button 
             onClick={() => setFilterDropdownOpen(!filterDropdownOpen)}
             className="flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-2 ml-2 text-white bg-blue-700 rounded-md hover:bg-blue-600"
