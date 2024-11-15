@@ -45,7 +45,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
 
   
   const handleBorrowClick = () => {
-    router.push('/borrow-page');
+    router.push(`/borrow-page/${book.id}`);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
