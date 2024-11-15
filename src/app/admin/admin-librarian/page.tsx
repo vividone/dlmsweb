@@ -258,7 +258,7 @@ export default function LibrarianPage() {
 
       {/* Modal for Adding/Editing Book */}
       {modalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10 text-black">
           <div className="bg-white p-6 rounded-md shadow-md w-96">
             <h2 className="text-lg font-bold mb-4">{isEditing ? "Edit Book" : "Add Book"}</h2>
             <input
@@ -290,7 +290,7 @@ export default function LibrarianPage() {
             />
             <div className="flex justify-between">
               <button
-                className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
+                className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 text-black"
                 onClick={() => setModalOpen(false)}
               >
                 Cancel
