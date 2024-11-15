@@ -122,7 +122,7 @@ export default function BorrowingConfirmation(){
 
       {/* Book Details */}
       <div className="flex flex-col items-center p-8">
-      <Link href={'/borrowing-page'}>
+      <Link href={'/borrow-page'}>
           <FaArrowLeft className="text-lg  absolute sm:absolute left-2 absolute md:absolute left-16 text-gray-800 cursor-pointer hover:text-blue-500" />
         </Link>
 
