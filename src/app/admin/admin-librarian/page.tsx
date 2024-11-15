@@ -38,7 +38,7 @@ export default function LibrarianPage() {
   // Filter books based on search and genre
   useEffect(() => {
     const searchFilteredBooks = books.filter((book) =>
-      book.title.toLowerCase().includes(searchTerm.toLowerCase())
+      book.title?.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredBooks(
       selectedGenre === "All"
@@ -66,7 +66,7 @@ export default function LibrarianPage() {
     try {
       const response = await fetch("https://dlms-backend.onrender.com/books");
       const data: Book[] = await response.json();
-      setBooks(data);
+      setBooks(data.filter(book => book.title));
     } catch (error) {
       console.error("Failed to fetch books:", error);
     }
@@ -111,7 +111,7 @@ export default function LibrarianPage() {
 
   const deleteBook = async (bookId: number) => {
     deleteBook(bookId)
-    
+
     try {
       await fetch(`https://dlms-backend.onrender.com/books/delete/${bookId}`, {
         method: "DELETE",
