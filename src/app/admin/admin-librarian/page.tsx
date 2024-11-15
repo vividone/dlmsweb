@@ -61,15 +61,78 @@ export default function LibrarianPage() {
     }
   };
 
+   // API Integration
+   const fetchBooks = async () => {
+    try {
+      const response = await fetch("https://dlms-backend.onrender.com/books");
+      const data: Book[] = await response.json();
+      setBooks(data);
+    } catch (error) {
+      console.error("Failed to fetch books:", error);
+    }
+  };
+
+  const addBook = async () => {
+    try {
+      const response = await fetch("https://dlms-backend.onrender.com/books", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newBook),
+      });
+      const createdBook: Book = await response.json();
+      setBooks((prevBooks) => [...prevBooks, createdBook]);
+      setModalOpen(false);
+      setNewBook({ id: 0, title: "", genre: "", cover: "", description: "" });
+    } catch (error) {
+      console.error("Failed to add book:", error);
+    }
+  };
+
+  const updateBook = async () => {
+    try {
+      if (!editingBook) return;
+      const response = await fetch(`https://dlms-backend.onrender.com/books/${editingBook.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newBook),
+      });
+      const updatedBook: Book = await response.json();
+      setBooks((prevBooks) =>
+        prevBooks.map((book) => (book.id === updatedBook.id ? updatedBook : book))
+      );
+      setModalOpen(false);
+      setEditingBook(null);
+      setNewBook({ id: 0, title: "", genre: "", cover: "", description: "" });
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Failed to update book:", error);
+    }
+  };
+
+  const deleteBook = async (bookId: number) => {
+    deleteBook(bookId)
+    
+    try {
+      await fetch(`https://dlms-backend.onrender.com/books/delete/${bookId}`, {
+        method: "DELETE",
+      });
+      setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
+    } catch (error) {
+      console.error("Failed to delete book:", error);
+    }
+  };
+
   // Create or Update Book
-  const handleSaveBook = () => {
+  const handleSaveBook = async () => {
     if (isEditing && editingBook) {
+      await updateBook();
       setBooks((prevBooks) =>
         prevBooks.map((book) =>
           book.id === editingBook.id ? { ...newBook, id: editingBook.id } : book
         )
       );
     } else {
+      await addBook();
       setBooks((prevBooks) => [
         ...prevBooks,
         { ...newBook, id: Date.now() }, // Generate unique ID
