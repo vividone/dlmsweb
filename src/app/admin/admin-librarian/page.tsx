@@ -163,7 +163,12 @@ export default function LibrarianPage() {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {filteredBooks.map((book) => (
           <div key={book.id} className="p-4 rounded-md hover:shadow-lg cursor-pointer relative">
-            <Image src={book.cover} alt={book.title} width={192} height={300} className="rounded-md w-full h-auto" />
+            <Image src={book.cover || '/lone wolf.png'} 
+            alt={book.title} 
+            width={192} 
+            height={300} 
+            className="rounded-md w-full h-auto" 
+            />
             <h2 className="mt-2 font-semibold">{book.title}</h2>
             <p className="text-sm text-gray-500">{book.genre}</p>
             <div className="absolute top-2 right-2 flex space-x-2">
