@@ -49,8 +49,7 @@ export default function SignIn() {
 
             if(response.ok) {
                 const data = await response.json();
-                setUser(data.data)
-                setCookie("access_token", data.access_token)
+                router.push("/dashboard")
                 setSuccess("Login successful!");
                 setUser(data.data)
                 setCookie("access_token", data.access_token)
@@ -63,7 +62,6 @@ export default function SignIn() {
                         localStorage.removeItem("access_token");
                     }
                 setError(null);
-                router.push("/dashboard")
             } else {
                 const errorData = await response.json();
                 setError(errorData.message || "Login failed. Please check your credientials.")
