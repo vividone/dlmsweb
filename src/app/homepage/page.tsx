@@ -41,10 +41,11 @@ export default function Home() {
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  const filterRef = useRef<HTMLDivElement>(null);
 
    
   // Handle search and filtering
@@ -76,6 +77,11 @@ export default function Home() {
     // close menu if clicked outside
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setMenuOpen(false);
+    }
+
+    // filter dropdown clicked outside
+    if(filterRef.current && !filterRef.current.contains(event.target as Node)) {
+      setFilterDropdownOpen(false);
     }
   }
 
@@ -147,13 +153,10 @@ export default function Home() {
          />
          {dropdownOpen && (
           <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
-            <Link href='/sign-in'>
-              <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                Sign In 
-              </div>
-            </Link>
-            <Link href="/homepage">
-                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign Out</div>
+            <Link href="/sign-in">
+                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+                    Sign Out
+                    </div>
             </Link>
           </div>
          )}
@@ -181,12 +184,41 @@ export default function Home() {
         </div>
         <button 
           onClick={() => setSelectedCategory('All')}
-          className="flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-2 ml-2 text-white bg-[#0661E8] rounded-md hover:bg-blue-600"
         > 
-          <FaFilter className="mr-2 text-sm opacity-40" /> {/* Filter Icon */}
-         <p className="text-sm text-white">Filter</p>
         </button>
+
+        {/* filter button */}
+        <button 
+            onClick={() => setFilterDropdownOpen(!filterDropdownOpen)}
+            className="flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-2 ml-2 text-white bg-blue-700 rounded-md hover:bg-blue-600"
+        >
+        <FaFilter className="mr-2 text-sm opacity-40" />
+            Filter
+          </button>
       </div>
+      
+       {/* Filter Dropdown */}
+       {filterDropdownOpen && (
+            <div
+              ref={filterRef}
+              className="absolute mt-2 w-48 bg-white border rounded-md text-black shadow-lg z-10"
+            >
+              {['All', 'Sci-fi', 'Fantasy', 'Romance', 'Drama', 'Business', 'Education', 'Geography'].map((category) => (
+                <button
+                  key={category}
+                  className={`w-full text-left px-4 py-2 ${
+                    selectedCategory === category ? 'bg-blue-600 text-white' : 'hover:bg-gray-100'
+                  }`}
+                  onClick={() => {
+                    setSelectedCategory(category);
+                    setFilterDropdownOpen(false);
+                  }}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          )}
 
       {/* Category Filter */}
       <div className="flex overflow-x-auto flex lg:overflow-x-auto flex sm:overflow-visible gap-20 font-semibold sm:justify-between mb-6 animate-scroll">

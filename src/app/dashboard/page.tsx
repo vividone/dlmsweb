@@ -8,6 +8,8 @@ import axios from "axios";
 import { useCookies } from "@/helpers/useCookies";
 
 
+
+
 interface Book {
   id: number;
   title: string;
@@ -57,7 +59,9 @@ export default function Dashboard() {
   const [selectedBorrowStatus, setSelectedBorrowStatus] = useState<string>("All");
   const [selectedReturnDate, setSelectedReturnDate] = useState<string>("All");
   const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
-  const { getCookies } = useCookies()
+  const [data, setData] = useState([])
+  
+ 
 
    // State to manage due date notifications
    const [dueDateNotifications, setDueDateNotifications] = useState<any[]>([]);
@@ -96,6 +100,25 @@ export default function Dashboard() {
     fetchBooks();
   }, []);
 
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        await axios.get("https://dlms-backend.onrender.com/books", {
+          // headers: {
+          //   "Authorization": `Bearer ${getCookies().access_token}`
+          // }
+        })
+        .then( response => {
+          setData(response.data)
+        })
+      } catch (error) {
+        console.error("Error fetching due date notifications:", error);
+      }
+    };
+
+    fetchBooks();
+  }, []);
+
 
   useEffect(() => {
     const allBooks = data;
@@ -105,22 +128,23 @@ export default function Dashboard() {
     setFilteredBooks(searchFilteredBooks);
   }, [searchTerm, data]);
 
-  
+
+
    // Handle other filters (borrow status, return date, etc.)
    useEffect(() => {
     const allBooks = data;
     let filteredBooks = allBooks;
 
     if (selectedBorrowStatus !== 'All') {
-      filteredBooks = filteredBooks.filter((book: any) => book.borrowStatus === selectedBorrowStatus);
+      filteredBooks = filteredBooks.filter((book:any) => book.borrowStatus === selectedBorrowStatus);
     }
 
     if (selectedReturnDate !== 'All') {
-      filteredBooks = filteredBooks.filter((book: any) => book.returnDate === selectedReturnDate);
+      filteredBooks = filteredBooks.filter((book:any) => book.returnDate === selectedReturnDate);
     }
 
     if (selectedBorrowedDate !== 'All') {
-      filteredBooks = filteredBooks.filter((book: any) => book.borrowedDate === selectedBorrowedDate);
+      filteredBooks = filteredBooks.filter((book:any) => book.borrowedDate === selectedBorrowedDate);
     }
 
     setFilteredBooks(filteredBooks);
@@ -219,11 +243,10 @@ export default function Dashboard() {
           />
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 text-sm w-48 bg-white border rounded-md shadow-lg">
-               <Link href="/sign-in">
-                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign In</div>
-                </Link>
-                <Link href="/homepage">
-                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign Out</div>
+                <Link href="/sign-in">
+                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+                    Sign Out
+                  </div>
                 </Link>
             </div>
           )}

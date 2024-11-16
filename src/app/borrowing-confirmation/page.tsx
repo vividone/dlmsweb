@@ -51,7 +51,7 @@ export default function BorrowingConfirmation(){
         throw new Error("Failed to fetch borrowed book details.");
       }
     } catch (error) {
-      setError("Error fetching borrowed book details.");
+      //setError("Error fetching borrowed book details.");
       setSuccess(false);
     }
   };
@@ -68,7 +68,7 @@ export default function BorrowingConfirmation(){
       setError(null);
       setSuccess(true); // show success message
       setToken("");
-      setTimeout(() => setSuccess(false), 3000);
+      setTimeout(() => setSuccess(false), 5000);
   
       const userId = "123";
   
@@ -141,10 +141,9 @@ export default function BorrowingConfirmation(){
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
               <Link href="/sign-in">
-                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign In</div>
-              </Link>
-              <Link href="/homepage">
-                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">Sign Out</div>
+                <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+                  Sign Out
+                </div>
               </Link>
             </div>
           )}
@@ -163,7 +162,7 @@ export default function BorrowingConfirmation(){
             <span className="text-green-600 text-3xl">&#10003;</span> {/* Checkmark */}
             <div>
               <h2 className="font-sans text-xl font-semibold">Request Sent Successfully</h2>
-              <p className="text-sm">
+              <p className="text-sm text-black">
                 Your request for “<strong>{token}</strong>” has been sent successfully. Present the borrow
                 token to the librarian to get your book.
               </p>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation"
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useLocalStorage } from "@/helpers/useLocaStorage";
+import { useLocalStorage } from "@/helpers/useLocalStorage";
 import { useCookies } from "@/helpers/useCookies";
 
 export default function SignIn() {
@@ -16,7 +16,7 @@ export default function SignIn() {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [user, setUser] = useLocalStorage("user", {})
     const { setCookie } = useCookies()
-    
+
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -52,6 +52,16 @@ export default function SignIn() {
                 setUser(data.data)
                 setCookie("access_token", data.access_token)
                 setSuccess("Login successful!");
+                setUser(data.data)
+                setCookie("access_token", data.access_token)
+                    // Handle rememberMe logic for storing user details
+                    if (rememberMe) {
+                        localStorage.setItem("email", email);
+                        localStorage.setItem("access_token", data.access_token);
+                    } else {
+                        localStorage.removeItem("email");
+                        localStorage.removeItem("access_token");
+                    }
                 setError(null);
                 router.push("/dashboard")
             } else {
@@ -96,6 +106,7 @@ export default function SignIn() {
                         placeholder="Enter your email address"
                         className="w-full px-4 py-3 border rounded-md"
                         aria-required="true"
+                        aria-label="Email Address"
                     />
                 </div>
 
@@ -109,6 +120,7 @@ export default function SignIn() {
                         placeholder="Enter your password"
                         className="w-full px-4 py-3 border rounded-md"
                         aria-required="true"
+                        aria-label="Password"
                     />
                     <div
                         className="absolute inset-y-0 top-2 right-4 flex items-center cursor-pointer"
@@ -130,6 +142,7 @@ export default function SignIn() {
                             checked={rememberMe}
                             onChange={() => setRememberMe(!rememberMe)}
                             className="cursor-pointer"
+                            aria-label="remember me checkbox"
                         />
                         Remember Me
                     </label>
