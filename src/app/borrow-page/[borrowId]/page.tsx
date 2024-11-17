@@ -6,7 +6,7 @@ import { useState, useEffect, useRef, use } from "react";
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
-import { useUser } from "../../context/UserContext/page"
+import { useUser } from "../../../context/UserContext/page"
 
 // Sample book data
 const books = [
