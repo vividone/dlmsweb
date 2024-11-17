@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FaSearch, FaBell, FaBars, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaSearch, FaBell, FaEdit, FaTrash } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 
 interface Book {
@@ -189,7 +189,7 @@ export default function LibrarianPage() {
           )}
         </div>
       </header>
- 
+
       {/* Search & Filter Section */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-6">
         <div className="relative w-full sm:w-1/2">
