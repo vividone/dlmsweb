@@ -272,8 +272,8 @@ export default function LibrarianPage() {
             height={300} 
             className="rounded-md w-full h-auto" 
             />
-            <h2 className="mt-2 font-semibold">{book.title}</h2>
-            <p className="text-sm text-gray-500">{book.bookCategory}</p>
+            <h2 className="mt-2 font-semibold text-black">{book.title}</h2>
+            <p className="text-sm text-black">{book.bookCategory}</p>
             <div className="absolute top-2 right-2 flex space-x-2">
               <FaEdit
                 className="text-blue-500 cursor-pointer"
