@@ -169,7 +169,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                 <h3 className="text-xl text-black font-semibold">{borrow.title}</h3>
                  
             {/*Form submission + Logic */}
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 pt-8">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 pt-8 text-black">
                     <label className="font-sans text-sm font-semibold text-black">Collection Date</label>
                     <input 
                         type="date" 
