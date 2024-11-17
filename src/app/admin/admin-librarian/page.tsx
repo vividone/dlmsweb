@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FaSearch, FaBell, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaSearch, FaBell, FaBars, FaEdit, FaTrash } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 
 interface Book {
   id: number;
   title: string;
-  genre: string;
+  author: string;
+  isbn: string;
+  bookCategory: string;
   cover: string;
   description: string;
 }
@@ -16,7 +18,7 @@ interface Book {
 export default function LibrarianPage() {
   const [books, setBooks] = useState<Book[]>([]); // Books list
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedGenre, setSelectedGenre] = useState<string>("All");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -29,10 +31,12 @@ export default function LibrarianPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [newBook, setNewBook] = useState<Book>({
     id: 0,
-    title: "",
-    genre: "",
-    cover: "",
-    description: "",
+    title: '',
+    author: '',
+    isbn: '',
+    bookCategory: '',
+    cover: '',
+    description: '',
   });
 
   // Filter books based on search and genre
@@ -41,11 +45,11 @@ export default function LibrarianPage() {
       book.title?.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredBooks(
-      selectedGenre === "All"
+      selectedCategory === "All"
         ? searchFilteredBooks
-        : searchFilteredBooks.filter((book) => book.genre === selectedGenre)
+        : searchFilteredBooks.filter((book) => book.bookCategory === selectedCategory)
     );
-  }, [searchTerm, selectedGenre, books]);
+  }, [searchTerm, selectedCategory, books]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -61,16 +65,19 @@ export default function LibrarianPage() {
     }
   };
 
-   // API Integration
-   const fetchBooks = async () => {
-    try {
-      const response = await fetch("https://dlms-backend.onrender.com/books");
-      const data: Book[] = await response.json();
-      setBooks(data.filter(book => book.title));
-    } catch (error) {
-      console.error("Failed to fetch books:", error);
-    }
-  };
+    // Fetch Books from API
+    useEffect(() => {
+      const fetchBooks = async () => {
+        try {
+          const response = await fetch("https://dlms-backend.onrender.com/books");
+          const data: Book[] = await response.json();
+          setBooks(data.filter((book) => book.title));
+        } catch (error) {
+          console.error("Error fetching books:", error);
+        }
+      };
+      fetchBooks();
+    }, []);
 
   const addBook = async () => {
     try {
@@ -82,7 +89,7 @@ export default function LibrarianPage() {
       const createdBook: Book = await response.json();
       setBooks((prevBooks) => [...prevBooks, createdBook]);
       setModalOpen(false);
-      setNewBook({ id: 0, title: "", genre: "", cover: "", description: "" });
+      setNewBook({ id: 0, title: "", author: "", isbn: "", bookCategory: "", cover: "", description: "" });
     } catch (error) {
       console.error("Failed to add book:", error);
     }
@@ -102,7 +109,7 @@ export default function LibrarianPage() {
       );
       setModalOpen(false);
       setEditingBook(null);
-      setNewBook({ id: 0, title: "", genre: "", cover: "", description: "" });
+      setNewBook({ id: 0, title: "", author: "", isbn: "", bookCategory: "", cover: "", description: "" });
       setIsEditing(false);
     } catch (error) {
       console.error("Failed to update book:", error);
@@ -139,7 +146,7 @@ export default function LibrarianPage() {
       ]);
     }
     setModalOpen(false);
-    setNewBook({ id: 0, title: "", genre: "", cover: "", description: "" });
+    setNewBook({ id: 0, title: "", author: "", isbn: "", bookCategory: "", cover: "", description: "" });
     setIsEditing(false);
   };
 
@@ -168,9 +175,42 @@ export default function LibrarianPage() {
               Library
             </Link>
           </nav>
-        </div>
 
-        <div className="flex items-center space-x-2 sm:space-4">
+        {/* Notification, Profile, and Hamburger Menu for mobile */}
+  <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
+    {/* Mobile hamburger menu */}
+    <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
+      <FaBars 
+        className="text-md cursor-pointer" 
+        onClick={() => setMenuOpen(!menuOpen)} 
+      />
+         {/* Conditionally render the pop-up menu with smooth transition */}
+    {menuOpen && (
+      <div 
+        ref={menuRef}
+        className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
+        style={{
+          opacity: menuOpen ? 1 : 0,
+          transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
+        }}
+      >
+        <Link href="/homepage">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            Library
+          </div>
+        </Link>
+        <Link href="/dashboard">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            My Shelf
+          </div>
+        </Link>
+      </div>
+    )}
+    </div>
+    </div>
+    </div>
+    
+        <div className="flex items-center space-x-2 sm:space-x-2 absolute top-2 pr-6 right-0 sm:absolute top-2">
           <FaBell className="text-sm text-gray-700 hover:text-blue-500 cursor-pointer" />
           <Image
             src="/user-avatar.jpg"
@@ -206,8 +246,8 @@ export default function LibrarianPage() {
         <div className="flex gap-4 items-center text-black p-2">
           <span className="text-sm text-black">Sort by:</span>
           <select
-            value={selectedGenre}
-            onChange={(e) => setSelectedGenre(e.target.value)}
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
             className="p-2 text-sm border rounded-md cursor-pointer"
           >
             <option value="All">Genre</option>
@@ -233,7 +273,7 @@ export default function LibrarianPage() {
             className="rounded-md w-full h-auto" 
             />
             <h2 className="mt-2 font-semibold">{book.title}</h2>
-            <p className="text-sm text-gray-500">{book.genre}</p>
+            <p className="text-sm text-gray-500">{book.bookCategory}</p>
             <div className="absolute top-2 right-2 flex space-x-2">
               <FaEdit
                 className="text-blue-500 cursor-pointer"
@@ -268,11 +308,25 @@ export default function LibrarianPage() {
               onChange={(e) => setNewBook({ ...newBook, title: e.target.value })}
               className="w-full mb-4 p-2 border rounded-md"
             />
+              <input
+              type="text"
+              placeholder="Author name"
+              value={newBook.author}
+              onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
+              className="w-full mb-4 p-2 border rounded-md"
+            />
+              <input
+              type="text"
+              placeholder="ISBN"
+              value={newBook.isbn}
+              onChange={(e) => setNewBook({ ...newBook, isbn: e.target.value })}
+              className="w-full mb-4 p-2 border rounded-md"
+            />
             <input
               type="text"
-              placeholder="Genre"
-              value={newBook.genre}
-              onChange={(e) => setNewBook({ ...newBook, genre: e.target.value })}
+              placeholder="Book Category"
+              value={newBook.bookCategory}
+              onChange={(e) => setNewBook({ ...newBook, bookCategory: e.target.value })}
               className="w-full mb-4 p-2 border rounded-md"
             />
             <input
