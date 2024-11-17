@@ -175,7 +175,10 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                         type="date" 
                         value={collectionDate}
                         placeholder="DD/MM/YYYY"
-                        className="w-full px-4 py-3 border bg-black rounded-md text-black" 
+                        className="w-full px-4 py-3 border rounded-md text-black bg-white appearance-none  focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        style={{
+                          color: collectionDate ? "black" : "gray",
+                        }}
                         onChange={(e) => setCollectionDate(e.target.value)} 
                         required 
                     />
@@ -185,7 +188,10 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                         type="date" 
                         value={returnDate}
                         placeholder="DD/MM/YYYY"
-                        className="w-full px-4 py-3 border rounded-md text-black" 
+                        className="w-full px-4 py-3 border rounded-md text-black bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        style={{
+                          color: returnDate ? "black" : "gray",
+                        }}
                         onChange={(e) => setReturnDate(e.target.value)} 
                         required 
                     />
