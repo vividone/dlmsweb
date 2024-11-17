@@ -175,7 +175,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                         type="date" 
                         value={collectionDate}
                         placeholder="DD/MM/YYYY"
-                        className="w-full px-4 py-3 border rounded-md text-black" 
+                        className="w-full px-4 py-3 border bg-black rounded-md text-black" 
                         onChange={(e) => setCollectionDate(e.target.value)} 
                         required 
                     />
