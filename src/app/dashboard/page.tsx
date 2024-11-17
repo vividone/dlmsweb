@@ -56,44 +56,20 @@ export default function Dashboard() {
   const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
   const [data, setData] = useState([])
   
- 
-
-   // State to manage due date notifications
-   const [dueDateNotifications, setDueDateNotifications] = useState<any[]>([]);
-
-
-  useEffect(() => {
-    const fetchDueDateNotifications = async () => {
-      try {
-        const response = await fetch("https://dlms-backend.onrender.com/notifications/due-date");
-        const data = await response.json();
-        setDueDateNotifications(data.notifications); 
-      } catch (error) {
-        console.error("Error fetching due date notifications:", error);
-      }
-    };
-
-    fetchDueDateNotifications();
-  }, []);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        await axios.get("https://dlms-backend.onrender.com/books", {
-          // headers: {
-          //   "Authorization": `Bearer ${getCookies().access_token}`
-          // }
-        })
-        .then( response => {
-          setData(response.data)
-        })
+        const response = await axios.get("https://dlms-backend.onrender.com/books");
+        setData(response.data); // only fetch once
       } catch (error) {
-        console.error("Error fetching due date notifications:", error);
+        console.error("Error fetching books:", error);
       }
     };
-
     fetchBooks();
   }, []);
+  
+
 
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];

@@ -49,7 +49,7 @@ export default function SignUp() {
                     headers: {
                         "Content-type": "application/json"
                     },
-                    body: JSON.stringify({fullname, email, password, homeAddress, role, name: role === "individual" ? "user" : "librarian"})
+                    body: JSON.stringify({fullname, email, password, homeAddress, role})
                 })
 
             if (response.ok) {
