@@ -6,6 +6,7 @@ import { useState, useEffect, useRef, use } from "react";
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
+import { useUser } from "../../context/UserContext/page"
 
 // Sample book data
 const books = [
@@ -26,6 +27,7 @@ const books = [
 export default function BorrowId({ params }: { params: Promise<{borrowId: string}> }) {
     const router = useRouter();
     const { borrowId } = use(params);
+    const { user } = useUser(); // Access the user context
     const borrow = books.find((b) => b.id === parseInt(borrowId, 10));
     const [collectionDate, setCollectionDate] = useState<string>('');
     const [returnDate, setReturnDate] = useState<string>('');
@@ -36,6 +38,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
     const menuRef = useRef<HTMLDivElement>(null);
 
 
+  
     useEffect(() => {
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -56,18 +59,30 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        if (!user) {
+          setError('User is not authenticated');
+          return;
+        }
+
+
+        const useUser = user.id; 
+        const collectionDate = new Date(); 
+        const returnDate = new Date(); 
+
         const response = await fetch(`https://dlms-backend.onrender.com/borrow/{userId}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ collectionDate, returnDate }),
         });
 
-        if (response.ok) {
-            alert('Request Sent Successfully');
-            router.push('/borrowing-confirmation');
-        } else {
-            setError('Failed to send the request. Please try again.');
-        }
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.log('Error:', errorData);
+          setError('Failed to send the request. Please try again.');
+      } else {
+          alert('Request Sent Successfully');
+          router.push('/borrowing-confirmation');
+      }
     };
 
     if (!borrow) {
