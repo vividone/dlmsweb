@@ -6,6 +6,7 @@ import { FaSearch } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import Header from "@/components/header/header";
+import { useCookies } from "@/helpers/useCookies";
 
 interface Book {
   id: number;
@@ -52,6 +53,7 @@ export default function Dashboard() {
   const [selectedBorrowStatus, setSelectedBorrowStatus] = useState<string>("All");
   const [selectedReturnDate, setSelectedReturnDate] = useState<string>("All");
   const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
+  const { getCookies } = useCookies()
   
  
 
@@ -77,9 +79,9 @@ export default function Dashboard() {
     const fetchBooks = async () => {
       try {
         await axios.get("https://dlms-backend.onrender.com/books", {
-          // headers: {
-          //   "Authorization": `Bearer ${getCookies().access_token}`
-          // }
+          headers: {
+            "Authorization": `Bearer ${getCookies().access_token}`
+          }
         })
         .then( response => {
           setData(response.data)
