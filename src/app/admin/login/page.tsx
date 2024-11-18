@@ -50,7 +50,7 @@ export default function SignIn() {
 
       if (response.ok) {
         const data = await response.json();
-        router.push("/dashboard");
+        router.push("/admin");
         setSuccess("Login successful!");
         setUser(data.data);
         setCookie("access_token", data.access_token);
@@ -86,10 +86,10 @@ export default function SignIn() {
       </h1>
 
       <h2 className="text-lg text-black mt-10 font-semibold relative lg:right-[135px] sm:text-2xl mb-2">
-        Welcome Back!
+       Admin Login
       </h2>
-      <p className="text-sm text-black text-gray-700 mb-8 text-center max-w-sm relative lg:right-[78px]">
-        Login and enter a world of continuous learning
+      <p className="text-sm text-black text-gray-700 mb-8 max-w-sm relative lg:right-[78px]">
+       Manage the library better
       </p>
 
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
@@ -166,8 +166,8 @@ export default function SignIn() {
       <div className="mt-6 text-sm text-center text-black">
         <span>
           Don't have an account?{" "}
-          <Link href="/signup" className="text-[#0661E8] hover:text-blue-700">
-            Register as individual
+          <Link href="/" className="text-[#0661E8] hover:text-blue-700">
+            User Login
           </Link>
           <span> or </span>
           <Link

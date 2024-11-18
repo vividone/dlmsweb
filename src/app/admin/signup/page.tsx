@@ -66,7 +66,7 @@ export default function SignUp() {
         setFullname("");
         setEmail("");
         setHomeAddress("");
-        setRole("");
+        setRole("librarian");
         setPassword("");
         setTimeout(() => setSuccess(null), 3000);
       } else {
@@ -97,10 +97,10 @@ export default function SignUp() {
         BookaThon
       </h1>
       <h2 className="text-lg text-black mt-10 font-semibold sm:text-2xl mb-2">
-        Hi, there!
+       Admin Account
       </h2>
       <p className="text-sm text-gray-700 mb-8 text-center max-w-sm">
-        Ready to join a family of leaders? Signup now
+        Setup your admin account
       </p>
 
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">

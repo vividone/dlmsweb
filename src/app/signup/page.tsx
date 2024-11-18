@@ -66,7 +66,7 @@ export default function SignUp() {
         setFullname("");
         setEmail("");
         setHomeAddress("");
-        setRole("");
+        setRole("individual");
         setPassword("");
         setTimeout(() => setSuccess(null), 3000);
       } else {
@@ -208,7 +208,7 @@ export default function SignUp() {
       <div className="mt-6 text-sm text-center text-black">
         <span>
           Already have an account?{" "}
-          <Link href="/sign-in" className="text-[#0661E8] hover:text-blue-700">
+          <Link href="/" className="text-[#0661E8] hover:text-blue-700">
             Login
           </Link>
         </span>
