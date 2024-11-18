@@ -97,7 +97,7 @@ export default function Home() {
           <Link href="/homepage" className="text-[#0061E8] text-base font-semibold sm:text-base hover:text-blue-500">
             Library
           </Link>
-          <Link href="/dashboard" className="font-semibold text-base sm:text-base hover:text-blue-500">
+          <Link href="/dashboard" className="font-semibold text-black text-base sm:text-base hover:text-blue-500">
             My Shelf
           </Link>
           </nav>
