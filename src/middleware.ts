@@ -4,7 +4,7 @@ import { isExpired } from "react-jwt"
 export function middleware(request: NextRequest) {
   const currentUser = request.cookies.get("access_token")?.value
 
-  if ((!currentUser || isExpired(currentUser)) && (request.nextUrl.pathname.startsWith("/dashboard") || request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname.startsWith("/borrow-page"))) {
+  if ((!currentUser || isExpired(currentUser)) && (request.nextUrl.pathname.startsWith("/account") || request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname.startsWith("/borrow-page"))) {
     return Response.redirect(new URL('/sign-in', request.url))
   } 
 

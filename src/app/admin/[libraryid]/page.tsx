@@ -121,7 +121,7 @@ export default function DetailsPage() {
             Library
           </div>
         </Link>
-        <Link href="/dashboard">
+        <Link href="/account">
           <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
             My Shelf
           </div>

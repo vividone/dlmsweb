@@ -48,7 +48,7 @@ export default function Header() {
                 <Link href="/homepage" className="font-semibold text-[#0061E8] text-base sm:text-base hover:text-blue-500">
                     Library
                 </Link>
-                <Link href="/dashboard" className="text-black font-semibold text-base sm:text-base hover:text-blue-500">
+                <Link href="/account" className="text-black font-semibold text-base sm:text-base hover:text-blue-500">
                     My Shelf
                 </Link>
             </nav>
@@ -76,7 +76,7 @@ export default function Header() {
                             Library
                         </div>
                         </Link>
-                        <Link href="/dashboard">
+                        <Link href="/account">
                         <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
                             My Shelf
                         </div>
