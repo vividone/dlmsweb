@@ -45,7 +45,7 @@ export default function SignUp() {
 
     try {
       const response = await fetch(
-        `https://dlms-backend.onrender.com/auth/individual/register`,
+        `https://dlms-backend.onrender.com/auth/admin/register`,
         {
           method: "POST",
           headers: {

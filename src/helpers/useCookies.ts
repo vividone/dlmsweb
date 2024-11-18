@@ -46,4 +46,3 @@ interface Cookies {
   
     return { getCookies, setCookie, removeCookie };
   };
-  
