@@ -103,116 +103,125 @@ export default function SignUp() {
         Ready to join a family of leaders? Signup now
       </p>
 
-      <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
-        {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
-        {success && (
-          <div className="text-green-500 text-sm mb-4">{success}</div>
-        )}
+   
 
-        {/* Full Name */}
-        <div className="space-y-1 text-black">
-          <label className="block text-sm font-semibold">Full Name</label>
-          <input
-            type="text"
-            value={fullname}
-            onChange={(e) => setFullname(e.target.value)}
-            placeholder="Input your full name"
-            className="w-full px-4 py-3 border rounded-md"
-            required
-          />
+            <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
+                {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
+                {success && <div className="text-green-500 text-sm mb-4">{success}</div>}
+
+                {/* Full Name */}
+                <div className="space-y-1 text-black">
+                    <label className="block text-sm font-semibold">Full Name</label>
+                    <input
+                        type="text"
+                        value={fullname}
+                        onChange={(e) => setFullname(e.target.value)}
+                        placeholder="Input your full name"
+                        className="w-full px-4 py-3 border rounded-md"
+                        required
+                    />
+                </div>
+
+                {/* Email Address */}
+                <div className="space-y-1 text-black">
+                    <label className="block text-sm font-semibold">Email Address</label>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter your email address"
+                        className="w-full px-4 py-3 border rounded-md"
+                        required
+                    />
+                </div>
+
+                {/* Home Address */}
+                <div className="space-y-1 text-black">
+                    <label className="block text-sm font-semibold">Home Address</label>
+                    <input
+                        type="text"
+                        value={homeAddress}
+                        onChange={(e) => setHomeAddress(e.target.value)}
+                        placeholder="Enter your home address"
+                        className="w-full px-4 py-3 border rounded-md"
+                        required
+                    />
+                </div>
+                <div className="space-y-1 text-black">
+                    <label className="block text-sm font-semibold">Home Address</label>
+                    <input
+                        type="text"
+                        value={homeAddress}
+                        onChange={(e) => setHomeAddress(e.target.value)}
+                        placeholder="Enter your home address"
+                        className="w-full px-4 py-3 border rounded-md"
+                        required
+                    />
+                </div>
+
+                {/* Home Address */}
+                <div className="space-y-1 text-black">
+                    <label className="block text-sm font-semibold">Home Address</label>
+                    <input
+                        type="text"
+                        value={homeAddress}
+                        onChange={(e) => setHomeAddress(e.target.value)}
+                        placeholder="Enter your home address"
+                        className="w-full px-4 py-3 border rounded-md"
+                        required
+                    />
+                </div>
+
+                 {/* Role */}
+                 <div className="space-y-1 text-black">
+                <label className="block text-sm font-semibold">Role</label>
+                  <select
+                   value={role}
+                   onChange={(e) => setRole(e.target.value)}
+                   className="w-full px-4 py-3 border rounded-md"
+                   required 
+                >
+                <option value="" disabled>Select your role</option>
+                <option value="individual">Individual</option>
+                </select>
+                </div>
+
+                {/* Password */}
+                <div className="relative space-y-1 text-black">
+                    <label className="block text-sm font-semibold">Password</label>
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => handlePasswordChange(e.target.value)}
+                        placeholder="Enter your password"
+                        className="w-full px-4 py-3 border rounded-md"
+                        required
+                    />
+                    <p className="text-xs font-semibold text-black mt-1">
+                        Password must include an uppercase, a lowercase, and a special character.
+                    </p>
+                    <div className="absolute inset-y-0 right-4 flex items-center cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? <FaEyeSlash size={20} className="text-gray-600" /> : <FaEye size={20} className="text-gray-600" />}
+                    </div>
+                </div>
+
+                <button
+                    type="submit"
+                    className={`w-full py-3 ${isPasswordValid ? 'bg-[#0661E8]' : 'bg-blue-700'} text-white rounded-md cursor-pointer`}
+                    disabled={!isPasswordValid}
+                    aria-label="Signup"
+                >
+                     Submit
+                </button>
+            </form>
+
+            <div className="mt-6 text-sm text-center text-black">
+                <span>
+                    Already have an account?{" "}
+                    <Link href="/sign-in" className="text-[#0661E8] hover:text-blue-700">Login</Link>
+                </span>
+            </div>
         </div>
 
-        {/* Email Address */}
-        <div className="space-y-1 text-black">
-          <label className="block text-sm font-semibold">Email Address</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email address"
-            className="w-full px-4 py-3 border rounded-md"
-            required
-          />
-        </div>
-
-        {/* Home Address */}
-        <div className="space-y-1 text-black">
-          <label className="block text-sm font-semibold">Home Address</label>
-          <input
-            type="text"
-            value={homeAddress}
-            onChange={(e) => setHomeAddress(e.target.value)}
-            placeholder="Enter your home address"
-            className="w-full px-4 py-3 border rounded-md"
-            required
-          />
-        </div>
-
-        {/* Role */}
-        {/* <div className="space-y-1 text-black">
-          <label className="block text-sm font-semibold">Role</label>
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            className="w-full px-4 py-3 border rounded-md"
-            required
-          >
-            <option value="" disabled>
-              Select your role
-            </option>
-            <option value="individual">Individual</option>
-          </select>
-        </div> */}
-
-        {/* Password */}
-        <div className="relative space-y-1 text-black">
-          <label className="block text-sm font-semibold">Password</label>
-          <input
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => handlePasswordChange(e.target.value)}
-            placeholder="Enter your password"
-            className="w-full px-4 py-3 border rounded-md"
-            required
-          />
-          <p className="text-xs font-semibold text-black mt-1">
-            Password must include an uppercase, a lowercase, and a special
-            character.
-          </p>
-          <div
-            className="absolute inset-y-0 right-4 flex items-center cursor-pointer"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? (
-              <FaEyeSlash size={20} className="text-gray-600" />
-            ) : (
-              <FaEye size={20} className="text-gray-600" />
-            )}
-          </div>
-        </div>
-
-        <button
-          type="submit"
-          className={`w-full py-3 ${
-            isPasswordValid ? "bg-[#0661E8]" : "bg-blue-700"
-          } text-white rounded-md cursor-pointer`}
-          disabled={
-            !fullname || !email || !homeAddress || !role || !isPasswordValid
-          }
-          aria-label="Signup"
-        >
-          Submit
-        </button>
-      </form>
-
-      <div className="mt-6 text-sm text-center text-black">
-        <span>
-          Already have an account?{" "}
-          <Link href="/" className="text-[#0661E8] hover:text-blue-700">
-            Login
-          </Link>
-        </span>
-      </div>
-    </div>
-  );
+        );
 }
