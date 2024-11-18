@@ -50,7 +50,7 @@ export default function SignIn() {
 
       if (response.ok) {
         const data = await response.json();
-        router.push("/dashboard");
+        router.push("/account");
         setSuccess("Login successful!");
         setUser(data.data);
         setCookie("access_token", data.access_token);
