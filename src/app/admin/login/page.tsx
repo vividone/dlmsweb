@@ -169,13 +169,6 @@ export default function SignIn() {
           <Link href="/" className="text-[#0661E8] hover:text-blue-700">
             User Login
           </Link>
-          <span> or </span>
-          <Link
-            href="/admin/login"
-            className="text-[#0661E8] hover:text-blue-700"
-          >
-            Admin Login
-          </Link>
         </span>
       </div>
     </div>
