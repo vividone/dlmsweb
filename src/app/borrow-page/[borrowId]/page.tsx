@@ -6,6 +6,9 @@ import { useState, useEffect, useRef, use } from "react";
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
+import BookId from "@/app/book/[bookId]/page";
+import { useLocalStorage } from "@/helpers/useLocalStorage";
+import { useCookies } from "@/helpers/useCookies";
 
 // Sample book data
 const books = [
@@ -27,13 +30,15 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
     const router = useRouter();
     const { borrowId } = use(params);
     const borrow = books.find((b) => b.id === parseInt(borrowId, 10));
-    const [collectionDate, setCollectionDate] = useState<string>('');
-    const [returnDate, setReturnDate] = useState<string>('');
+    const [collectionDate, setCollectionDate] = useState<Date>(new Date());
+    const [returnDate, setReturnDate] = useState<Date>(new Date());
     const [error, setError] = useState<string | null>(null);
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const[menuOpen, setMenuOpen] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const [user] = useLocalStorage("user", {})
+    const { getCookies } = useCookies()
 
 
     useEffect(() => {
@@ -56,10 +61,13 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const response = await fetch(`https://dlms-backend.onrender.com/borrow/{userId}`, {
+        const response = await fetch(`https://dlms-backend.onrender.com/borrow/${user.id}`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ collectionDate, returnDate }),
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${getCookies()["access_token"]}`
+            },
+            body: JSON.stringify({ borrowDate: collectionDate, dueDate: returnDate, bookId: borrow?.id.toString(), userId: user.id }),
         });
 
         if (response.ok) {
@@ -173,20 +181,20 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                     <label className="font-sans text-sm font-semibold text-black">Collection Date</label>
                     <input 
                         type="date" 
-                        value={collectionDate}
+                        value={collectionDate.toString()}
                         placeholder="DD/MM/YYYY"
                         className="w-full px-4 py-3 border rounded-md text-black" 
-                        onChange={(e) => setCollectionDate(e.target.value)} 
+                        onChange={(e) => setCollectionDate(new Date(e.target.value))} 
                         required 
                     />
 
                     <label className="font-sans text-sm font-semibold text-black">Return Date</label>
                     <input 
                         type="date" 
-                        value={returnDate}
+                        value={returnDate.toString()}
                         placeholder="DD/MM/YYYY"
                         className="w-full px-4 py-3 border rounded-md text-black" 
-                        onChange={(e) => setReturnDate(e.target.value)} 
+                        onChange={(e) => setReturnDate(new Date(e.target.value))} 
                         required 
                     />
                     {error && <p className="text-red-500">{error}</p>}
