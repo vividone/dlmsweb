@@ -39,7 +39,7 @@ export default function ForgotPassword() {
             aria-required="true"
           />
           <div
-            className="absolute right-5 top-10 cursor-pointer"
+            className="absolute right-5 top-10 cursor-pointer text-black"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
@@ -57,7 +57,7 @@ export default function ForgotPassword() {
             aria-required="true"
           />
           <div
-            className="absolute right-5 top-10 cursor-pointer"
+            className="absolute right-5 top-10 cursor-pointer text-black"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             {showConfirmPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}

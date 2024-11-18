@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Merriweather_Sans } from "next/font/google";
 import "./globals.css";
+import { UserProvider } from "../context/UserContext/page"
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,10 +38,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-      
         className={`${geistSans.variable} ${geistMono.variable} ${merriweatherSans.variable} antialiased`}
       >
+        <UserProvider>
         {children}
+        </UserProvider>
       </body>
     </html>
   );
