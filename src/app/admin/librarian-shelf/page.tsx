@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import { FaSearch, FaBell, FaBars } from 'react-icons/fa';
-import { useState, useEffect, useRef } from 'react';
+import { FaSearch } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import Header from "@/components/header/header";
 
 interface Book {
   id: number;
@@ -46,11 +46,7 @@ export default function LibrarianShelf() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([...books, ...dashboardTwos, ...dashboardThrees]);
-  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [flippedBooks, setFlippedBooks] = useState<Record<number, boolean>>({});
-  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
@@ -72,97 +68,11 @@ export default function LibrarianShelf() {
     setFilteredBooks(genreFilteredBooks);
   }, [selectedGenre]);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleClickOutside = (event: MouseEvent) => {
-    // close dropdown if clicked
-    if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)){
-      setDropdownOpen(false);
-    }
-
-    // close menu if clicked outside
-    if(menuRef.current && !menuRef.current.contains(event.target as Node)) {
-      setMenuOpen(false);
-    }
-  }
-
 
   return (
     <div className="container mx-auto p-4">
       {/* Header Section */}
-      <header className="flex justify-between items-center mb-8 sm:flex-row space-y-4 sm:space-y-0">
-        <div className="flex items-center space-x-8">
-        <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-
-         {/*full nav links for large screen */}
-          
-          <nav className="hidden sm:flex space-x-6">
-          <Link href="/homepage" className="text-blue-500 font-semibold hover:text-blue-500">
-          Library
-          </Link>
-          </nav>
-
-{/* Notification, Profile, and Hamburger Menu for mobile */}
-      <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
-    {/* Mobile hamburger menu */}
-    <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
-      <FaBars 
-        className="text-md cursor-pointer" 
-        onClick={() => setMenuOpen(!menuOpen)} 
-      />
-         {/* Conditionally render the pop-up menu with smooth transition */}
-    {menuOpen && (
-      <div 
-        ref={menuRef}
-        className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
-        style={{
-          opacity: menuOpen ? 1 : 0,
-          transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
-        }}
-      >
-        <Link href="/homepage">
-          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-            Library
-          </div>
-        </Link>
-        <Link href="/dashboard">
-          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-            My Shelf
-          </div>
-        </Link>
-      </div>
-    )}
-    </div>
-    </div>
-    </div>
-
-
-         
-        {/*Notifcation and Profile */}
-         <div className="flex items-center space-x-2 sm:space-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
-          <FaBell className="text-sm text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <Image 
-          src="/user-avatar.jpg" 
-          alt="Avatar" 
-          width={20}
-          height={10} 
-          className="w-6 h-6 border rounded-full cursor-pointer" 
-          onClick={() => setDropdownOpen(!dropdownOpen)}
-          />
-          {dropdownOpen && (
-            <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
-             <Link href='/sign-in'>
-             <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
-              Sign Out
-              </div>
-             </Link>
-            </div>
-          )}
-        </div>
-      </header>
+      <Header />
 
       {/* Search & Filter Section */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-6">

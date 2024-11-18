@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from 'next/link';
-import { FaBell, FaSearch, FaFilter, FaBars } from "react-icons/fa";
+import { FaSearch, FaFilter } from "react-icons/fa";
 import { useState, useEffect, useRef } from 'react';
+import Header from "@/components/header/header";
 
 
 
@@ -40,11 +41,7 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const filterRef = useRef<HTMLDivElement>(null);
 
    
@@ -63,105 +60,10 @@ export default function Home() {
     setFilteredBooks(combinedFilteredBooks);
   }, [searchTerm, selectedCategory]);
 
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleClickOutside = (event: MouseEvent) => {
-    // close dropdown if clicked
-    if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-      setDropdownOpen(false);
-    }
-    // close menu if clicked outside
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-      setMenuOpen(false);
-    }
-
-    // filter dropdown clicked outside
-    if(filterRef.current && !filterRef.current.contains(event.target as Node)) {
-      setFilterDropdownOpen(false);
-    }
-  }
-
   return (
     <div className="container mx-auto p-4 overflow-x-hidden">
       {/* Header */}
-      <header className="flex justify-between items-center sm:flex-row mb-8 space-y-4 sm:space-y-0">
-      <div className="flex items-center space-x-8">
-        <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-          
-          {/*full nav links for larger screen */}
-          <nav className="hidden sm:flex space-x-6">
-          <Link href="/homepage" className="text-[#0061E8] text-base font-semibold sm:text-base hover:text-blue-500">
-            Library
-          </Link>
-          <Link href="/dashboard" className="font-semibold text-base sm:text-base hover:text-blue-500">
-            My Shelf
-          </Link>
-          </nav>
-  
-
-
-    {/* Notification, Profile, and Hamburger Menu for mobile */}
-  <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
-    {/* Mobile hamburger menu */}
-    <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
-      <FaBars 
-        className="text-md cursor-pointer" 
-        onClick={() => setMenuOpen(!menuOpen)} 
-      />
-         {/* Conditionally render the pop-up menu with smooth transition */}
-    {menuOpen && (
-      <div 
-        ref={menuRef}
-        className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
-        style={{
-          opacity: menuOpen ? 1 : 0,
-          transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
-        }}
-      >
-        <Link href="/homepage">
-          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-            Library
-          </div>
-        </Link>
-        <Link href="/dashboard">
-          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-            My Shelf
-          </div>
-        </Link>
-      </div>
-    )}
-    </div>
-    </div>
-    </div>
-
-
-        {/* Notification and Profile */}
-    
-          <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
-          <FaBell className='text-sm text-gray-700 cursor-pointer hover:text-blue-500' />
-          <Image  
-            src='/user-avatar.jpg'
-            alt="Avatar"
-            width={20}
-            height={10}
-            className="w-6 h-6 border rounded-full cursor-pointer"
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-         />
-         {dropdownOpen && (
-          <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
-            <Link href="/sign-in">
-                  <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                    Sign Out
-                    </div>
-            </Link>
-          </div>
-         )}
-         </div>
-      </header>
+      <Header />
 
       {/* Find a Book */}
       <div className="mb-6 ml-6 text-black">
