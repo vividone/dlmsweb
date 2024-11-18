@@ -55,7 +55,6 @@ export default function Dashboard() {
   const [selectedBorrowStatus, setSelectedBorrowStatus] = useState<string>("All");
   const [selectedReturnDate, setSelectedReturnDate] = useState<string>("All");
   const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
-  const [data, setData] = useState([])
   
  
 
