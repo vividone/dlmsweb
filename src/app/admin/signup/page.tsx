@@ -124,7 +124,7 @@ export default function AdminSignUp() {
                         type="text"
                         value={libraryName}
                         onChange={(e) => setLibraryName(e.target.value)}
-                        placeholder="Enter Library Name"
+                        placeholder="Enter Library Name e.g., Oxford Library Center"
                         className="w-full px-4 py-3 border rounded-md"
                         required
                     />
