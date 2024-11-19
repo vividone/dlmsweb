@@ -148,7 +148,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
           </Link>
         
         {/*Book cover and Content */}
-        <div className='flex flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14'>
+        <div className='flex flex-col items-center sm:flex-row sm:items-start sm:space-x-6 mt-14'>
         <Image 
         src={book.cover} 
         alt={book.title} 
