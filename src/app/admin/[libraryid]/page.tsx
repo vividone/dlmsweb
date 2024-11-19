@@ -93,7 +93,7 @@ export default function DetailsPage() {
 
         {/* full nav links for larger screen */}
           <nav className="hidden sm:flex space-x-6">
-          <Link href="/homepage" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          <Link href="/account/home" className="text-blue-500 text-base font-semibold hover:text-blue-500">
           Library
           </Link>
           </nav>
@@ -116,12 +116,12 @@ export default function DetailsPage() {
           transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
         }}
       >
-        <Link href="/homepage">
+        <Link href="/account/home">
           <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
             Library
           </div>
         </Link>
-        <Link href="/dashboard">
+        <Link href="/account">
           <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
             My Shelf
           </div>
@@ -147,7 +147,7 @@ export default function DetailsPage() {
           
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
-              <Link href='/sign-in'>
+              <Link href='/'>
                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
                 Sign Out
                 </div>

@@ -51,7 +51,7 @@ export default function SignIn() {
       if (response.ok) {
         const data = await response.json();
         
-        router.push("/account");
+        router.push("/account/home");
         setSuccess("Login successful!");
         setUser(data.data);
         setCookie("access_token", data.access_token);
@@ -168,14 +168,14 @@ export default function SignIn() {
         <span>
           Don't have an account?{" "}
           <Link href="/signup" className="text-[#0661E8] hover:text-blue-700">
-            Register as individual
+            Register Individual 
           </Link>
           <span> or </span>
           <Link
             href="/admin/login"
             className="text-[#0661E8] hover:text-blue-700"
           >
-            Admin Login
+            Admin 
           </Link>
         </span>
       </div>
