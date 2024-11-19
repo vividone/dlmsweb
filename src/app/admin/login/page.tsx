@@ -50,7 +50,7 @@ export default function SignIn() {
 
       if (response.ok) {
         const data = await response.json();
-        router.push("/admin");
+        router.push("/admin/[libraryid]");
         setSuccess("Login successful!");
         setUser(data.data);
         setCookie("access_token", data.access_token);

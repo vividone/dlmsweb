@@ -173,7 +173,7 @@ export default function SignUp() {
             <div className="mt-6 text-sm text-center text-black">
                 <span>
                     Already have an account?{" "}
-                    <Link href="/sign-in" className="text-[#0661E8] hover:text-blue-700">
+                    <Link href="/" className="text-[#0661E8] hover:text-blue-700">
                         Login
                     </Link>
                 </span>
