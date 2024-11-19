@@ -60,8 +60,16 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
     return <p>Book not found.</p>;
   }
 
+  
+  const handleBorrowClick = () => {
+    router.push(`/borrow-page/${book.id}`);
+  };
 
-   {/* Header Section */}
+
+  return (
+    <div className="container mx-auto p-4">
+      {/* Header section */}
+    {/* Header Section */}
    <header className="flex justify-between items-center sm:flex-row mb-8 space-y-4 sm:space-y-0">
    <div className="flex items-center space-x-8">
    <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
@@ -130,19 +138,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
        </div>
      )}
    </div>
- </header>
-
-  
-  const handleBorrowClick = () => {
-    router.push(`/borrow-page/${book.id}`);
-  };
-
-
-  return (
-    <div className="container mx-auto p-4">
-      {/* Header section */}
-
-    
+ </header>    
 
       {/* Book Details */}
       <div className="relative flex text-black flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14">
