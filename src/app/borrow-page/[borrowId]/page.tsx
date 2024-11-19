@@ -6,6 +6,8 @@ import { useState, useRef, use, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
+import { useCookies } from "@/helpers/useCookies";
+
 
 // Sample book data
 const books = [
@@ -34,7 +36,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
-
+    const { getCookies } = useCookies();
 
    
     const handleSubmit = async (e: React.FormEvent) => {
@@ -49,14 +51,11 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
         const userId =
         {
             "userId": 1,
-            "bookId": "2",
+            "bookId": "1",
             "borrowDate": "2024-11-19T00:00:00.000Z",
             "dueDate": "2024-11-26T00:00:00.000Z"
           }
-          
-    
-        const token = "your-auth-token";
-        
+              
         const payload = {
             userId: userId,
             bookId: borrow?.id.toString(),
@@ -69,7 +68,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
-                     'Authorization': `Bearer ${token}`,
+                     'Authorization': `Bearer ${getCookies().access_token}`,
                 },
                 body: JSON.stringify({ payload, borrowDate: collectionDate, dueDate: returnDate, bookId: borrow?.id.toString()}),
             });

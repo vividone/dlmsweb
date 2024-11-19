@@ -58,26 +58,24 @@ export default function Dashboard() {
   const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
   const { getCookies } = useCookies()
   
-
+// Fetch books from API
   useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        await axios.get("https://dlms-backend.onrender.com/books", {
-          headers: {
-            "Authorization": `Bearer ${getCookies().access_token}`
-          }
-        })
-        .then( response => {
-          setData(response.data)
-        })
-      } catch (error) {
-        console.error("Error fetching due date notifications:", error);
-      }
-    };
-
-    fetchBooks();
-  }, []);
-
+      const fetchBooks = async () => {
+        try {
+          const response = await axios.get("https://dlms-backend.onrender.com/books", {
+            headers: {
+              Authorization: `Bearer ${getCookies().access_token}`,
+            },
+          });
+          setData(response.data);
+          setFilteredBooks(response.data); // Initially show all books
+        } catch (error) {
+          console.error("Error fetching books:", error);
+        }
+      };
+  
+      fetchBooks();
+    }, [getCookies]);
 
   useEffect(() => {
     const allBooks = data;
