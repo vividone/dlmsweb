@@ -8,7 +8,7 @@ export default function AdminSignUp() {
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [libraryName, setLibraryName] = useState<string>("");
-    const [role, setRole] = useState<string>("individual");
+    const [role, setRole] = useState<string>("librarian");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
