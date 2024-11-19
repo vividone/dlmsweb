@@ -52,6 +52,7 @@ export default function DetailsPage() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
     const searchFilteredBooks = allBooks.filter((book) =>
