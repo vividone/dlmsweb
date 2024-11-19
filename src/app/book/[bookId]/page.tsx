@@ -62,7 +62,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
 
   
   const handleBorrowClick = () => {
-    router.push(`/borrow-page/${book.id}`);
+    router.push(`/borrow/${book.id}`);
   };
 
 
@@ -165,12 +165,12 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
           </div>
       </div>
       {/* Borrow Button */}
-      <div className="flex justify-center p-4 md:relative bottom-8 items-center">
+      <div className="flex justify-center p-4 md:relative bottom-8">
     
         <button 
           type='submit'
           onClick={handleBorrowClick}
-          className="bg-blue-600 w-72 text-white rounded-md items-center p-2 hover:bg-blue-700"
+          className="bg-blue-600 w-72 text-white rounded-md p-2 hover:bg-blue-700"
         >
           Borrow This Book 
         </button>
