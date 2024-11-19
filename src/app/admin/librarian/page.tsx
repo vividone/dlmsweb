@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import { FaSearch, FaBell, FaEdit, FaTrash, FaBars } from 'react-icons/fa';
+import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
-import BookId from "@/app/book/[bookId]/page";
+import axios from "axios";
+import { useCookies } from "@/helpers/useCookies";
+import Header from "@/components/header/header";
 
 interface Book {
   id: number;
@@ -21,11 +21,7 @@ export default function LibrarianPage() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
-  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [categories, setCategories] = useState([])
-  const menuRef = useRef<HTMLDivElement>(null);
   const { getCookies } = useCookies()
 
   // States for create/edit modal
@@ -53,20 +49,6 @@ export default function LibrarianPage() {
         : searchFilteredBooks.filter((book) => "bookCategory" === selectedCategory)
     );
   }, [searchTerm, selectedCategory, books]);
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-      setDropdownOpen(false);
-    }
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-      setMenuOpen(false);
-    }
-  };
 
     // Fetch Books from API
     useEffect(() => {
@@ -99,14 +81,13 @@ export default function LibrarianPage() {
   const addBook = async () => {
     try {
       await axios.post("https://dlms-backend.onrender.com/books/new", 
-        { title: newBook.title, isbn: new Date(), bookCategory: newBook.bookCategory, author: newBook.author, description: newBook.description},
+        { title: newBook.title, isbn: new Date(), bookCategory: newBook.bookCategory, author: newBook.author, description: newBook.description },
         {
           headers: {
           "Authorization": `Bearer ${getCookies().access_token}`
         }}
       );
       setModalOpen(false);
-      setNewBook({ id: 0, title: "", author: "", isbn: "", bookCategory: 0, cover: "", description: "" });
     } catch (error) {
       console.error("Failed to add book:", error);
     }
@@ -197,69 +178,7 @@ export default function LibrarianPage() {
   return (
     <div className="container mx-auto p-4">
       {/* Header Section */}
-      <header className="flex justify-between items-center mb-8 sm:flex-row space-y-4 sm:space-y-0">
-        <div className="flex items-center space-x-8">
-          <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-
-          <nav className="hidden sm:flex space-x-6">
-            <Link href="/account/home" className="text-blue-500 font-semibold hover:text-blue-500">
-              Library
-            </Link>
-          </nav>
-
-        {/* Notification, Profile, and Hamburger Menu for mobile */}
-  <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
-    {/* Mobile hamburger menu */}
-    <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
-      <FaBars 
-        className="text-md cursor-pointer" 
-        onClick={() => setMenuOpen(!menuOpen)} 
-      />
-         {/* Conditionally render the pop-up menu with smooth transition */}
-    {menuOpen && (
-      <div 
-        ref={menuRef}
-        className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
-        style={{
-          opacity: menuOpen ? 1 : 0,
-          transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
-        }}
-      >
-        <Link href="/homepage">
-          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-            Library
-          </div>
-        </Link>
-        <Link href="/account">
-          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-            My Shelf
-          </div>
-        </Link>
-      </div>
-    )}
-    </div>
-    </div>
-    </div>
-    
-        <div className="flex items-center space-x-2 sm:space-x-2 absolute top-2 pr-6 right-0 sm:absolute top-2">
-          <FaBell className="text-sm text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <Image
-            src="/user-avatar.jpg"
-            alt="Avatar"
-            width={20}
-            height={10}
-            className="w-6 h-6 border rounded-full cursor-pointer"
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-          />
-          {dropdownOpen && (
-            <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
-              <Link href="/sign-in">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
-              </Link>
-            </div>
-          )}
-        </div>
-      </header>
+      <Header />
 
       {/* Search & Filter Section */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-6">
@@ -353,25 +272,16 @@ export default function LibrarianPage() {
               onChange={(e) => setNewBook({ ...newBook, isbn: e.target.value })}
               className="w-full mb-4 p-2 border rounded-md"
             />
-            <input
-              type="text"
-              placeholder="author"
-              value={newBook.author}
-              onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
-              className="w-full mb-4 p-2 border rounded-md"
-            />
-            <select
-              value={newBook.bookCategory}
-              onChange={(e) => setNewBook({ ...newBook, bookCategory: parseInt(e.target.value) })}
-              className="w-full mb-4 p-2 border rounded-md"
-            />
-            <input
-              type="text"
-              placeholder="Cover URL"
-              value={newBook.cover}
-              onChange={(e) => setNewBook({ ...newBook, cover: e.target.value })}
-              className="w-full mb-4 p-2 border rounded-md"
-            />
+              <select
+            value={selectedCategory}
+            onChange={(e) => setNewBook({ ...newBook, bookCategory: parseInt(e.target.value)})}
+            className="p-2 text-sm border rounded-md cursor-pointer"
+            >
+              <option value={0}>Genre</option>
+              <option value={1}>Sci-fi</option>
+              <option value={2}>Fantasy</option>
+              <option value={3}>Romance</option>
+            </select>
             <textarea
               placeholder="Description"
               value={newBook.description}
