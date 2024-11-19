@@ -167,14 +167,14 @@ export default function SignIn() {
         <span>
           Don't have an account?{" "}
           <Link href="/signup" className="text-[#0661E8] hover:text-blue-700">
-            Register as individual
+            Register Individual 
           </Link>
           <span> or </span>
           <Link
             href="/signupadmin"
             className="text-[#0661E8] hover:text-blue-700"
           >
-            Register as admin
+            Admin 
           </Link>
         </span>
       </div>

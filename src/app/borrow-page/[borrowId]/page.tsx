@@ -6,7 +6,7 @@ import { useState, useEffect, useRef, use } from "react";
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
-import { useUser } from "../../../context/UserContext/page"
+
 
 // Sample book data
 const books = [
@@ -27,7 +27,6 @@ const books = [
 export default function BorrowId({ params }: { params: Promise<{borrowId: string}> }) {
     const router = useRouter();
     const { borrowId } = use(params);
-    const { user } = useUser(); // Access the user context
     const borrow = books.find((b) => b.id === parseInt(borrowId, 10));
     const [collectionDate, setCollectionDate] = useState<string>('');
     const [returnDate, setReturnDate] = useState<string>('');
@@ -58,16 +57,6 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        if (!user) {
-          setError('User is not authenticated');
-          return;
-        }
-
-
-        const useUser = user.id; 
-        const collectionDate = new Date(); 
-        const returnDate = new Date(); 
 
         const response = await fetch(`https://dlms-backend.onrender.com/borrow/{userId}`, {
             method: 'POST',

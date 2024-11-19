@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Merriweather_Sans } from "next/font/google";
 import "./globals.css";
-import { UserProvider } from "../context/UserContext/page"
 
 
 const geistSans = localFont({
@@ -40,9 +39,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${merriweatherSans.variable} antialiased`}
       >
-        <UserProvider>
         {children}
-        </UserProvider>
       </body>
     </html>
   );
