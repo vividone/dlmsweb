@@ -53,7 +53,7 @@ export default function SignUp() {
         }
 
         try {
-            const response = await fetch(`https://dlms-backend.onrender.com/auth/user/register`, {
+            const response = await fetch(`https://dlms-backend.onrender.com/auth/${role}/register`, {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({ fullname, email, password, homeAddress, role }),
@@ -64,7 +64,7 @@ export default function SignUp() {
                 setFullname("");
                 setEmail("");
                 setHomeAddress("");
-                setRole("");
+                setRole("individual");
                 setPassword("");
                 setTimeout(() => setSuccess(null), 3000);
             } else {
@@ -149,7 +149,7 @@ export default function SignUp() {
                         className="w-full px-4 py-3 border rounded-md"
                         required
                     />
-                    <div className="absolute inset-y-0 top-4 right-4 flex items-center cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+                    <div className="absolute inset-y-0 right-4 flex items-center cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
                         {showPassword ? <FaEyeSlash size={20} className="text-gray-600" /> : <FaEye size={20} className="text-gray-600" />}
                     </div>
                 </div>
@@ -173,7 +173,7 @@ export default function SignUp() {
             <div className="mt-6 text-sm text-center text-black">
                 <span>
                     Already have an account?{" "}
-                    <Link href="/" className="text-[#0661E8] hover:text-blue-700">
+                    <Link href="/sign-in" className="text-[#0661E8] hover:text-blue-700">
                         Login
                     </Link>
                 </span>
