@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Merriweather_Sans } from "next/font/google";
 import "./globals.css";
-
+import { BooksProvider } from "@/context/bookProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,8 +15,6 @@ const merriweatherSans = Merriweather_Sans({
   weight: ["300", "400", "700"], // Choose weights as needed
   variable: "--font-merriweather-sans", // CSS variable for Tailwind
 });
-
-
 
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
@@ -39,9 +37,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${merriweatherSans.variable} antialiased`}
       >
-        {children}
+        <BooksProvider>{children}</BooksProvider>
       </body>
     </html>
   );
 }
-

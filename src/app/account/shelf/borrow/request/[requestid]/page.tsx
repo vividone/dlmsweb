@@ -139,18 +139,16 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
           transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
         }}
       >
-               <Link href="/account/library" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-     Library
-     </Link>
-     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-     Borrowed
-     </Link>
-     <Link href="/account/shelf/returned" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-     Returned
-     </Link>
-     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-     Overdue
-     </Link>
+        <Link href="/account/home">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            Library
+          </div>
+        </Link>
+        <Link href="/account">
+          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            My Shelf
+          </div>
+        </Link>
       </div>
     )}
     </div>
@@ -172,18 +170,11 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
           
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
-                      <Link href="/account/library" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-     Library
-     </Link>
-     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-     Borrowed
-     </Link>
-     <Link href="/account/shelf/returned" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-     Returned
-     </Link>
-     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-     Overdue
-     </Link>
+              <Link href='/'>
+               <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                Sign Out
+                </div>
+              </Link>
             </div>
           )}
         </div>
