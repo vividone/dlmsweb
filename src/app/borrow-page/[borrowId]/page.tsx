@@ -188,7 +188,7 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                 </Link>
             </div>
            
-           <div className="flex flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14">
+           <div className="flex flex-col items-center sm:flex-row sm:items-start sm:space-x-6 mt-14">
             {/* Borrow Section */}
             <Image 
             src={borrow.cover} 
