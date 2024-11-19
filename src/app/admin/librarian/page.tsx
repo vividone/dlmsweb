@@ -4,13 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaSearch, FaBell, FaBars, FaEdit, FaTrash } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
+import BookId from "@/app/book/[bookId]/page";
 
 interface Book {
   id: number;
   title: string;
   author: string;
   isbn: string;
-  bookCategory: string;
+  bookCategory: number;
   cover: string;
   description: string;
 }
@@ -34,7 +35,7 @@ export default function LibrarianPage() {
     title: '',
     author: '',
     isbn: '',
-    bookCategory: '',
+    bookCategory: 0,
     cover: '',
     description: '',
   });
@@ -47,7 +48,7 @@ export default function LibrarianPage() {
     setFilteredBooks(
       selectedCategory === "All"
         ? searchFilteredBooks
-        : searchFilteredBooks.filter((book) => book.bookCategory === selectedCategory)
+        : searchFilteredBooks.filter((book) => "bookCategory" === selectedCategory)
     );
   }, [searchTerm, selectedCategory, books]);
 
@@ -79,6 +80,20 @@ export default function LibrarianPage() {
       fetchBooks();
     }, []);
 
+   // Fetch Single Book by ID
+   const fetchBookById = async (bookId: number) => {
+    try {
+      const response = await fetch(`https://dlms-backend.onrender.com/books/${bookId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch book details.");
+      }
+      const book: Book = await response.json();
+      return book;
+    } catch (error) {
+      console.error("Error fetching book by ID:", error);
+      return null;
+    }
+  };
   const addBook = async () => {
     try {
       const response = await fetch("https://dlms-backend.onrender.com/books", {
@@ -89,7 +104,7 @@ export default function LibrarianPage() {
       const createdBook: Book = await response.json();
       setBooks((prevBooks) => [...prevBooks, createdBook]);
       setModalOpen(false);
-      setNewBook({ id: 0, title: "", author: "", isbn: "", bookCategory: "", cover: "", description: "" });
+      setNewBook({ id: 0, title: "", author: "", isbn: "", bookCategory: 0, cover: "", description: "" });
     } catch (error) {
       console.error("Failed to add book:", error);
     }
@@ -109,7 +124,7 @@ export default function LibrarianPage() {
       );
       setModalOpen(false);
       setEditingBook(null);
-      setNewBook({ id: 0, title: "", author: "", isbn: "", bookCategory: "", cover: "", description: "" });
+      setNewBook({ id: 0, title: "", author: "", isbn: "", bookCategory: 0, cover: "", description: "" });
       setIsEditing(false);
     } catch (error) {
       console.error("Failed to update book:", error);
@@ -146,16 +161,19 @@ export default function LibrarianPage() {
       ]);
     }
     setModalOpen(false);
-    setNewBook({ id: 0, title: "", author: "", isbn: "", bookCategory: "", cover: "", description: "" });
+    setNewBook({ id: 0, title: "", author: "", isbn: "", bookCategory: 0, cover: "", description: "" });
     setIsEditing(false);
   };
 
   // Edit Book
-  const handleEditBook = (book: Book) => {
-    setEditingBook(book);
-    setNewBook(book);
-    setIsEditing(true);
-    setModalOpen(true);
+  const handleEditBook = async (bookId: number) => {
+    const bookDetails = await fetchBookById(bookId);
+    if (bookDetails) {
+      setEditingBook(bookDetails);
+      setNewBook(bookDetails);
+      setIsEditing(true);
+      setModalOpen(true);
+    }
   };
 
   // Delete Book
@@ -171,7 +189,7 @@ export default function LibrarianPage() {
           <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
 
           <nav className="hidden sm:flex space-x-6">
-            <Link href="/homepage" className="text-blue-500 font-semibold hover:text-blue-500">
+            <Link href="/account/home" className="text-blue-500 font-semibold hover:text-blue-500">
               Library
             </Link>
           </nav>
@@ -222,7 +240,7 @@ export default function LibrarianPage() {
           />
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
-              <Link href="/">
+              <Link href="/sign-in">
                 <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
               </Link>
             </div>
@@ -277,7 +295,7 @@ export default function LibrarianPage() {
             <div className="absolute top-2 right-2 flex space-x-2">
               <FaEdit
                 className="text-blue-500 cursor-pointer"
-                onClick={() => handleEditBook(book)}
+                onClick={() => handleEditBook(book.id)}
               />
               <FaTrash
                 className="text-red-500 cursor-pointer"
@@ -326,7 +344,7 @@ export default function LibrarianPage() {
               type="text"
               placeholder="Book Category"
               value={newBook.bookCategory}
-              onChange={(e) => setNewBook({ ...newBook, bookCategory: e.target.value })}
+              onChange={(e) => setNewBook({ ...newBook, bookCategory: parseInt(e.target.value) })}
               className="w-full mb-4 p-2 border rounded-md"
             />
             <input

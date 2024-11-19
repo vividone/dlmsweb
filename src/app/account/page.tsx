@@ -49,7 +49,7 @@ export default function Dashboard() {
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
   const [data, setData] = useState([])
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
-  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -78,7 +78,6 @@ export default function Dashboard() {
     fetchBooks();
   }, []);
 
-  
 
 
 
