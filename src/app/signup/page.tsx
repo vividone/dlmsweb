@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function SignUp() {
-    const [fullname, setFullname] = useState<string>("");
+    const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [homeAddress, setHomeAddress] = useState<string>("");
     const [role, setRole] = useState<string>("individual");
@@ -14,6 +14,7 @@ export default function SignUp() {
     const [success, setSuccess] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
+     
     // Password validation state
     const [isUppercase, setIsUppercase] = useState<boolean>(false);
     const [isLowercase, setIsLowercase] = useState<boolean>(false);
@@ -39,7 +40,7 @@ export default function SignUp() {
         setError(null);
         setSuccess(null);
 
-        if (!fullname || !email || !homeAddress || !role || !password) {
+        if (!name || !email || !homeAddress || !role || !password) {
             setError("All fields are required.");
             return;
         }
@@ -53,27 +54,26 @@ export default function SignUp() {
         }
 
         try {
-            const response = await fetch(`https://dlms-backend.onrender.com/auth/${role}/register`, {
+            const response = await fetch("https://dlms-backend.onrender.com/auth/user/register", {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
-                body: JSON.stringify({ fullname, email, password, homeAddress, role }),
+                body: JSON.stringify({ 
+                    name, 
+                    email, 
+                    password, 
+                    homeAddress, 
+                    role }),
             });
 
             if (response.ok) {
-                setSuccess("Signup successful! Please log in.");
-                setFullname("");
-                setEmail("");
-                setHomeAddress("");
-                setRole("individual");
-                setPassword("");
-                setTimeout(() => setSuccess(null), 3000);
-            } else {
-                const errorData = await response.json();
-                setError(errorData.message || "Signup failed. Please try again.");
-            }
-        } catch {
-            setError("An error occurred. Please try again later.");
-        }
+            setSuccess("Registration successful! Please log in");
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || "Registration failed. Please try again.");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again later.");
+    }
     };
 
     return (
@@ -91,8 +91,8 @@ export default function SignUp() {
                     <label className="block text-sm font-semibold">Full Name</label>
                     <input
                         type="text"
-                        value={fullname}
-                        onChange={(e) => setFullname(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         placeholder="Input your full name"
                         className="w-full px-4 py-3 border rounded-md"
                         required
@@ -164,7 +164,7 @@ export default function SignUp() {
                 <button
                     type="submit"
                     className={`w-full py-3 ${isPasswordValid ? "bg-[#0661E8]" : "bg-blue-700 opacity-50"} text-white rounded-md`}
-                    disabled={!fullname || !email || !homeAddress || !role || !isPasswordValid}
+                    disabled={!name || !email || !homeAddress || !role || !isPasswordValid}
                 >
                     Submit
                 </button>

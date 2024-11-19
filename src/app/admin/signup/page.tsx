@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-export default function SignUp() {
-    const [fullname, setFullname] = useState<string>("");
+export default function AdminSignUp() {
+    const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
-    const [homeAddress, setHomeAddress] = useState<string>("");
+    const [libraryName, setLibraryName] = useState<string>("");
     const [role, setRole] = useState<string>("individual");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
@@ -39,7 +39,7 @@ export default function SignUp() {
         setError(null);
         setSuccess(null);
 
-        if (!fullname || !email || !homeAddress || !role || !password) {
+        if (!name || !email || !libraryName || !role || !password) {
             setError("All fields are required.");
             return;
         }
@@ -53,17 +53,22 @@ export default function SignUp() {
         }
 
         try {
-            const response = await fetch(`https://dlms-backend.onrender.com/auth/user/register`, {
+            const response = await fetch("https://dlms-backend.onrender.com/auth/librarian/register", {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
-                body: JSON.stringify({ fullname, email, password, homeAddress, role }),
+                body: JSON.stringify({
+                    name, 
+                    email, 
+                    password, 
+                    libraryName, 
+                    role }),
             });
 
             if (response.ok) {
-                setSuccess("Signup successful! Please log in.");
-                setFullname("");
+                setSuccess("Registration successful! Please log in.");
+                setName("");
                 setEmail("");
-                setHomeAddress("");
+                setLibraryName("");
                 setRole("");
                 setPassword("");
                 setTimeout(() => setSuccess(null), 3000);
@@ -91,8 +96,8 @@ export default function SignUp() {
                     <label className="block text-sm font-semibold">Full Name</label>
                     <input
                         type="text"
-                        value={fullname}
-                        onChange={(e) => setFullname(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         placeholder="Input your full name"
                         className="w-full px-4 py-3 border rounded-md"
                         required
@@ -112,14 +117,14 @@ export default function SignUp() {
                     />
                 </div>
 
-                {/* Home Address */}
+                {/* Library Name */}
                 <div className="space-y-1 text-black">
-                    <label className="block text-sm font-semibold">Home Address</label>
+                    <label className="block text-sm font-semibold">Library Name</label>
                     <input
                         type="text"
-                        value={homeAddress}
-                        onChange={(e) => setHomeAddress(e.target.value)}
-                        placeholder="Enter your home address"
+                        value={libraryName}
+                        onChange={(e) => setLibraryName(e.target.value)}
+                        placeholder="Enter Library Name"
                         className="w-full px-4 py-3 border rounded-md"
                         required
                     />
@@ -134,7 +139,7 @@ export default function SignUp() {
                         className="w-full px-4 py-3 border rounded-md"
                         required
                     >
-                        <option value="user">Individual</option>
+                        <option value="user">Librarian</option>
                     </select>
                 </div>
 
@@ -164,7 +169,7 @@ export default function SignUp() {
                 <button
                     type="submit"
                     className={`w-full py-3 ${isPasswordValid ? "bg-[#0661E8]" : "bg-blue-700 opacity-50"} text-white rounded-md`}
-                    disabled={!fullname || !email || !homeAddress || !role || !isPasswordValid}
+                    disabled={!name || !email || !libraryName || !role || !isPasswordValid}
                 >
                     Submit
                 </button>
