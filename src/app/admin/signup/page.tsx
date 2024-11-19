@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import router from "next/router";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -66,6 +67,7 @@ export default function AdminSignUp() {
 
             if (response.ok) {
                 setSuccess("Registration successful! Please log in.");
+                router.push("/admin/login");
                 setName("");
                 setEmail("");
                 setLibraryName("");

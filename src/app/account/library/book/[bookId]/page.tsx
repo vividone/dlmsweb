@@ -62,7 +62,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
 
   
   const handleBorrowClick = () => {
-    router.push(`/borrow/${book.id}`);
+    router.push(`/account/shelf/borrow/request/${book.id}`);
   };
 
 
@@ -76,8 +76,17 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
 
    {/* full nav links for larger screen */}
      <nav className="hidden sm:flex space-x-6">
-     <Link href="/account/home" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     <Link href="/account/library" className="text-blue-500 text-base font-semibold hover:text-blue-500">
      Library
+     </Link>
+     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Borrowed
+     </Link>
+     <Link href="/account/shelf/returned" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Returned
+     </Link>
+     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Overdue
      </Link>
      </nav>
 
@@ -99,16 +108,18 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
      transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
    }}
  >
-   <Link href="/account/home">
-     <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-       Library
-     </div>
-   </Link>
-   <Link href="/account">
-     <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-       My Shelf
-     </div>
-   </Link>
+ <Link href="/account/library" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Library
+     </Link>
+     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Borrowed
+     </Link>
+     <Link href="/account/shelf/returned" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Returned
+     </Link>
+     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Overdue
+     </Link>
  </div>
 )}
 </div>
@@ -143,7 +154,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
       {/* Book Details */}
       <div className="relative flex text-black flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14">
          {/*Arrow left */}  
-          <Link href={'/account/home'}>
+          <Link href={'/account/library'}>
             <FaArrowLeft className="absolute top-0 left-0 ml-2 mt-2 text-md cursor-pointer hover:text-blue-500" />
           </Link>
         
@@ -165,7 +176,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
           </div>
       </div>
       {/* Borrow Button */}
-      <div className="flex justify-center p-4 md:relative bottom-8">
+      <div className="flex justify-left p-4 md:relative bottom-8">
     
         <button 
           type='submit'

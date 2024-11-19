@@ -63,16 +63,18 @@ export default function BorrowingConfirmation(){
           transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
         }}
       >
-        <Link href="/account/home">
-          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-            Library
-          </div>
-        </Link>
-        <Link href="/account">
-          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-            My Shelf
-          </div>
-        </Link>
+              <Link href="/account/library" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Library
+     </Link>
+     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Borrowed
+     </Link>
+     <Link href="/account/shelf/returned" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Returned
+     </Link>
+     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Overdue
+     </Link>
       </div>
     )}
     </div>

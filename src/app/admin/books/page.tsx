@@ -93,8 +93,17 @@ export default function DetailsPage() {
 
         {/* full nav links for larger screen */}
           <nav className="hidden sm:flex space-x-6">
-          <Link href="/account/home" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          <Link href="/admin/books" className="text-blue-500 text-base font-semibold hover:text-blue-500">
           Library
+          </Link>
+          <Link href="/admin/books/manage" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Manage Books
+          </Link>
+          <Link href="/admin/borrow/requests" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Borrows
+          </Link>
+          <Link href="/admin/borrow/requests" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Requests
           </Link>
           </nav>
 
@@ -116,16 +125,18 @@ export default function DetailsPage() {
           transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
         }}
       >
-        <Link href="/account/home">
-          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-            Library
-          </div>
-        </Link>
-        <Link href="/account">
-          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-            My Shelf
-          </div>
-        </Link>
+         <Link href="/admin/books" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Library
+          </Link>
+          <Link href="/admin/books/manage" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Manage Books
+          </Link>
+          <Link href="/admin/borrow/requests" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Borrows
+          </Link>
+          <Link href="/admin/borrow/requests" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Requests
+          </Link>
       </div>
     )}
     </div>
@@ -188,15 +199,7 @@ export default function DetailsPage() {
             <option value="Education">Education</option>
             <option value="Geography">Geography</option>
           </select>
-          <select className="p-2 text-sm border rounded-md cursor-pointer">
-            <option value="All">Borrowal Status</option>
-          </select>
-          <select className="p-2 text-sm border rounded-md cursor-pointer">
-            <option value="All">Return Date</option>
-          </select>
-          <select className="p-2 text-sm border rounded-md cursor-pointer">
-            <option value="All">Date Borrowed</option>
-          </select>
+          
         </div>
       </div>
 

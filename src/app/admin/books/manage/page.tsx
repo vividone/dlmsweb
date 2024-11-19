@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaSearch, FaBell, FaBars, FaEdit, FaTrash } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
-import BookId from "@/app/book/[bookId]/page";
+import BookId from "@/app/account/library/book/[bookId]/page";
 
 interface Book {
   id: number;
@@ -16,8 +16,13 @@ interface Book {
   description: string;
 }
 
+interface Category {
+  name: string;
+}
+
 export default function LibrarianPage() {
   const [books, setBooks] = useState<Book[]>([]); // Books list
+  const [categories, setCategories] = useState<Category[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
@@ -38,6 +43,10 @@ export default function LibrarianPage() {
     bookCategory: 0,
     cover: '',
     description: '',
+  });
+
+  const [newCategory, setNewCategory] = useState<Category>({
+    name: ''
   });
 
   // Filter books based on search and genre
@@ -79,6 +88,20 @@ export default function LibrarianPage() {
       };
       fetchBooks();
     }, []);
+
+        // Fetch Categories from API
+        useEffect(() => {
+          const fetchCategories = async () => {
+            try {
+              const response = await fetch("https://dlms-backend.onrender.com/categories");
+              const data: Category[] = await response.json();
+              setCategories(data.filter((categories) => category.name));
+            } catch (error) {
+              console.error("Error fetching books:", error);
+            }
+          };
+          fetchCategories();
+        }, []);
 
    // Fetch Single Book by ID
    const fetchBookById = async (bookId: number) => {
@@ -189,9 +212,18 @@ export default function LibrarianPage() {
           <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
 
           <nav className="hidden sm:flex space-x-6">
-            <Link href="/account/home" className="text-blue-500 font-semibold hover:text-blue-500">
-              Library
-            </Link>
+          <Link href="/admin/books" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Library
+          </Link>
+          <Link href="/admin/books/manage" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Manage Books
+          </Link>
+          <Link href="/admin/borrow" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Borrowed
+          </Link>
+          <Link href="/admin/borrow/requests" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Requests
+          </Link>
           </nav>
 
         {/* Notification, Profile, and Hamburger Menu for mobile */}
@@ -212,16 +244,18 @@ export default function LibrarianPage() {
           transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
         }}
       >
-        <Link href="/homepage">
-          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-            Library
-          </div>
-        </Link>
-        <Link href="/account">
-          <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-            My Shelf
-          </div>
-        </Link>
+         <Link href="/admin/books" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Library
+          </Link>
+          <Link href="/admin/books/manage" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Manage Books
+          </Link>
+          <Link href="/admin/borrow/requests" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Borrows
+          </Link>
+          <Link href="/admin/borrow/requests" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+          Requests
+          </Link>
       </div>
     )}
     </div>
@@ -240,7 +274,7 @@ export default function LibrarianPage() {
           />
           {dropdownOpen && (
             <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
-              <Link href="/sign-in">
+              <Link href="/admin/login">
                 <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Sign Out</div>
               </Link>
             </div>
@@ -268,7 +302,7 @@ export default function LibrarianPage() {
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="p-2 text-sm border rounded-md cursor-pointer"
           >
-            <option value="All">Genre</option>
+            <option value="All">All Categories</option>
             <option value="Sci-fi">Sci-fi</option>
             <option value="Fantasy">Fantasy</option>
             <option value="Romance">Romance</option>
@@ -307,6 +341,13 @@ export default function LibrarianPage() {
       </div>
 
       {/* Add Book Button */}
+      <button
+        className="mt-8 px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600"
+        onClick={() => setModalOpen(true)}
+      >
+        Create Category
+      </button>
+
       <button
         className="mt-8 px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600"
         onClick={() => setModalOpen(true)}
