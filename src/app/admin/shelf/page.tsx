@@ -72,7 +72,7 @@ export default function LibrarianShelf() {
   return (
     <div className="container mx-auto p-4">
       {/* Header Section */}
-      <Header />
+      
 
       {/* Search & Filter Section */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-6">
