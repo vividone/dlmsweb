@@ -2,7 +2,7 @@
 "use client";
 
 import { FaArrowLeft, FaBars, FaBell } from "react-icons/fa";
-import { useState, useRef, use } from "react";
+import { useState, useRef, use, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
@@ -87,6 +87,22 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
         }
     };
     
+    useEffect(() => {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside)
+    }, []);
+  
+    const handleClickOutside = (event: MouseEvent) => {
+      // close dropdown if clicked
+      if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)){
+         setDropdownOpen(false);
+      }
+      // close menu if clicked outside
+      if(menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+  
 
 
     if (!borrow) {

@@ -49,7 +49,7 @@ export default function Dashboard() {
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
   const [data, setData] = useState([])
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
-   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -77,8 +77,6 @@ export default function Dashboard() {
 
     fetchBooks();
   }, []);
-
-
 
 
   useEffect(() => {
@@ -119,6 +117,22 @@ export default function Dashboard() {
       : allBooks.filter((book: any )=> book.genre === selectedGenre);
     setFilteredBooks(genreFilteredBooks);
   }, [selectedGenre, data]);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, []);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    // close dropdown if clicked
+    if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)){
+       setDropdownOpen(false);
+    }
+    // close menu if clicked outside
+    if(menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setMenuOpen(false);
+    }
+  }
 
   return (
     <div className="container mx-auto p-4">

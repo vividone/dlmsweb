@@ -61,6 +61,23 @@ export default function Home() {
     setFilteredBooks(combinedFilteredBooks);
   }, [searchTerm, selectedCategory]);
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, []);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    // close dropdown if clicked
+    if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)){
+       setDropdownOpen(false);
+    }
+    // close menu if clicked outside
+    if(menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setMenuOpen(false);
+    }
+  }
+
+
   return (
     <div className="container mx-auto p-4 overflow-x-hidden">
       {/* Header */}
