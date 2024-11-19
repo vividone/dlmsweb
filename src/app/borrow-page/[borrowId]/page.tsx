@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useLocalStorage } from "@/helpers/useLocalStorage";
 import { useCookies } from "@/helpers/useCookies";
 import Header from "@/components/header/header";
+import { useUser } from "../../../context/UserContext/page"
 
 // Sample book data
 const books = [
@@ -29,6 +30,7 @@ const books = [
 export default function BorrowId({ params }: { params: Promise<{borrowId: string}> }) {
     const router = useRouter();
     const { borrowId } = use(params);
+    // const { user } = useUser(); // Access the user context
     const borrow = books.find((b) => b.id === parseInt(borrowId, 10));
     const [collectionDate, setCollectionDate] = useState<string>("");
     const [returnDate, setReturnDate] = useState<string>("");
@@ -49,12 +51,14 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
             body: JSON.stringify({ borrowDate: collectionDate, dueDate: returnDate, bookId: borrow?.id.toString(), userId: user.id }),
         });
 
-        if (response.ok) {
-            alert('Request Sent Successfully');
-            router.push('/borrowing-confirmation');
-        } else {
-            setError('Failed to send the request. Please try again.');
-        }
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.log('Error:', errorData);
+          setError('Failed to send the request. Please try again.');
+      } else {
+          alert('Request Sent Successfully');
+          router.push('/borrowing-confirmation');
+      }
     };
 
     if (!borrow) {
@@ -87,13 +91,16 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                 <h3 className="text-xl text-black font-semibold">{borrow.title}</h3>
                  
             {/*Form submission + Logic */}
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 pt-8">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 pt-8 text-black">
                     <label className="font-sans text-sm font-semibold text-black">Collection Date</label>
                     <input 
                         type="date" 
                         value={collectionDate}
                         placeholder="DD/MM/YYYY"
-                        className="w-full px-4 py-3 border rounded-md text-black" 
+                        className="w-full px-4 py-3 border rounded-md text-black bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        style={{
+                          color: collectionDate ? "black" : "gray",
+                        }}
                         onChange={(e) => setCollectionDate(e.target.value)} 
                         required 
                     />
@@ -103,7 +110,10 @@ export default function BorrowId({ params }: { params: Promise<{borrowId: string
                         type="date" 
                         value={returnDate}
                         placeholder="DD/MM/YYYY"
-                        className="w-full px-4 py-3 border rounded-md text-black" 
+                        className="w-full px-4 py-3 border rounded-md text-black bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                         style={{
+                           color: returnDate ? "black" : "gray",
+                         }}
                         onChange={(e) => setReturnDate(e.target.value)} 
                         required 
                     />

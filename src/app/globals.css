@@ -66,3 +66,20 @@ body {
   z-index: 2;
   transform: rotateY(0deg);
 }
+
+@media (max-width: 768px) {
+  input[type="date"] {
+    font-size: 16px;
+    color: #000;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  input[type="date"]:focus {
+    outline: none;
+    border-color: #0061E8;
+    box-shadow: 0 0 4px rgba(0, 97, 232, 0.5);
+  }
+}

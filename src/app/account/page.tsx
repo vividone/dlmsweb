@@ -55,25 +55,6 @@ export default function Dashboard() {
   const [selectedBorrowedDate, setSelectedBorrowedDate] = useState<string>("All");
   const { getCookies } = useCookies()
   
- 
-
-   // State to manage due date notifications
-   const [dueDateNotifications, setDueDateNotifications] = useState<any[]>([]);
-
-
-  useEffect(() => {
-    const fetchDueDateNotifications = async () => {
-      try {
-        const response = await fetch("https://dlms-backend.onrender.com/notifications/due-date");
-        const data = await response.json();
-        setDueDateNotifications(data.notifications); 
-      } catch (error) {
-        console.error("Error fetching due date notifications:", error);
-      }
-    };
-
-    fetchDueDateNotifications();
-  }, []);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -92,8 +73,10 @@ export default function Dashboard() {
     };
 
     fetchBooks();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  
+
 
 
   useEffect(() => {
