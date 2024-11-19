@@ -54,7 +54,7 @@ export default function BookId({ params }: { params: Promise<{ bookId: string }>
       {/* Book Details */}
       <div className="relative flex text-black flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14">
          {/*Arrow left */}  
-          <Link href={'/homepage'}>
+          <Link href={'/account/home'}>
             <FaArrowLeft className="absolute top-0 left-0 ml-2 mt-2 text-md cursor-pointer hover:text-blue-500" />
           </Link>
         
