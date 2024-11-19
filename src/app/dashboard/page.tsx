@@ -92,25 +92,7 @@ export default function Dashboard() {
     };
 
     fetchBooks();
-  }, []);
-
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        await axios.get("https://dlms-backend.onrender.com/books", {
-          // headers: {
-          //   "Authorization": `Bearer ${getCookies().access_token}`
-          // }
-        })
-        .then( response => {
-          setData(response.data)
-        })
-      } catch (error) {
-        console.error("Error fetching due date notifications:", error);
-      }
-    };
-
-    fetchBooks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 

@@ -143,7 +143,7 @@ export default function Home() {
           <Link key={book.id} href={`/book/${book.id}`}>
             <div className="p-4 rounded-md hover:shadow-lg transition-shadow cursor-pointer">
               <Image
-                src={book.cover}
+                src={"/" + book.title}
                 alt={book.title}
                 width={192}
                 height={300}

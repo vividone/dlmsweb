@@ -2,15 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FaSearch, FaBell, FaBars, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaSearch, FaBell, FaEdit, FaTrash } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
+import axios from "axios";
+import { useCookies } from "@/helpers/useCookies";
 
 interface Book {
   id: number;
   title: string;
-  genre: string;
-  cover: string;
+  author: string;
+  isbn: string;
   description: string;
+  bookCategory: string;
 }
 
 export default function LibrarianPage() {
@@ -21,7 +24,9 @@ export default function LibrarianPage() {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [categories, setCategories] = useState([])
   const menuRef = useRef<HTMLDivElement>(null);
+  const { getCookies } = useCookies()
 
   // States for create/edit modal
   const [isEditing, setIsEditing] = useState(false);
@@ -30,9 +35,10 @@ export default function LibrarianPage() {
   const [newBook, setNewBook] = useState<Book>({
     id: 0,
     title: "",
-    genre: "",
-    cover: "",
+    author: "",
+    isbn: "",
     description: "",
+    bookCategory: ""
   });
 
   // Filter books based on search and genre
@@ -43,7 +49,7 @@ export default function LibrarianPage() {
     setFilteredBooks(
       selectedGenre === "All"
         ? searchFilteredBooks
-        : searchFilteredBooks.filter((book) => book.genre === selectedGenre)
+        : searchFilteredBooks.filter((book) => book.bookCategory === selectedGenre)
     );
   }, [searchTerm, selectedGenre, books]);
 
@@ -71,18 +77,17 @@ export default function LibrarianPage() {
       console.error("Failed to fetch books:", error);
     }
   };
-
+  
   const addBook = async () => {
     try {
-      const response = await fetch("https://dlms-backend.onrender.com/books", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newBook),
-      });
-      const createdBook: Book = await response.json();
-      setBooks((prevBooks) => [...prevBooks, createdBook]);
+      await axios.post("https://dlms-backend.onrender.com/books/new", 
+        { title: newBook.title, isbn: new Date(), bookCategory: newBook.bookCategory, author: newBook.author, description: newBook.description},
+        {
+          headers: {
+          "Authorization": `Bearer ${getCookies().access_token}`
+        }}
+      );
       setModalOpen(false);
-      setNewBook({ id: 0, title: "", genre: "", cover: "", description: "" });
     } catch (error) {
       console.error("Failed to add book:", error);
     }
@@ -102,7 +107,7 @@ export default function LibrarianPage() {
       );
       setModalOpen(false);
       setEditingBook(null);
-      setNewBook({ id: 0, title: "", genre: "", cover: "", description: "" });
+      setNewBook({ id: 0, title: "", author: "", isbn: "", description: "", bookCategory: ""});
       setIsEditing(false);
     } catch (error) {
       console.error("Failed to update book:", error);
@@ -119,6 +124,17 @@ export default function LibrarianPage() {
       setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
     } catch (error) {
       console.error("Failed to delete book:", error);
+    }
+  };
+
+  const getCategories = async (bookId: number) => {
+    deleteBook(bookId)
+
+    try {
+      await axios.get(`https://dlms-backend.onrender.com/categories`)
+      .then(response => setCategories(response.data));
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
     }
   };
 
@@ -139,7 +155,7 @@ export default function LibrarianPage() {
       ]);
     }
     setModalOpen(false);
-    setNewBook({ id: 0, title: "", genre: "", cover: "", description: "" });
+    setNewBook({ id: 0, title: "", author: "", isbn: "", description: "", bookCategory: ""});
     setIsEditing(false);
   };
 
@@ -226,14 +242,14 @@ export default function LibrarianPage() {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {filteredBooks.map((book) => (
           <div key={book.id} className="p-4 rounded-md hover:shadow-lg cursor-pointer relative">
-            <Image src={book.cover || '/lone wolf.png'} 
+            {/* <Image src={book?.title || '/lone wolf.png'} 
             alt={book.title} 
             width={192} 
             height={300} 
             className="rounded-md w-full h-auto" 
-            />
+            /> */}
             <h2 className="mt-2 font-semibold">{book.title}</h2>
-            <p className="text-sm text-gray-500">{book.genre}</p>
+            <p className="text-sm text-gray-500">{book.bookCategory}</p>
             <div className="absolute top-2 right-2 flex space-x-2">
               <FaEdit
                 className="text-blue-500 cursor-pointer"
@@ -270,18 +286,25 @@ export default function LibrarianPage() {
             />
             <input
               type="text"
-              placeholder="Genre"
-              value={newBook.genre}
-              onChange={(e) => setNewBook({ ...newBook, genre: e.target.value })}
+              placeholder="author"
+              value={newBook.author}
+              onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
               className="w-full mb-4 p-2 border rounded-md"
             />
-            <input
-              type="text"
-              placeholder="Cover URL"
-              value={newBook.cover}
-              onChange={(e) => setNewBook({ ...newBook, cover: e.target.value })}
-              className="w-full mb-4 p-2 border rounded-md"
-            />
+            <select
+              value={newBook.bookCategory}
+              onChange={(e) => setNewBook({ ...newBook, bookCategory: e.target.value })}
+              className="w-full p-2 py-3 mb-4 border rounded-md cursor-pointer"
+            >
+              <option value={1}>General</option>
+              <option value={2}>Sci-fi</option>
+              <option value={3}>Business</option>
+              <option value={4}>Romance</option>
+              <option value={5}>Fantasy</option>
+              <option value={6}>Drama</option>
+              <option value={7}>Geography</option>
+              <option value={8}>Education</option>
+            </select>
             <textarea
               placeholder="Description"
               value={newBook.description}

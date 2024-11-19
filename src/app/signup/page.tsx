@@ -135,30 +135,6 @@ export default function SignUp() {
                         required
                     />
                 </div>
-                <div className="space-y-1 text-black">
-                    <label className="block text-sm font-semibold">Home Address</label>
-                    <input
-                        type="text"
-                        value={homeAddress}
-                        onChange={(e) => setHomeAddress(e.target.value)}
-                        placeholder="Enter your home address"
-                        className="w-full px-4 py-3 border rounded-md"
-                        required
-                    />
-                </div>
-
-                {/* Home Address */}
-                <div className="space-y-1 text-black">
-                    <label className="block text-sm font-semibold">Home Address</label>
-                    <input
-                        type="text"
-                        value={homeAddress}
-                        onChange={(e) => setHomeAddress(e.target.value)}
-                        placeholder="Enter your home address"
-                        className="w-full px-4 py-3 border rounded-md"
-                        required
-                    />
-                </div>
 
                  {/* Role */}
                  <div className="space-y-1 text-black">
