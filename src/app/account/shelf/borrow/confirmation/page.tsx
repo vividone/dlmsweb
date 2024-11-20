@@ -16,7 +16,7 @@ export default function BorrowingConfirmation() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const [borrow, ] = useLocalStorage("borrow", {})
+  const [borrow] = useLocalStorage("borrow", {});
 
   // handle submit
   const handleSubmit = async (e: React.FormEvent) => {
@@ -183,24 +183,10 @@ export default function BorrowingConfirmation() {
             className="w-full h-12 text-black border rounded-md p-4 focus:ring-2 focus:ring-blue-400"
             aria-required="true"
           />
-          {error && <p className="text-red-500">{error}</p>}
+          <p className="text-black-500 text-sm">
+            Please go to the library to pickup your book with this code
+          </p>
         </form>
-
-        {/* Back to Homepage Button */}
-        <div className="w-full max-w-lg flex flex-col gap-4 items-center justify-center mt-10">
-          <button
-            className="w-80 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center"
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
-          <Link
-            href="/homepage"
-            className="w-80 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center"
-          >
-            Back to Homepage
-          </Link>
-        </div>
       </div>
     </div>
   );
