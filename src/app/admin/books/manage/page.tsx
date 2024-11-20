@@ -216,7 +216,6 @@ export default function LibrarianPage() {
     <div className="container mx-auto p-4">
       {/* Header Section */}
       <AdminHeader/>
-
       {/* Search & Filter Section */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-6">
         <div className="relative w-full sm:w-1/2">

@@ -4,10 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaSearch, FaFilter, FaBell, FaBars } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
+
 import {
-  useRequestBooks,
-} from "@/context/bookRequestsProvider";
-import AdminHeader from "@/components/header/adminHeader";
+  useReturnedBooks,
+} from "@/context/returnedBooksProvider";
+import Header from "@/components/header/header";
 
 // Book type definition
 interface Book {
@@ -18,94 +19,7 @@ interface Book {
   author: string;
 }
 
-// const booksTwo: Book[] = [
-//   {
-//     id: 1,
-//     title: "Lone Wolf Adventure",
-//     category: "Sci-fi",
-//     author: "Emerngard Nausicaa",
-//     cover: "/lone wolf.png",
-//   },
-//   {
-//     id: 2,
-//     title: "Hide and Seek",
-//     category: "Fantasy",
-//     author: "Olivia Wison",
-//     cover: "/Hide and seek.jpg",
-//   },
-//   {
-//     id: 3,
-//     title: "Dont Look Back",
-//     category: "Drama",
-//     author: "Isaac Nelson",
-//     cover: "/Dont Look.png",
-//   },
-//   {
-//     id: 4,
-//     title: "Spring Book",
-//     category: "Romance",
-//     author: "Deena Roberts",
-//     cover: "/spring book.jpg",
-//   },
-//   {
-//     id: 5,
-//     title: "Harry Potter",
-//     category: "Business",
-//     author: "Isaac Nelson",
-//     cover: "/harry potter.jpg",
-//   },
-//   {
-//     id: 6,
-//     title: "A Promise Kept",
-//     category: "Fantasy",
-//     author: "Robert Lee Hatcher",
-//     cover: "/Robin lee.jpg",
-//   },
-//   {
-//     id: 7,
-//     title: "Dont Look Back",
-//     category: "Drama",
-//     author: "Isaac Nelson",
-//     cover: "/Dont Look.png",
-//   },
-//   {
-//     id: 8,
-//     title: "Hide and Seek",
-//     category: "Fantasy",
-//     author: "Olivia Wison",
-//     cover: "/Hide and seek.jpg",
-//   },
-//   {
-//     id: 9,
-//     title: "Harry Potter",
-//     category: "Business",
-//     author: "Isaac Nelson",
-//     cover: "/harry potter.jpg",
-//   },
-//   {
-//     id: 10,
-//     title: "A Promise Kept",
-//     category: "Fantasy",
-//     author: "Robert Lee Hatcher",
-//     cover: "/Robin lee.jpg",
-//   },
-//   {
-//     id: 11,
-//     title: "Lone Wolf Adventure",
-//     category: "Sci-fi",
-//     author: "Emerngard Nausica",
-//     cover: "/lone wolf.png",
-//   },
-//   {
-//     id: 12,
-//     title: "Spring Book",
-//     category: "Romance",
-//     author: "Deena Roberts",
-//     cover: "/spring book.jpg",
-//   },
-// ];
-
-export default function BorrowedBooks() {
+export default function ReturnedBooks() {
   // State for search input and filtered books
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
@@ -117,8 +31,8 @@ export default function BorrowedBooks() {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const booksFromContext = useRequestBooks();
-  console.log(booksFromContext)
+  const ReturnedBooks: any = useReturnedBooks();
+
   // Handle search and filtering
 
   useEffect(() => {
@@ -137,10 +51,9 @@ export default function BorrowedBooks() {
     //     ? filterData(booksFromContext)
     //     : filterData(booksTwo);
 
-    const filteredBooks = filterData(booksFromContext);
-
+    const filteredBooks = filterData(ReturnedBooks);
     setFilteredBooks(filteredBooks);
-  }, [booksFromContext, searchTerm, selectedCategory]);
+  }, [searchTerm, selectedCategory, ReturnedBooks]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -164,11 +77,11 @@ export default function BorrowedBooks() {
   return (
       <div className="container mx-auto p-4 overflow-x-hidden">
         {/* Header */}
-        <AdminHeader />
+        <Header />
 
         {/* Find a Book */}
         <div className="mb-6 ml-6 text-black">
-          <p className="text-xl font-semibold">All Books Requests</p>
+          <p className="text-xl font-semibold">Find a Book</p>
         </div>
 
         {/* Search and Filter */}
@@ -230,7 +143,7 @@ export default function BorrowedBooks() {
         )}
 
         {/* Category Filter */}
-        <div className="flex overflow-x-auto flex lg:overflow-x-auto flex sm:overflow-visible gap-20 font-semibold sm:justify-between mb-6 animate-scroll">
+        <div className="flex overflow-x-auto flex lg:overflow-x-auto flex sm:overflow-visible gap-5 font-semibold mb-6 ">
           {[
             "All",
             "Sci-fi",
@@ -258,10 +171,10 @@ export default function BorrowedBooks() {
         {/* Book Collection */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-black">
           {filteredBooks.map((book) => (
-            <Link key={book.id} href={`/borrow/book/${book.id}`}>
+            <Link key={book.id} href={`/account/library/book/${book.id}`}>
               <div className="p-4 rounded-md hover:shadow-lg transition-shadow cursor-pointer">
                 <Image
-                  src={book.cover}
+                  src={"/" + book.title}
                   alt={book.title}
                   width={192}
                   height={300}

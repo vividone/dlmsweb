@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FaSearch, FaBell, FaBars } from 'react-icons/fa';
-import { useState, useEffect, useRef } from 'react';
+import { FaSearch, FaBell, FaBars } from "react-icons/fa";
+import { useState, useEffect, useRef } from "react";
 import AdminHeader from "@/components/header/adminHeader";
-
+import { useBooks } from "@/context/bookProvider";
 // Book Type definition
 interface Book {
   id: number;
@@ -18,45 +18,197 @@ interface Book {
 }
 
 const books: Book[] = [
-  { id: 1, title: '', genre: '', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-  { id: 2, title: '', genre: '', cover: "/Robin lee.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-  { id: 3, title: '', genre: '', cover: "/Dont Look.png", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-  { id: 4, title: '', genre: '', cover: "/Tigers heart.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-  { id: 5, title: '', genre: '', cover: "/Norse Myth.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 6, title: '', genre: '', cover: "/spring book.jpg", borrowStatus: 'Borrowed', returnDate: '2024-10-24', borrowedDate: '2024-08-04' },
+  {
+    id: 1,
+    title: "",
+    genre: "",
+    cover: "/lone wolf.png",
+    borrowStatus: "Returned",
+    returnDate: "2024-10-10",
+    borrowedDate: "2024-09-15",
+  },
+  {
+    id: 2,
+    title: "",
+    genre: "",
+    cover: "/Robin lee.jpg",
+    borrowStatus: "Borrowed",
+    returnDate: "N/A",
+    borrowedDate: "2024-10-01",
+  },
+  {
+    id: 3,
+    title: "",
+    genre: "",
+    cover: "/Dont Look.png",
+    borrowStatus: "Returned",
+    returnDate: "2024-09-30",
+    borrowedDate: "2024-09-10",
+  },
+  {
+    id: 4,
+    title: "",
+    genre: "",
+    cover: "/Tigers heart.jpg",
+    borrowStatus: "Returned",
+    returnDate: "2024-10-12",
+    borrowedDate: "2024-09-18",
+  },
+  {
+    id: 5,
+    title: "",
+    genre: "",
+    cover: "/Norse Myth.jpg",
+    borrowStatus: "Borrowed",
+    returnDate: "N/A",
+    borrowedDate: "2024-10-15",
+  },
+  {
+    id: 6,
+    title: "",
+    genre: "",
+    cover: "/spring book.jpg",
+    borrowStatus: "Borrowed",
+    returnDate: "2024-10-24",
+    borrowedDate: "2024-08-04",
+  },
 ];
 
 const dashboardTwos: Book[] = [
-  { id: 7, title: '', genre: '', cover: "/harry potter.jpg", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-  { id: 8, title: '', genre: '', cover: "/Hide and seek.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-  { id: 9, title: '', genre: '', cover: "/spring book.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-  { id: 10, title: '', genre: '', cover: "/lone wolf.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-  { id: 11, title: '', genre: '', cover: "/walk in the shadow.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 12, title: '', genre: '', cover: "/All this Time.png", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-10' },
+  {
+    id: 7,
+    title: "",
+    genre: "",
+    cover: "/harry potter.jpg",
+    borrowStatus: "Returned",
+    returnDate: "2024-10-10",
+    borrowedDate: "2024-09-15",
+  },
+  {
+    id: 8,
+    title: "",
+    genre: "",
+    cover: "/Hide and seek.jpg",
+    borrowStatus: "Borrowed",
+    returnDate: "N/A",
+    borrowedDate: "2024-10-01",
+  },
+  {
+    id: 9,
+    title: "",
+    genre: "",
+    cover: "/spring book.jpg",
+    borrowStatus: "Returned",
+    returnDate: "2024-09-30",
+    borrowedDate: "2024-09-10",
+  },
+  {
+    id: 10,
+    title: "",
+    genre: "",
+    cover: "/lone wolf.png",
+    borrowStatus: "Returned",
+    returnDate: "2024-10-12",
+    borrowedDate: "2024-09-18",
+  },
+  {
+    id: 11,
+    title: "",
+    genre: "",
+    cover: "/walk in the shadow.jpg",
+    borrowStatus: "Borrowed",
+    returnDate: "N/A",
+    borrowedDate: "2024-10-15",
+  },
+  {
+    id: 12,
+    title: "",
+    genre: "",
+    cover: "/All this Time.png",
+    borrowStatus: "Returned",
+    returnDate: "2024-10-12",
+    borrowedDate: "2024-09-10",
+  },
 ];
 
 const dashboardThrees: Book[] = [
-  { id: 13, title: '', genre: '', cover: "/All this Time.png", borrowStatus: 'Returned', returnDate: '2024-10-10', borrowedDate: '2024-09-15' },
-  { id: 14, title: '', genre: '', cover: "/Tigers heart.jpg", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-01' },
-  { id: 15, title: '', genre: '', cover: "/walk in the shadow.jpg", borrowStatus: 'Returned', returnDate: '2024-09-30', borrowedDate: '2024-09-10' },
-  { id: 16, title: '', genre: '', cover: "/Robin lee.jpg", borrowStatus: 'Returned', returnDate: '2024-10-12', borrowedDate: '2024-09-18' },
-  { id: 17, title: '', genre: '', cover: "/Dont Look.png", borrowStatus: 'Borrowed', returnDate: 'N/A', borrowedDate: '2024-10-15' },
-  { id: 18, title: '', genre: '', cover: "/Norse Myth.jpg", borrowStatus: 'Returned', returnDate: 'N/A', borrowedDate: '2024-10-12' },
+  {
+    id: 13,
+    title: "",
+    genre: "",
+    cover: "/All this Time.png",
+    borrowStatus: "Returned",
+    returnDate: "2024-10-10",
+    borrowedDate: "2024-09-15",
+  },
+  {
+    id: 14,
+    title: "",
+    genre: "",
+    cover: "/Tigers heart.jpg",
+    borrowStatus: "Borrowed",
+    returnDate: "N/A",
+    borrowedDate: "2024-10-01",
+  },
+  {
+    id: 15,
+    title: "",
+    genre: "",
+    cover: "/walk in the shadow.jpg",
+    borrowStatus: "Returned",
+    returnDate: "2024-09-30",
+    borrowedDate: "2024-09-10",
+  },
+  {
+    id: 16,
+    title: "",
+    genre: "",
+    cover: "/Robin lee.jpg",
+    borrowStatus: "Returned",
+    returnDate: "2024-10-12",
+    borrowedDate: "2024-09-18",
+  },
+  {
+    id: 17,
+    title: "",
+    genre: "",
+    cover: "/Dont Look.png",
+    borrowStatus: "Borrowed",
+    returnDate: "N/A",
+    borrowedDate: "2024-10-15",
+  },
+  {
+    id: 18,
+    title: "",
+    genre: "",
+    cover: "/Norse Myth.jpg",
+    borrowStatus: "Returned",
+    returnDate: "N/A",
+    borrowedDate: "2024-10-12",
+  },
 ];
 
 export default function DetailsPage() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
-  const [filteredBooks, setFilteredBooks] = useState<Book[]>([...books, ...dashboardTwos, ...dashboardThrees]);
+  const [filteredBooks, setFilteredBooks] = useState<Book[]>([
+    ...books,
+    ...dashboardTwos,
+    ...dashboardThrees,
+  ]);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  
+  const AllBooks = useBooks();
+
   useEffect(() => {
-    const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
-    const searchFilteredBooks = allBooks.filter((book) =>
+    const allBooks =
+      AllBooks.length > 0
+        ? AllBooks
+        : [...books, ...dashboardTwos, ...dashboardThrees];
+    const searchFilteredBooks: any = allBooks.filter((book) =>
       book.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredBooks(searchFilteredBooks);
@@ -64,32 +216,36 @@ export default function DetailsPage() {
 
   useEffect(() => {
     const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
-    const genreFilteredBooks = selectedGenre === 'All'
-      ? allBooks
-      : allBooks.filter(book => book.genre === selectedGenre);
+    const genreFilteredBooks =
+      selectedGenre === "All"
+        ? allBooks
+        : allBooks.filter((book) => book.genre === selectedGenre);
     setFilteredBooks(genreFilteredBooks);
   }, [selectedGenre]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleClickOutside = (event: MouseEvent) => {
     // close dropdown if clicked
-    if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)){
-       setDropdownOpen(false);
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setDropdownOpen(false);
     }
     // close menu if clicked outside
-    if(menuRef.current && !menuRef.current.contains(event.target as Node)) {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setMenuOpen(false);
     }
-  }
+  };
 
   return (
     <div className="container mx-auto p-4">
       {/* Header Section */}
- <AdminHeader/>
+      <AdminHeader />
       {/* Search & Filter Section */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-6 text-black">
         <div className="relative w-full sm:w-1/2">
@@ -121,11 +277,10 @@ export default function DetailsPage() {
             <option value="Education">Education</option>
             <option value="Geography">Geography</option>
           </select>
-          
         </div>
       </div>
 
-     {/* All Rentals */}
+      {/* All Rentals */}
       <div className="flex justify-between items-center p-6 text-black">
         <h1 className="font-bold text-xl">All</h1>
       </div>

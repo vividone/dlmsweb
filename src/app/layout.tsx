@@ -3,7 +3,10 @@ import localFont from "next/font/local";
 import { Merriweather_Sans } from "next/font/google";
 import "./globals.css";
 import { BooksProvider } from "@/context/bookProvider";
-
+import { BorrowedBooksProvider } from "@/context/borrowedBooksProvider";
+import { ReturnedBooksProvider } from "@/context/returnedBooksProvider";
+import { OverdueBooksProvider } from "@/context/overdue";
+import { RequestBooksProvider } from "@/context/bookRequestsProvider";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -37,7 +40,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${merriweatherSans.variable} antialiased`}
       >
-        <BooksProvider>{children}</BooksProvider>
+        <RequestBooksProvider>
+          <OverdueBooksProvider>
+            <ReturnedBooksProvider>
+              <BorrowedBooksProvider>
+                <BooksProvider>{children}</BooksProvider>
+              </BorrowedBooksProvider>
+            </ReturnedBooksProvider>
+          </OverdueBooksProvider>
+        </RequestBooksProvider>
       </body>
     </html>
   );

@@ -5,9 +5,10 @@ import Link from "next/link";
 import { FaSearch, FaFilter, FaBell, FaBars } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
 import {
+  BorrowedBooksProvider,
   useBorrowedBooks,
 } from "@/context/borrowedBooksProvider";
-import AdminHeader from "@/components/header/adminHeader";
+import Header from "@/components/header/header";
 
 // Book type definition
 interface Book {
@@ -30,7 +31,7 @@ export default function BorrowedBooks() {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const booksFromContext = useBorrowedBooks();
+  const BorrowedBooks = useBorrowedBooks();
 
   // Handle search and filtering
 
@@ -50,10 +51,9 @@ export default function BorrowedBooks() {
     //     ? filterData(booksFromContext)
     //     : filterData(booksTwo);
 
-    const filteredBooks = filterData(booksFromContext);
-
+    const filteredBooks = filterData(BorrowedBooks);
     setFilteredBooks(filteredBooks);
-  }, [booksFromContext, searchTerm, selectedCategory]);
+  }, [searchTerm, selectedCategory, BorrowedBooks]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -77,11 +77,11 @@ export default function BorrowedBooks() {
   return (
     <div className="container mx-auto p-4 overflow-x-hidden">
       {/* Header */}
-      <AdminHeader />
+      <Header />
 
       {/* Find a Book */}
       <div className="mb-6 ml-6 text-black">
-        <p className="text-xl font-semibold">All Borrowed Books</p>
+        <p className="text-xl font-semibold">Find a Book</p>
       </div>
 
       {/* Search and Filter */}
@@ -143,7 +143,7 @@ export default function BorrowedBooks() {
       )}
 
       {/* Category Filter */}
-      <div className="flex overflow-x-auto flex lg:overflow-x-auto flex sm:overflow-visible gap-20 font-semibold sm:justify-between mb-6 animate-scroll">
+      <div className="flex overflow-x-auto flex lg:overflow-x-auto flex sm:overflow-visible gap-5 font-semibold mb-6 ">
         {[
           "All",
           "Sci-fi",
@@ -171,10 +171,10 @@ export default function BorrowedBooks() {
       {/* Book Collection */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-black">
         {filteredBooks.map((book) => (
-          <Link key={book.id} href={`/borrow/book/${book.id}`}>
+          <Link key={book.id} href={`/account/library/book/${book.id}`}>
             <div className="p-4 rounded-md hover:shadow-lg transition-shadow cursor-pointer">
               <Image
-                src={book.cover}
+                src={"/" + book.title}
                 alt={book.title}
                 width={192}
                 height={300}
