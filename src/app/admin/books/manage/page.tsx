@@ -29,7 +29,7 @@ export default function LibrarianPage() {
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
- 
+
   const { getCookies } = useCookies();
 
   // States for create/edit modal
@@ -325,7 +325,13 @@ export default function LibrarianPage() {
             className="p-4 rounded-md hover:shadow-lg cursor-pointer relative"
           >
             <Image
-              src={"/" + book?.title + ".png" || "/lone wolf.png"}
+              src={
+                book.cover
+                  ? "/" + book.cover
+                  : book.title
+                  ? "/" + book.title + ".png"
+                  : "/book-cover-generic.jpg"
+              }
               alt={book.title}
               width={192}
               height={300}

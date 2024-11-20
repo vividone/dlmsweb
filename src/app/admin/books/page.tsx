@@ -117,7 +117,13 @@ export default function Books() {
           <Link key={book.id} href={`/book/${book.id}`}>
             <div className="p-4 rounded-md hover:shadow-lg cursor-pointer">
               <Image
-                src={"/" + book?.title + ".png" || "/lone wolf.png"}
+                src={
+                  book.cover
+                    ? "/" + book.cover
+                    : book.title
+                    ? "/" + book.title + ".png"
+                    : "/book-cover-generic.jpg"
+                }
                 alt={"cover"}
                 width={192}
                 height={300}
