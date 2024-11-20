@@ -7,6 +7,8 @@ import Link from "next/link";
 import { use } from "react";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { useCookies } from "@/helpers/useCookies";
+import { Book } from "../../page";
 
 // Sample book data
 const books = [
@@ -182,11 +184,30 @@ export default function BookId({
 }) {
   const router = useRouter();
   const { bookId } = use(params);
-  const book = books.find((b) => b.id === parseInt(bookId, 10));
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [book, setBook] = useState<Book>()
+  const { getCookies } = useCookies()
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await axios.get(`https://dlms-backend.onrender.com/books/${bookId}`, {
+          headers: {
+            Authorization: `Bearer ${getCookies().access_token}`,
+          },
+        });
+        setBook(response.data);
+      } catch (error) {
+        console.error("Error fetching books:", error);
+      }
+    };
+
+    fetchBooks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bookId])
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -212,7 +233,7 @@ export default function BookId({
   }
 
   const handleBorrowClick = () => {
-    router.push(`/account/shelf/borrow/request/${book.id}`);
+    router.push(`/account/shelf/borrow/request/${book?.id}`);
   };
 
   return (
@@ -309,7 +330,7 @@ export default function BookId({
         {/*Book cover and Content */}
         <div className="flex flex-col items-center sm:flex-row sm:items-start sm:space-x-6 mt-14">
           <Image
-            src={book.cover}
+            src={"/" + book.title + ".png"}
             alt={book.title}
             width={270}
             height={50}
@@ -325,15 +346,16 @@ export default function BookId({
             </h2>
             <h2 className="text-gray-800 text-md">
               <strong> SYNOPSIS</strong> <br /> <br />
-              {book.synopsis}
+              {book.description}
             </h2>
           </div>
         </div>
       </div>
       {/* Borrow Button */}
-      <div className="flex justify-left p-4 md:relative bottom-8">
-        <button
-          type="submit"
+      <div className="flex justify-left p-4 mt-8 md:relative bottom-8">
+    
+        <button 
+          type='submit'
           onClick={handleBorrowClick}
           className="bg-blue-600 w-72 text-white rounded-md p-2 hover:bg-blue-700"
         >

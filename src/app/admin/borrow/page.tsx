@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FaSearch, FaFilter, FaBell, FaBars } from "react-icons/fa";
+import { FaSearch, FaFilter } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
 import {
   useBorrowedBooks,
@@ -25,11 +25,6 @@ export default function BorrowedBooks() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
   const booksFromContext = useBorrowedBooks();
 
   // Handle search and filtering
@@ -53,26 +48,8 @@ export default function BorrowedBooks() {
     const filteredBooks = filterData(booksFromContext);
 
     setFilteredBooks(filteredBooks);
-  }, [booksFromContext, searchTerm, selectedCategory]);
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleClickOutside = (event: MouseEvent) => {
-    // close dropdown if clicked
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setDropdownOpen(false);
-    }
-    // close menu if clicked outside
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-      setMenuOpen(false);
-    }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ searchTerm, selectedCategory]);
 
   return (
     <div className="container mx-auto p-4 overflow-x-hidden">

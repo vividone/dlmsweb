@@ -209,7 +209,7 @@ export default function Dashboard() {
           <Link key={book.id} href={`/book/${book.id}`}>
             <div className="p-4 rounded-md hover:shadow-lg cursor-pointer">
               <Image
-                src={book.cover ? book.cover : '/book-cover-generic.jpg'}
+                src={'/book-cover-generic.jpg'}
                 alt={book.title}
                 width={192}
                 height={300}
