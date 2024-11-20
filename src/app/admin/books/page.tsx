@@ -17,191 +17,18 @@ interface Book {
   borrowedDate: string;
 }
 
-const books: Book[] = [
-  {
-    id: 1,
-    title: "",
-    genre: "",
-    cover: "/lone wolf.png",
-    borrowStatus: "Returned",
-    returnDate: "2024-10-10",
-    borrowedDate: "2024-09-15",
-  },
-  {
-    id: 2,
-    title: "",
-    genre: "",
-    cover: "/Robin lee.jpg",
-    borrowStatus: "Borrowed",
-    returnDate: "N/A",
-    borrowedDate: "2024-10-01",
-  },
-  {
-    id: 3,
-    title: "",
-    genre: "",
-    cover: "/Dont Look.png",
-    borrowStatus: "Returned",
-    returnDate: "2024-09-30",
-    borrowedDate: "2024-09-10",
-  },
-  {
-    id: 4,
-    title: "",
-    genre: "",
-    cover: "/Tigers heart.jpg",
-    borrowStatus: "Returned",
-    returnDate: "2024-10-12",
-    borrowedDate: "2024-09-18",
-  },
-  {
-    id: 5,
-    title: "",
-    genre: "",
-    cover: "/Norse Myth.jpg",
-    borrowStatus: "Borrowed",
-    returnDate: "N/A",
-    borrowedDate: "2024-10-15",
-  },
-  {
-    id: 6,
-    title: "",
-    genre: "",
-    cover: "/spring book.jpg",
-    borrowStatus: "Borrowed",
-    returnDate: "2024-10-24",
-    borrowedDate: "2024-08-04",
-  },
-];
-
-const dashboardTwos: Book[] = [
-  {
-    id: 7,
-    title: "",
-    genre: "",
-    cover: "/harry potter.jpg",
-    borrowStatus: "Returned",
-    returnDate: "2024-10-10",
-    borrowedDate: "2024-09-15",
-  },
-  {
-    id: 8,
-    title: "",
-    genre: "",
-    cover: "/Hide and seek.jpg",
-    borrowStatus: "Borrowed",
-    returnDate: "N/A",
-    borrowedDate: "2024-10-01",
-  },
-  {
-    id: 9,
-    title: "",
-    genre: "",
-    cover: "/spring book.jpg",
-    borrowStatus: "Returned",
-    returnDate: "2024-09-30",
-    borrowedDate: "2024-09-10",
-  },
-  {
-    id: 10,
-    title: "",
-    genre: "",
-    cover: "/lone wolf.png",
-    borrowStatus: "Returned",
-    returnDate: "2024-10-12",
-    borrowedDate: "2024-09-18",
-  },
-  {
-    id: 11,
-    title: "",
-    genre: "",
-    cover: "/walk in the shadow.jpg",
-    borrowStatus: "Borrowed",
-    returnDate: "N/A",
-    borrowedDate: "2024-10-15",
-  },
-  {
-    id: 12,
-    title: "",
-    genre: "",
-    cover: "/All this Time.png",
-    borrowStatus: "Returned",
-    returnDate: "2024-10-12",
-    borrowedDate: "2024-09-10",
-  },
-];
-
-const dashboardThrees: Book[] = [
-  {
-    id: 13,
-    title: "",
-    genre: "",
-    cover: "/All this Time.png",
-    borrowStatus: "Returned",
-    returnDate: "2024-10-10",
-    borrowedDate: "2024-09-15",
-  },
-  {
-    id: 14,
-    title: "",
-    genre: "",
-    cover: "/Tigers heart.jpg",
-    borrowStatus: "Borrowed",
-    returnDate: "N/A",
-    borrowedDate: "2024-10-01",
-  },
-  {
-    id: 15,
-    title: "",
-    genre: "",
-    cover: "/walk in the shadow.jpg",
-    borrowStatus: "Returned",
-    returnDate: "2024-09-30",
-    borrowedDate: "2024-09-10",
-  },
-  {
-    id: 16,
-    title: "",
-    genre: "",
-    cover: "/Robin lee.jpg",
-    borrowStatus: "Returned",
-    returnDate: "2024-10-12",
-    borrowedDate: "2024-09-18",
-  },
-  {
-    id: 17,
-    title: "",
-    genre: "",
-    cover: "/Dont Look.png",
-    borrowStatus: "Borrowed",
-    returnDate: "N/A",
-    borrowedDate: "2024-10-15",
-  },
-  {
-    id: 18,
-    title: "",
-    genre: "",
-    cover: "/Norse Myth.jpg",
-    borrowStatus: "Returned",
-    returnDate: "N/A",
-    borrowedDate: "2024-10-12",
-  },
-];
-
-export default function DetailsPage() {
+export default function Books() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
-  const [filteredBooks, setFilteredBooks] = useState<Book[]>([
-    ...books,
-    ...dashboardTwos,
-    ...dashboardThrees,
-  ]);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   const AllBooks = useBooks();
+  const [filteredBooks, setFilteredBooks] = useState<Book[] | any>([
+    ...AllBooks,
+  ]);
 
   useEffect(() => {
     const allBooks = AllBooks;
@@ -210,14 +37,14 @@ export default function DetailsPage() {
       book.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredBooks(searchFilteredBooks);
-  }, [searchTerm]);
+  }, [searchTerm, AllBooks]);
 
   useEffect(() => {
     const allBooks = AllBooks;
-    const genreFilteredBooks:any =
+    const genreFilteredBooks: any =
       selectedGenre === "All"
         ? allBooks
-        : allBooks.filter((book:any) => book.genre === selectedGenre);
+        : allBooks.filter((book: any) => book.genre === selectedGenre);
     setFilteredBooks(genreFilteredBooks);
   }, [selectedGenre]);
 
@@ -285,18 +112,18 @@ export default function DetailsPage() {
 
       {/* Book Collection */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {filteredBooks.map((book) => (
+        {filteredBooks.map((book: any) => (
           <Link key={book.id} href={`/book/${book.id}`}>
             <div className="p-4 rounded-md hover:shadow-lg cursor-pointer">
               <Image
-                src={book.cover}
-                alt={book.title}
+                src={"/book-cover-generic.jpg"}
+                alt={"cover"}
                 width={192}
                 height={300}
                 className="rounded-md w-full h-auto"
               />
               <h2 className="mt-2 font-semibold">{book.title}</h2>
-              <p className="text-sm text-gray-500">{book.genre}</p>
+              <p className="text-sm text-gray-500">{book.author}</p>
             </div>
           </Link>
         ))}

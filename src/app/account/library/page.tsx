@@ -31,8 +31,6 @@ export default function Home() {
 
   const booksFromContext = useBooks();
 
-
-
   // Handle search and filtering
 
   useEffect(() => {
