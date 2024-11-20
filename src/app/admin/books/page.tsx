@@ -204,10 +204,8 @@ export default function DetailsPage() {
   const AllBooks = useBooks();
 
   useEffect(() => {
-    const allBooks =
-      AllBooks.length > 0
-        ? AllBooks
-        : [...books, ...dashboardTwos, ...dashboardThrees];
+    const allBooks = AllBooks;
+
     const searchFilteredBooks: any = allBooks.filter((book) =>
       book.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -215,7 +213,7 @@ export default function DetailsPage() {
   }, [searchTerm]);
 
   useEffect(() => {
-    const allBooks = [...books, ...dashboardTwos, ...dashboardThrees];
+    const allBooks = Allbooks;
     const genreFilteredBooks =
       selectedGenre === "All"
         ? allBooks
