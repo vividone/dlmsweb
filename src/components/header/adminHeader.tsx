@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FaBars, FaBell } from "react-icons/fa";
 
-export default function Header() {
+export default function AdminHeader() {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -49,25 +49,37 @@ export default function Header() {
         {/*full nav links for larger screen */}
         <nav className="hidden sm:flex space-x-6">
           <Link
-            href="/account/library"
+            href="/admin/books"
             className="text-blue-500 text-base font-semibold hover:text-blue-500"
           >
             Library
           </Link>
           <Link
-            href="/account/shelf/borrow"
+            href="/admin/books/manage"
+            className="text-blue-500 text-base font-semibold hover:text-blue-500"
+          >
+            Manage Books
+          </Link>
+          <Link
+            href="/admin/borrow"
             className="text-blue-500 text-base font-semibold hover:text-blue-500"
           >
             Borrowed
           </Link>
           <Link
-            href="/account/shelf/returned"
+            href="/admin/borrow/requests"
+            className="text-blue-500 text-base font-semibold hover:text-blue-500"
+          >
+            Requests
+          </Link>
+          <Link
+            href="/admin/borrow/returned"
             className="text-blue-500 text-base font-semibold hover:text-blue-500"
           >
             Returned
           </Link>
           <Link
-            href="/account/shelf/overdue"
+            href="/admin/borrow/overdue"
             className="text-blue-500 text-base font-semibold hover:text-blue-500"
           >
             Overdue
@@ -93,25 +105,31 @@ export default function Header() {
                 }}
               >
                 <Link
-                  href="/account/library"
+                  href="/admin/books"
                   className="text-blue-500 text-base font-semibold hover:text-blue-500"
                 >
                   Library
                 </Link>
                 <Link
-                  href="/account/shelf/borrow"
+                  href="/admin/borrow"
                   className="text-blue-500 text-base font-semibold hover:text-blue-500"
                 >
                   Borrowed
                 </Link>
                 <Link
-                  href="/account/shelf/returned"
+                  href="/admin/borrow/requests"
+                  className="text-blue-500 text-base font-semibold hover:text-blue-500"
+                >
+                  Requests
+                </Link>
+                <Link
+                  href="/admin/borrow/returned"
                   className="text-blue-500 text-base font-semibold hover:text-blue-500"
                 >
                   Returned
                 </Link>
                 <Link
-                  href="/account/shelf/overdue"
+                  href="/admin/borrow/overdue"
                   className="text-blue-500 text-base font-semibold hover:text-blue-500"
                 >
                   Overdue
@@ -124,13 +142,7 @@ export default function Header() {
 
       {/* Notification and Profile */}
       <div className="flex items-center space-x-2 sm:space-x-2 absolute top-2 pr-6 right-0 sm:absolute top-2">
-        <Link
-          href="/account/shelf/overdue"
-          className="text-blue-500 text-base font-semibold hover:text-blue-500"
-        >
-          <FaBell className="text-sm text-gray-600 cursor-pointer hover:text-blue-500" />
-        </Link>
-
+        <FaBell className="text-sm text-gray-600 cursor-pointer hover:text-blue-500" />
         <Image
           src="/user-avatar.jpg"
           alt="Avatar"

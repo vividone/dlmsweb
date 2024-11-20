@@ -193,7 +193,6 @@ export default function BookId({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-
   const handleClickOutside = (event: MouseEvent) => {
     // close dropdown if clicked
     if (
@@ -213,15 +212,12 @@ export default function BookId({
   }
 
   const handleBorrowClick = () => {
-    router.push(`/borrow/${book.id}`);
+    router.push(`/account/shelf/borrow/request/${book.id}`);
   };
 
   return (
     <div className="container mx-auto p-4">
-      {/* Header section */}
       {/* Header Section */}
-
-
       <header className="flex justify-between items-center sm:flex-row mb-8 space-y-4 sm:space-y-0">
         <div className="flex items-center space-x-8">
           <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
@@ -229,10 +225,28 @@ export default function BookId({
           {/* full nav links for larger screen */}
           <nav className="hidden sm:flex space-x-6">
             <Link
-              href="/account/home"
+              href="/account/library"
               className="text-blue-500 text-base font-semibold hover:text-blue-500"
             >
               Library
+            </Link>
+            <Link
+              href="/account/shelf/borrow"
+              className="text-blue-500 text-base font-semibold hover:text-blue-500"
+            >
+              Borrowed
+            </Link>
+            <Link
+              href="/account/shelf/returned"
+              className="text-blue-500 text-base font-semibold hover:text-blue-500"
+            >
+              Returned
+            </Link>
+            <Link
+              href="/account/shelf/overdue"
+              className="text-blue-500 text-base font-semibold hover:text-blue-500"
+            >
+              Overdue
             </Link>
           </nav>
 
@@ -254,53 +268,41 @@ export default function BookId({
                     transform: menuOpen ? "scale(1)" : "scale(0.95)",
                   }}
                 >
-                  <Link href="/account/home">
-                    <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                      Library
-                    </div>
+                  <Link
+                    href="/account/library"
+                    className="text-blue-500 text-base font-semibold hover:text-blue-500"
+                  >
+                    Library
                   </Link>
-                  <Link href="/account">
-                    <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                      My Shelf
-                    </div>
+                  <Link
+                    href="/account/shelf/overdue"
+                    className="text-blue-500 text-base font-semibold hover:text-blue-500"
+                  >
+                    Borrowed
+                  </Link>
+                  <Link
+                    href="/account/shelf/returned"
+                    className="text-blue-500 text-base font-semibold hover:text-blue-500"
+                  >
+                    Returned
+                  </Link>
+                  <Link
+                    href="/account/shelf/overdue"
+                    className="text-blue-500 text-base font-semibold hover:text-blue-500"
+                  >
+                    Overdue
                   </Link>
                 </div>
               )}
             </div>
           </div>
         </div>
-
-        {/*Notification and Profile */}
-        <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
-          <FaBell className="text-sm text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <Image
-            src="/user-avatar.jpg"
-            alt="Avatar"
-            width={20}
-            height={10}
-            className="w-6 h-6 border rounded-full cursor-pointer"
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-          />
-
-          {dropdownOpen && (
-            <div
-              ref={dropdownRef}
-              className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg"
-            >
-              <Link href="/">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                  Sign Out
-                </div>
-              </Link>
-            </div>
-          )}
-        </div>
       </header>
 
       {/* Book Details */}
       <div className="relative flex text-black flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14">
         {/*Arrow left */}
-        <Link href={"/account/home"}>
+        <Link href={"/account/library"}>
           <FaArrowLeft className="absolute top-0 left-0 ml-2 mt-2 text-md cursor-pointer hover:text-blue-500" />
         </Link>
 
@@ -329,10 +331,9 @@ export default function BookId({
         </div>
       </div>
       {/* Borrow Button */}
-      <div className="flex justify-center p-4 md:relative bottom-8">
-    
-        <button 
-          type='submit'
+      <div className="flex justify-left p-4 md:relative bottom-8">
+        <button
+          type="submit"
           onClick={handleBorrowClick}
           className="bg-blue-600 w-72 text-white rounded-md p-2 hover:bg-blue-700"
         >

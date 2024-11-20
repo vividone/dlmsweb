@@ -2,10 +2,11 @@
 
 import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
+import BookId from "@/app/account/library/book/[bookId]/page";
 import axios from "axios";
 import { useCookies } from "@/helpers/useCookies";
-import Header from "@/components/header/header";
 import Image from 'next/image';
+import AdminHeader from '@/components/header/adminHeader';
 
 interface Book {
   id: number;
@@ -15,6 +16,10 @@ interface Book {
   bookCategory: number;
   cover: string;
   description: string;
+}
+
+interface Category {
+  name: string;
 }
 
 export default function LibrarianPage() {
@@ -39,6 +44,10 @@ export default function LibrarianPage() {
     bookCategory: 0,
     cover: '',
     description: '',
+  });
+
+  const [newCategory, setNewCategory] = useState<Category>({
+    name: ''
   });
 
   // Filter books based on search and genre
@@ -206,8 +215,7 @@ export default function LibrarianPage() {
   return (
     <div className="container mx-auto p-4">
       {/* Header Section */}
-      <Header />
-
+      <AdminHeader/>
       {/* Search & Filter Section */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-6">
         <div className="relative w-full sm:w-1/2">
@@ -228,7 +236,7 @@ export default function LibrarianPage() {
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="p-2 text-sm border rounded-md cursor-pointer"
           >
-            <option value="All">Genre</option>
+            <option value="All">All Categories</option>
             <option value="Sci-fi">Sci-fi</option>
             <option value="Fantasy">Fantasy</option>
             <option value="Romance">Romance</option>
