@@ -35,7 +35,7 @@ export default function Header() {
     const signOut = () => {
         setUser(null)
         removeCookie("access_token");
-        router.push("/sign-in")
+        router.push("/")
     }
 
     return (

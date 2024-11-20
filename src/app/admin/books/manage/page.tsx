@@ -5,8 +5,8 @@ import { useState, useEffect, useRef } from 'react';
 import BookId from "@/app/account/library/book/[bookId]/page";
 import axios from "axios";
 import { useCookies } from "@/helpers/useCookies";
-import Header from "@/components/header/header";
 import Image from 'next/image';
+import AdminHeader from '@/components/header/adminHeader';
 
 interface Book {
   id: number;
@@ -215,7 +215,7 @@ export default function LibrarianPage() {
   return (
     <div className="container mx-auto p-4">
       {/* Header Section */}
-      <Header />
+      <AdminHeader/>
 
       {/* Search & Filter Section */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-6">

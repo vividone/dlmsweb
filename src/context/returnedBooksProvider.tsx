@@ -19,13 +19,13 @@ interface BooksProviderProps {
   children: ReactNode;
 }
 
-export const BorrowedBooksProvider: React.FC<BooksProviderProps> = ({ children }) => {
+export const ReturnedBooksProvider: React.FC<BooksProviderProps> = ({ children }) => {
   const [books, setBooks] = useState<Book[]>([]);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get<Book[]>("https://dlms-backend.onrender.com/books/borrowed-books");
+        const response = await axios.get<Book[]>("https://dlms-backend.onrender.com/books/returned-books");
         setBooks(response.data);
       } catch (error: any) {
         console.log("Error fetching books:", error?.message);
@@ -43,7 +43,7 @@ export const BorrowedBooksProvider: React.FC<BooksProviderProps> = ({ children }
 };
 
 
-export const useBorrowedBooks = (): BooksContextType => {
+export const useReturnedBooks = (): BooksContextType => {
     const context = useContext(BooksContext);
   
     if (context === undefined) {
