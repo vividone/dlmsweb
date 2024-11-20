@@ -8,12 +8,13 @@ import { BooksProvider, useBooks } from "@/context/bookProvider";
 import Header from "@/components/header/header";
 
 // Book type definition
-interface Book {
+export interface Book {
   id: number;
   title: string;
   category: string;
   cover: string;
   author: string;
+  description?: string;
 }
 
 
@@ -173,7 +174,7 @@ export default function Home() {
           <Link key={book.id} href={`/account/library/book/${book.id}`}>
             <div className="p-4 rounded-md hover:shadow-lg transition-shadow cursor-pointer">
               <Image
-                src={"/" + book.title}
+                src={"/" + book.title + ".png"}
                 alt={book.title}
                 width={192}
                 height={300}
