@@ -29,6 +29,7 @@ export default function LibrarianPage() {
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
+ 
   const { getCookies } = useCookies();
 
   // States for create/edit modal
@@ -78,7 +79,7 @@ export default function LibrarianPage() {
     fetchBooks();
     getCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [books]);
 
   // Fetch Single Book by ID
   const fetchBookById = async (bookId: number) => {
@@ -98,27 +99,55 @@ export default function LibrarianPage() {
   };
 
   const addBook = async () => {
+    // e.preventDefault();
+
+    // Validate input fields
+    // if (
+    //   !newBook.title ||
+    //   !newBook.bookCategory ||
+    //   !newBook.author ||
+    //   !newBook.description
+    // ) {
+    //   console.error("Please fill in all the required fields.");
+    //   return;
+    // }
+
+    const payload = {
+      title: newBook.title,
+      isbn: new Date().toISOString(),
+      bookCategory: newBook.bookCategory,
+      author: newBook.author,
+      description: newBook.description,
+    };
+
     try {
-      await axios?.post(
+      const response = await fetch(
         "https://dlms-backend.onrender.com/books/new",
         {
-          title: newBook.title,
-          isbn:new Date().toISOString(),
-          bookCategory: newBook.bookCategory,
-          author: newBook.author,
-          description: newBook.description,
-        },
-        {
+          method: "POST",
           headers: {
-            
-            Authorization:`Bearer ${getCookies().access_token }`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          body: JSON.stringify(payload),
         }
       );
-      setModalOpen(false);
-      console.log("done")
+
+      if (!response.ok) {
+        // Handle server errors
+        const errorData = await response.json();
+        console.error(
+          "Error:",
+          errorData.message || "An error occurred while adding the book."
+        );
+      } else {
+        // Success case
+        const data = await response.json();
+        console.log("Book added successfully:", data);
+        setModalOpen(false);
+      }
     } catch (error) {
-      console.error("Failed to add book:", error);
+      console.error("Unexpected error:", error);
     }
   };
 
