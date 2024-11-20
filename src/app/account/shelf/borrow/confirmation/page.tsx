@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FaBell, FaBars } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 import Image from "next/image";
+import { useLocalStorage } from "@/helpers/useLocalStorage";
 
 // Book details component
 export default function BorrowingConfirmation(){ 
@@ -16,6 +17,7 @@ export default function BorrowingConfirmation(){
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [borrow, ] = useLocalStorage("borrow", {})
 
     // handle submit
     const handleSubmit = async (e: React.FormEvent) => {
@@ -144,7 +146,7 @@ export default function BorrowingConfirmation(){
           <input
             type="text"
             id="token"
-            value={token}
+            value={borrow.collectionToken}
             onChange={(e) => setToken(e.target.value)}
             placeholder="APEA43267"
             className="w-full h-12 text-black border rounded-md p-4 focus:ring-2 focus:ring-blue-400"

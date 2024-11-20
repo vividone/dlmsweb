@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FaSearch, FaFilter, FaBell, FaBars } from "react-icons/fa";
+import { FaSearch, FaFilter } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
 import { BorrowedBooksProvider, useBorrowedBooks } from "@/context/borrowedBooksProvider";
 import AdminHeader from "@/components/header/adminHeader";
@@ -25,11 +25,6 @@ export default function BorrowedBooks() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
   const booksFromContext = useBorrowedBooks();
 
 
@@ -55,32 +50,14 @@ export default function BorrowedBooks() {
     const filteredBooks = filterData(booksFromContext)
 
     setFilteredBooks(filteredBooks);
-  }, [booksFromContext, searchTerm, selectedCategory]);
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleClickOutside = (event: MouseEvent) => {
-    // close dropdown if clicked
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setDropdownOpen(false);
-    }
-    // close menu if clicked outside
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-      setMenuOpen(false);
-    }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ searchTerm, selectedCategory]);
 
   return (
     <BorrowedBooksProvider>
     <div className="container mx-auto p-4 overflow-x-hidden">
       {/* Header */}
-<AdminHeader />
+      <AdminHeader />
 
       {/* Find a Book */}
       <div className="mb-6 ml-6 text-black">

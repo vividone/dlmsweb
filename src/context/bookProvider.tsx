@@ -13,7 +13,7 @@ interface Book {
 
 type BooksContextType = Book[];
 
-const BooksContext = createContext<BooksContextType | undefined>(undefined);
+export const BooksContext = createContext<BooksContextType | undefined>(undefined);
 
 interface BooksProviderProps {
   children: ReactNode;
