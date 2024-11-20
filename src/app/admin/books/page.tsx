@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaSearch, FaBell, FaBars } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
+import AdminHeader from "@/components/header/adminHeader";
 
 // Book Type definition
 interface Book {
@@ -88,87 +89,7 @@ export default function DetailsPage() {
   return (
     <div className="container mx-auto p-4">
       {/* Header Section */}
-      <header className="flex justify-between items-center sm:flex-row mb-8 space-y-4 sm:space-y-0">
-        <div className="flex items-center space-x-8">
-        <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-
-        {/* full nav links for larger screen */}
-          <nav className="hidden sm:flex space-x-6">
-          <Link href="/admin/books" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-          Library
-          </Link>
-          <Link href="/admin/books/manage" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-          Manage Books
-          </Link>
-          <Link href="/admin/borrow/requests" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-          Borrows
-          </Link>
-          <Link href="/admin/borrow/requests" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-          Requests
-          </Link>
-          </nav>
-
-{/* Notification, Profile, and Hamburger Menu for mobile */}
-  <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
-    {/* Mobile hamburger menu */}
-    <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
-      <FaBars 
-        className="text-md cursor-pointer" 
-        onClick={() => setMenuOpen(!menuOpen)} 
-      />
-         {/* Conditionally render the pop-up menu with smooth transition */}
-    {menuOpen && (
-      <div 
-        ref={menuRef}
-        className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
-        style={{
-          opacity: menuOpen ? 1 : 0,
-          transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
-        }}
-      >
-         <Link href="/admin/books" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-          Library
-          </Link>
-          <Link href="/admin/books/manage" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-          Manage Books
-          </Link>
-          <Link href="/admin/borrow/requests" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-          Borrows
-          </Link>
-          <Link href="/admin/borrow/requests" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-          Requests
-          </Link>
-      </div>
-    )}
-    </div>
-    </div>
-    </div>
-
-
-          {/*Notification and Profile */}
-          <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
-          <FaBell className="text-sm text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <Image 
-          src="/user-avatar.jpg" 
-          alt="Avatar" 
-          width={20} 
-          height={10} 
-          className="w-6 h-6 border rounded-full cursor-pointer" 
-           onClick={() => setDropdownOpen(!dropdownOpen)}
-          />
-          
-          {dropdownOpen && (
-            <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg">
-              <Link href='/'>
-               <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                Sign Out
-                </div>
-              </Link>
-            </div>
-          )}
-        </div>
-      </header>
-
+ <AdminHeader/>
       {/* Search & Filter Section */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-6 text-black">
         <div className="relative w-full sm:w-1/2">
