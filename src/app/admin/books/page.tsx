@@ -213,11 +213,11 @@ export default function DetailsPage() {
   }, [searchTerm]);
 
   useEffect(() => {
-    const allBooks = Allbooks;
-    const genreFilteredBooks =
+    const allBooks = AllBooks;
+    const genreFilteredBooks:any =
       selectedGenre === "All"
         ? allBooks
-        : allBooks.filter((book) => book.genre === selectedGenre);
+        : allBooks.filter((book:any) => book.genre === selectedGenre);
     setFilteredBooks(genreFilteredBooks);
   }, [selectedGenre]);
 
