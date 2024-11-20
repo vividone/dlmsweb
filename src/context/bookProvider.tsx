@@ -29,7 +29,7 @@ export const BooksProvider: React.FC<BooksProviderProps> = ({ children }) => {
         setBooks(response.data);
       } catch (error: any) {
         console.log("Error fetching books:", error?.message);
-      }
+      } 
     };
 
     fetchBooks();
