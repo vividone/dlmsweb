@@ -45,12 +45,18 @@ export default function Header() {
             
             {/*full nav links for larger screen */}
             <nav className="hidden sm:flex space-x-6">
-                <Link href="/homepage" className="font-semibold text-[#0061E8] text-base sm:text-base hover:text-blue-500">
-                    Library
-                </Link>
-                <Link href="/account" className="text-black font-semibold text-base sm:text-base hover:text-blue-500">
-                    My Shelf
-                </Link>
+            <Link href="/account/library" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+            Library
+            </Link>
+            <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+            Borrowed
+            </Link>
+            <Link href="/account/shelf/returned" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+            Returned
+            </Link>
+            <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+            Overdue
+            </Link>
             </nav>
 
             {/* Notification, Profile, and Hamburger Menu for mobile */}
@@ -71,16 +77,18 @@ export default function Header() {
                         transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
                         }}
                     >
-                        <Link href="/homepage">
-                        <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                            Library
-                        </div>
-                        </Link>
-                        <Link href="/account">
-                        <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                            My Shelf
-                        </div>
-                        </Link>
+                                  <Link href="/account/library" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Library
+     </Link>
+     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Borrowed
+     </Link>
+     <Link href="/account/shelf/returned" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Returned
+     </Link>
+     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     Overdue
+     </Link>
                     </div>
                     )}
                     </div>
