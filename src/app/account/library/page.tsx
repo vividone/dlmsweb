@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaSearch, FaFilter, FaBell, FaBars } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
-import { useBooks } from "@/context/bookProvider";
+import { BooksProvider, useBooks } from "@/context/bookProvider";
+import Header from "@/components/header/header";
 
 // Book type definition
 interface Book {
@@ -15,93 +16,6 @@ interface Book {
   author: string;
 }
 
-
-const booksTwo: Book[] = [
-  {
-    id: 1,
-    title: "Lone Wolf Adventure",
-    category: "Sci-fi",
-    author: "Emerngard Nausicaa",
-    cover: "/lone wolf.png",
-  },
-  {
-    id: 2,
-    title: "Hide and Seek",
-    category: "Fantasy",
-    author: "Olivia Wison",
-    cover: "/Hide and seek.jpg",
-  },
-  {
-    id: 3,
-    title: "Dont Look Back",
-    category: "Drama",
-    author: "Isaac Nelson",
-    cover: "/Dont Look.png",
-  },
-  {
-    id: 4,
-    title: "Spring Book",
-    category: "Romance",
-    author: "Deena Roberts",
-    cover: "/spring book.jpg",
-  },
-  {
-    id: 5,
-    title: "Harry Potter",
-    category: "Business",
-    author: "Isaac Nelson",
-    cover: "/harry potter.jpg",
-  },
-  {
-    id: 6,
-    title: "A Promise Kept",
-    category: "Fantasy",
-    author: "Robert Lee Hatcher",
-    cover: "/Robin lee.jpg",
-  },
-  {
-    id: 7,
-    title: "Dont Look Back",
-    category: "Drama",
-    author: "Isaac Nelson",
-    cover: "/Dont Look.png",
-  },
-  {
-    id: 8,
-    title: "Hide and Seek",
-    category: "Fantasy",
-    author: "Olivia Wison",
-    cover: "/Hide and seek.jpg",
-  },
-  {
-    id: 9,
-    title: "Harry Potter",
-    category: "Business",
-    author: "Isaac Nelson",
-    cover: "/harry potter.jpg",
-  },
-  {
-    id: 10,
-    title: "A Promise Kept",
-    category: "Fantasy",
-    author: "Robert Lee Hatcher",
-    cover: "/Robin lee.jpg",
-  },
-  {
-    id: 11,
-    title: "Lone Wolf Adventure",
-    category: "Sci-fi",
-    author: "Emerngard Nausica",
-    cover: "/lone wolf.png",
-  },
-  {
-    id: 12,
-    title: "Spring Book",
-    category: "Romance",
-    author: "Deena Roberts",
-    cover: "/spring book.jpg",
-  },
-];
 
 export default function Home() {
   // State for search input and filtered books
@@ -132,13 +46,14 @@ export default function Home() {
         return matchesSearch && matchesCategory;
       });
 
-    const filteredBooks =
-      booksFromContext.length > 0
-        ? filterData(booksFromContext)
-        : filterData(booksTwo);
+    // const filteredBooks =
+    //   booksFromContext.length > 0
+    //     ? filterData(booksFromContext)
+    //     : filterData(booksTwo);
 
+    const filteredBooks = filterData(booksFromContext);
     setFilteredBooks(filteredBooks);
-  }, [searchTerm, selectedCategory]);
+  }, [searchTerm, selectedCategory, booksFromContext]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -160,122 +75,10 @@ export default function Home() {
   };
 
   return (
+    <BooksProvider>
     <div className="container mx-auto p-4 overflow-x-hidden">
       {/* Header */}
-      <header className="flex justify-between items-center sm:flex-row mb-8 space-y-4 sm:space-y-0">
-        <div className="flex items-center space-x-8">
-          <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
-
-          {/* full nav links for larger screen */}
-          <nav className="hidden sm:flex space-x-6">
-            <Link href="/account/library" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-            Library
-            </Link>
-            <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-            Borrowed
-            </Link>
-            <Link href="/account/shelf/returned" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-            Returned
-            </Link>
-            <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-            Overdue
-            </Link>
-          </nav>
-          {/* Notification, Profile, and Hamburger Menu for mobile */}
-  <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
-    {/* Mobile hamburger menu */}
-    <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
-      <FaBars 
-        className="text-md cursor-pointer" 
-        onClick={() => setMenuOpen(!menuOpen)} 
-      />
-         {/* Conditionally render the pop-up menu with smooth transition */}
-    {menuOpen && (
-      <div 
-        ref={menuRef}
-        className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
-        style={{
-          opacity: menuOpen ? 1 : 0,
-          transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
-        }}
-      >
-          <Link href="/account/library" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-      Library
-      </Link>
-      <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-      Borrowed
-      </Link>
-      <Link href="/account/shelf/returned" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-      Returned
-      </Link>
-      <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-      Overdue
-      </Link>
-      </div>
-    )}
-    </div>
-    </div>
-
-
-          {/*Notification and Profile */}
-          <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
-            {/* Mobile hamburger menu */}
-            <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
-              <FaBars
-                className="text-md cursor-pointer"
-                onClick={() => setMenuOpen(!menuOpen)}
-              />
-              {/* Conditionally render the pop-up menu with smooth transition */}
-              {menuOpen && (
-                <div
-                  ref={menuRef}
-                  className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
-                  style={{
-                    opacity: menuOpen ? 1 : 0,
-                    transform: menuOpen ? "scale(1)" : "scale(0.95)",
-                  }}
-                >
-                  <Link href="/account/home">
-                    <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                      Library
-                    </div>
-                  </Link>
-                  <Link href="/account">
-                    <div className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                      My Shelf
-                    </div>
-                  </Link>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-        {/*Notification and Profile */}
-        <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
-          <FaBell className="text-sm text-gray-700 hover:text-blue-500 cursor-pointer" />
-          <Image
-            src="/user-avatar.jpg"
-            alt="Avatar"
-            width={20}
-            height={10}
-            className="w-6 h-6 border rounded-full cursor-pointer"
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-          />
-
-          {dropdownOpen && (
-            <div
-              ref={dropdownRef}
-              className="absolute right-0 mt-2 w-48 sm:right-0 text-sm bg-white border rounded-md shadow-lg"
-            >
-              <Link href="/">
-                <div className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                  Sign Out
-                </div>
-              </Link>
-            </div>
-          )}
-        </div>
-  </header>
+<Header/>
 
       {/* Find a Book */}
       <div className="mb-6 ml-6 text-black">
@@ -341,7 +144,7 @@ export default function Home() {
       )}
 
       {/* Category Filter */}
-      <div className="flex overflow-x-auto flex lg:overflow-x-auto flex sm:overflow-visible gap-20 font-semibold sm:justify-between mb-6 animate-scroll">
+      <div className="flex overflow-x-auto flex lg:overflow-x-auto flex sm:overflow-visible gap-5 font-semibold mb-6 ">
         {[
           "All",
           "Sci-fi",
@@ -387,5 +190,6 @@ export default function Home() {
         ))}
       </div>
     </div>
+    </BooksProvider>
   );
 }

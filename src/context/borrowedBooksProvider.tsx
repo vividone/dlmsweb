@@ -47,7 +47,7 @@ export const useBorrowedBooks = (): BooksContextType => {
     const context = useContext(BooksContext);
   
     if (context === undefined) {
-      throw new Error("useBooks must be used within a BooksProvider");
+     return []
     }
   
     return context;
