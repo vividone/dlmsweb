@@ -26,6 +26,7 @@ export default function Books() {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const AllBooks = useBooks();
+ 
   const [filteredBooks, setFilteredBooks] = useState<Book[] | any>([
     ...AllBooks,
   ]);
@@ -46,7 +47,7 @@ export default function Books() {
         ? allBooks
         : allBooks.filter((book: any) => book.genre === selectedGenre);
     setFilteredBooks(genreFilteredBooks);
-  }, [selectedGenre]);
+  }, [selectedGenre,AllBooks]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);

@@ -54,7 +54,8 @@ export default function SignIn() {
         router.push("/account/library");
         setSuccess("Login successful!");
         setUser(data.data);
-        setCookie("access_token", data.access_token);
+        localStorage.setItem("token",data.token.access_token)
+        setCookie("access_token", data.token.access_token);
         // Handle rememberMe logic for storing user details
         if (rememberMe) {
           localStorage.setItem("email", email);

@@ -53,6 +53,7 @@ export default function SignIn() {
         router.push("/admin/books");
         setSuccess("Login successful!");
         setUser(data.data);
+        console.log(data)
         setCookie("access_token", data.token.access_token);
         // Handle rememberMe logic for storing user details
         if (rememberMe) {

@@ -51,7 +51,7 @@ export default function BookId({ params }: { params: Promise<{bookId: string}> }
     
         const payload = {
             userId: user.id,
-            bookId: book?.id.toString(),
+            bookId: bookId,
             borrowDate: new Date(collectionDate),
             dueDate: new Date(returnDate),
         };
@@ -61,13 +61,14 @@ export default function BookId({ params }: { params: Promise<{bookId: string}> }
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${getCookies().access_token}`,
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
                 },
                 body: JSON.stringify(payload),
             });
     
             if (!response.ok) {
                 const errorData = await response.json();
+                console.log(errorData)
                 setError(errorData.message || "Please try again.");
             } else {
                 response.json().then(data => setBorrow(data))
