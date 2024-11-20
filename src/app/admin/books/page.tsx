@@ -26,7 +26,7 @@ export default function Books() {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const AllBooks = useBooks();
- 
+
   const [filteredBooks, setFilteredBooks] = useState<Book[] | any>([
     ...AllBooks,
   ]);
@@ -47,7 +47,7 @@ export default function Books() {
         ? allBooks
         : allBooks.filter((book: any) => book.genre === selectedGenre);
     setFilteredBooks(genreFilteredBooks);
-  }, [selectedGenre,AllBooks]);
+  }, [selectedGenre, AllBooks]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -117,7 +117,7 @@ export default function Books() {
           <Link key={book.id} href={`/book/${book.id}`}>
             <div className="p-4 rounded-md hover:shadow-lg cursor-pointer">
               <Image
-                src={"/book-cover-generic.jpg"}
+                src={"/" + book?.title + ".png" || "/lone wolf.png"}
                 alt={"cover"}
                 width={192}
                 height={300}
