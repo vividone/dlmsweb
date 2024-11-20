@@ -50,10 +50,10 @@ export default function SignIn() {
 
       if (response.ok) {
         const data = await response.json();
-        router.push("/admin/[libraryid]");
+        router.push("/admin/books");
         setSuccess("Login successful!");
         setUser(data.data);
-        setCookie("access_token", data.access_token);
+        setCookie("access_token", data.token.access_token);
         // Handle rememberMe logic for storing user details
         if (rememberMe) {
           localStorage.setItem("email", email);

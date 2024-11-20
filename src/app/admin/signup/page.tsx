@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import router from "next/router";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -8,7 +9,7 @@ export default function AdminSignUp() {
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [libraryName, setLibraryName] = useState<string>("");
-    const [role, setRole] = useState<string>("individual");
+    const [role, setRole] = useState<string>("librarian");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
@@ -66,6 +67,7 @@ export default function AdminSignUp() {
 
             if (response.ok) {
                 setSuccess("Registration successful! Please log in.");
+                router.push("/admin/login");
                 setName("");
                 setEmail("");
                 setLibraryName("");

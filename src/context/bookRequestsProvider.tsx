@@ -19,7 +19,7 @@ interface BooksProviderProps {
   children: ReactNode;
 }
 
-export const BooksProvider: React.FC<BooksProviderProps> = ({ children }) => {
+export const RequestBooksProvider: React.FC<BooksProviderProps> = ({ children }) => {
   const [books, setBooks] = useState<Book[]>([]);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export const BooksProvider: React.FC<BooksProviderProps> = ({ children }) => {
         setBooks(response.data);
       } catch (error: any) {
         console.log("Error fetching books:", error?.message);
-      } 
+      }
     };
 
     fetchBooks();
@@ -43,11 +43,11 @@ export const BooksProvider: React.FC<BooksProviderProps> = ({ children }) => {
 };
 
 
-export const useBooks = (): BooksContextType => {
+export const useRequestBooks = (): BooksContextType => {
     const context = useContext(BooksContext);
   
     if (context === undefined) {
-     return []
+      return []
     }
   
     return context;
