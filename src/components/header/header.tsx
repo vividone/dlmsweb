@@ -86,7 +86,7 @@ export default function Header() {
      <Link href="/account/shelf/returned" className="text-blue-500 text-base font-semibold hover:text-blue-500">
      Returned
      </Link>
-     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+     <Link href="/account/shelf/overdue" className="text-blue-500 text-base font-semibold hover:text-blue-500">
      Overdue
      </Link>
                     </div>
@@ -97,7 +97,10 @@ export default function Header() {
                  
             {/* Notification and Profile */}
             <div className="flex items-center space-x-2 sm:space-x-2 absolute top-2 pr-6 right-0 sm:absolute top-2">
-                <FaBell className="text-sm text-gray-600 cursor-pointer hover:text-blue-500" />
+            <Link href="/account/shelf/overdue" className="text-blue-500 text-base font-semibold hover:text-blue-500">
+            <FaBell className="text-sm text-gray-600 cursor-pointer hover:text-blue-500" />
+            </Link>
+
                 <Image
                     src="/user-avatar.jpg" 
                     alt="Avatar" 
