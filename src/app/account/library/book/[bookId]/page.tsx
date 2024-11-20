@@ -214,7 +214,6 @@ export default function BookId({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-
   const handleClickOutside = (event: MouseEvent) => {
     // close dropdown if clicked
     if (
@@ -239,72 +238,95 @@ export default function BookId({
 
   return (
     <div className="container mx-auto p-4">
-      {/* Header section */}
-    {/* Header Section */}
-   <header className="flex justify-between items-center sm:flex-row mb-8 space-y-4 sm:space-y-0">
-   <div className="flex items-center space-x-8">
-   <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
+      {/* Header Section */}
+      <header className="flex justify-between items-center sm:flex-row mb-8 space-y-4 sm:space-y-0">
+        <div className="flex items-center space-x-8">
+          <h1 className="text-3xl font-bold text-[#0661E8]">BookaThon</h1>
 
-   {/* full nav links for larger screen */}
-     <nav className="hidden sm:flex space-x-6">
-        <Link href="/account/library" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-        Library
-        </Link>
-        <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-        Borrowed
-        </Link>
-        <Link href="/account/shelf/returned" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-        Returned
-        </Link>
-        <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-        Overdue
-        </Link>
-     </nav>
+          {/* full nav links for larger screen */}
+          <nav className="hidden sm:flex space-x-6">
+            <Link
+              href="/account/library"
+              className="text-blue-500 text-base font-semibold hover:text-blue-500"
+            >
+              Library
+            </Link>
+            <Link
+              href="/account/shelf/borrow"
+              className="text-blue-500 text-base font-semibold hover:text-blue-500"
+            >
+              Borrowed
+            </Link>
+            <Link
+              href="/account/shelf/returned"
+              className="text-blue-500 text-base font-semibold hover:text-blue-500"
+            >
+              Returned
+            </Link>
+            <Link
+              href="/account/shelf/overdue"
+              className="text-blue-500 text-base font-semibold hover:text-blue-500"
+            >
+              Overdue
+            </Link>
+          </nav>
 
-{/* Notification, Profile, and Hamburger Menu for mobile */}
-<div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
-{/* Mobile hamburger menu */}
-<div className="sm:hidden flex items-center text-black absolute top-5 right-20">
- <FaBars 
-   className="text-md cursor-pointer" 
-   onClick={() => setMenuOpen(!menuOpen)} 
- />
-    {/* Conditionally render the pop-up menu with smooth transition */}
-{menuOpen && (
- <div 
-   ref={menuRef}
-   className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
-   style={{
-     opacity: menuOpen ? 1 : 0,
-     transform: menuOpen ? 'scale(1)' : 'scale(0.95)',
-   }}
- >
- <Link href="/account/library" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-     Library
-     </Link>
-     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-     Borrowed
-     </Link>
-     <Link href="/account/shelf/returned" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-     Returned
-     </Link>
-     <Link href="/account/shelf/borrowed" className="text-blue-500 text-base font-semibold hover:text-blue-500">
-     Overdue
-     </Link>
- </div>
-)}
-</div>
-</div>
-</div>
-</header>
+          {/* Notification, Profile, and Hamburger Menu for mobile */}
+          <div className="flex items-center space-x-2 sm:space-x-4 absolute top-2 pr-6 right-0 sm:absolute top-2">
+            {/* Mobile hamburger menu */}
+            <div className="sm:hidden flex items-center text-black absolute top-5 right-20">
+              <FaBars
+                className="text-md cursor-pointer"
+                onClick={() => setMenuOpen(!menuOpen)}
+              />
+              {/* Conditionally render the pop-up menu with smooth transition */}
+              {menuOpen && (
+                <div
+                  ref={menuRef}
+                  className="absolute top-12 right-0 w-48 bg-white border rounded-md shadow-lg z-10 transition-all duration-300 transform opacity-100 scale-100"
+                  style={{
+                    opacity: menuOpen ? 1 : 0,
+                    transform: menuOpen ? "scale(1)" : "scale(0.95)",
+                  }}
+                >
+                  <Link
+                    href="/account/library"
+                    className="text-blue-500 text-base font-semibold hover:text-blue-500"
+                  >
+                    Library
+                  </Link>
+                  <Link
+                    href="/account/shelf/overdue"
+                    className="text-blue-500 text-base font-semibold hover:text-blue-500"
+                  >
+                    Borrowed
+                  </Link>
+                  <Link
+                    href="/account/shelf/returned"
+                    className="text-blue-500 text-base font-semibold hover:text-blue-500"
+                  >
+                    Returned
+                  </Link>
+                  <Link
+                    href="/account/shelf/overdue"
+                    className="text-blue-500 text-base font-semibold hover:text-blue-500"
+                  >
+                    Overdue
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </header>
 
       {/* Book Details */}
       <div className="relative flex text-black flex-col sm:flex-row sm:items-start sm:space-x-6 mt-14">
-         {/*Arrow left */}  
-          <Link href={'/account/library'}>
-            <FaArrowLeft className="absolute top-0 left-0 ml-2 mt-2 text-md cursor-pointer hover:text-blue-500" />
-          </Link>
-        
+        {/*Arrow left */}
+        <Link href={"/account/library"}>
+          <FaArrowLeft className="absolute top-0 left-0 ml-2 mt-2 text-md cursor-pointer hover:text-blue-500" />
+        </Link>
+
         {/*Book cover and Content */}
         <div className="flex flex-col items-center sm:flex-row sm:items-start sm:space-x-6 mt-14">
           <Image

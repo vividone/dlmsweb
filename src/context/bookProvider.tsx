@@ -17,6 +17,7 @@ export const BooksContext = createContext<BooksContextType | undefined>(undefine
 
 interface BooksProviderProps {
   children: ReactNode;
+//   url:string
 }
 
 export const BooksProvider: React.FC<BooksProviderProps> = ({ children }) => {
@@ -29,7 +30,7 @@ export const BooksProvider: React.FC<BooksProviderProps> = ({ children }) => {
         setBooks(response.data);
       } catch (error: any) {
         console.log("Error fetching books:", error?.message);
-      }
+      } 
     };
 
     fetchBooks();

@@ -23,12 +23,10 @@ const BooksContext = createContext<BooksContextType | undefined>(undefined);
 
 interface BooksProviderProps {
   children: ReactNode;
-  // url:any
 }
 
-export const RequestBooksProvider: React.FC<BooksProviderProps> = ({
+export const OverdueBooksProvider: React.FC<BooksProviderProps> = ({
   children,
-  // url,
 }) => {
   const [books, setBooks] = useState<Book[]>([]);
 
@@ -36,7 +34,7 @@ export const RequestBooksProvider: React.FC<BooksProviderProps> = ({
     const fetchBooks = async () => {
       try {
         const response = await axios.get<Book[]>(
-          "https://dlms-backend.onrender.com/books"
+          "https://dlms-backend.onrender.com/borrow/overdue"
         );
         setBooks(response.data);
       } catch (error: any) {
@@ -52,7 +50,7 @@ export const RequestBooksProvider: React.FC<BooksProviderProps> = ({
   );
 };
 
-export const useRequestBooks = (): BooksContextType => {
+export const useOverdueBooks = (): BooksContextType => {
   const context = useContext(BooksContext);
 
   if (context === undefined) {
