@@ -14,6 +14,7 @@ export interface Book {
   category: string;
   coverimage: string;
   author: string;
+  availability: boolean;
   description?: string;
   borrowStatus: string;
   returnDate: string;
@@ -120,13 +121,11 @@ export default function Books() {
           <Link key={book.id} href={`/admin/books/book/${book.id}`}>
             <div className="p-4 rounded-md hover:shadow-lg cursor-pointer">
               <Image
-                src={
-                  book.cover
-                    ? "/" + book.cover
-                    : book.title
-                    ? "/" + book.title + ".png"
-                    : "/book-cover-generic.jpg"
-                }
+               src={
+                book.coverimage
+                  ? "/" + book.coverimage
+                  : "/book-cover-generic.jpg"
+              }
                 alt={"cover"}
                 width={192}
                 height={300}

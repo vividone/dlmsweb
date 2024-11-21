@@ -10,171 +10,6 @@ import axios from "axios";
 import { useCookies } from "@/helpers/useCookies";
 import { Book } from "../../page";
 
-// Sample book data
-const books = [
-  {
-    id: 1,
-    title: "Lone Wolf Adventure",
-    category: "Sci-fi",
-    author: "Emerngard Nausicaa",
-    cover: "/lone wolf.png",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 2,
-    title: "Hide and Seek",
-    category: "Fantasy",
-    author: "Robin Lee Hatcher",
-    cover: "/Robin lee.jpg",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 3,
-    title: "Dont Look Back",
-    category: "Drama",
-    author: "Isaac Nelson",
-    cover: "/Dont Look.png",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 4,
-    title: "Spring Book",
-    category: "Romance",
-    author: "Linda Goggin",
-    cover: "/Tigers heart.jpg",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 5,
-    title: "Harry Potter",
-    category: "Business",
-    author: "Neil Gaiman",
-    cover: "/Norse Myth.jpg",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 6,
-    title: "A Promise Kept",
-    category: "Fantasy",
-    author: "Deena Roberts",
-    cover: "/spring book.jpg",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 7,
-    title: "Dont Look Back",
-    category: "Drama",
-    author: "Harry Potter",
-    cover: "/harry potter.jpg",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 8,
-    title: "Hide and Seek",
-    category: "Fantasy",
-    author: "Olivia Wilson",
-    cover: "/Hide and seek.jpg",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 9,
-    title: "Harry Potter",
-    category: "Business",
-    author: "Deena Roberts",
-    cover: "/spring book.jpg",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 10,
-    title: "A Promise Kept",
-    category: "Fantasy",
-    author: "Emerngard Nausica",
-    cover: "/lone wolf.png",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 11,
-    title: "Lone Wolf Adventure",
-    category: "Sci-fi",
-    author: "Estelie Darcy",
-    cover: "/walk in the shadow.jpg",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 12,
-    title: "Dont Look Back",
-    category: "Drama",
-    author: "Mikky Daughtry",
-    cover: "/All this Time.png",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 13,
-    title: "Hide and Seek",
-    category: "Fantasy",
-    author: "Mikky Daughtry",
-    cover: "/All this Time.png",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 14,
-    title: "Harry Potter",
-    category: "Business",
-    author: "Linda Goggin",
-    cover: "/Tigers heart.jpg",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 15,
-    title: "A Promise Kept",
-    category: "Fantasy",
-    author: "Robert Lee Hatcher",
-    cover: "/walk in the shadow.jpg",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 16,
-    title: "Lone Wolf Adventure",
-    category: "Sci-fi",
-    author: "Estelie Darcy",
-    cover: "/Robin lee.jpg",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 17,
-    title: "Lone Wolf Adventure",
-    category: "Sci-fi",
-    author: "Isaac Nelson",
-    cover: "/Dont Look.png",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-  {
-    id: 18,
-    title: "Lone Wolf Adventure",
-    category: "Sci-fi",
-    author: "Neil Gaiman",
-    cover: "/Norse Myth.jpg",
-    synopsis:
-      "Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.Follow the story of Henry Smith, a scientist on a research in a small native American village where canine adventures awaits him. With a research assistant by his side to help him navigate being a scientist by day and a werewolf by night.",
-  },
-];
 
 // Book details component
 export default function BookId({
@@ -333,8 +168,11 @@ export default function BookId({
         {/*Book cover and Content */}
         <div className="flex flex-col items-center sm:flex-row sm:items-start sm:space-x-6 mt-14">
           <Image
-            src={"/" + book.title + ".png"}
-            alt={book.title}
+src={
+  book.coverimage
+    ? "/" + book.coverimage
+    : "/book-cover-generic.jpg"
+}            alt={book.title}
             width={270}
             height={50}
             className="mt-0 rounded-md"
@@ -345,7 +183,7 @@ export default function BookId({
               <strong>AUTHOR:</strong> {book.author}
             </h2>
             <h2 className="text-gray-800 text-lg mb-4 sm:mb-2">
-              <strong>STATUS:</strong> {book.category}
+              <strong>STATUS:</strong> {book.availability === true ?  'Available': 'Not Available'}
             </h2>
             <h2 className="text-gray-800 text-md">
               <strong> SYNOPSIS</strong> <br /> <br />

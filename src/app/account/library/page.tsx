@@ -15,6 +15,7 @@ export interface Book {
   coverimage: string;
   author: string;
   description?: string;
+  availability: boolean;
 }
 
 export default function Home() {
@@ -176,8 +177,6 @@ export default function Home() {
                   src={
                     book.coverimage
                       ? "/" + book.coverimage
-                      : book.title
-                      ? "/" + book.title + ".png"
                       : "/book-cover-generic.jpg"
                   }
                   alt={book.title}
