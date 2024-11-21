@@ -8,7 +8,7 @@ interface Book {
   title: string;
   category: string;
   author: string;
-  cover: string;
+  coverimage: string;
 }
 
 type BooksContextType = Book[];

@@ -7,11 +7,14 @@ import { useState, useEffect, useRef } from "react";
 import AdminHeader from "@/components/header/adminHeader";
 import { useBooks } from "@/context/bookProvider";
 // Book Type definition
-interface Book {
+
+export interface Book {
   id: number;
   title: string;
-  genre: string;
-  cover: string;
+  category: string;
+  coverimage: string;
+  author: string;
+  description?: string;
   borrowStatus: string;
   returnDate: string;
   borrowedDate: string;
@@ -114,7 +117,7 @@ export default function Books() {
       {/* Book Collection */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {filteredBooks.map((book: any) => (
-          <Link key={book.id} href={`/book/${book.id}`}>
+          <Link key={book.id} href={`/admin/books/book/${book.id}`}>
             <div className="p-4 rounded-md hover:shadow-lg cursor-pointer">
               <Image
                 src={

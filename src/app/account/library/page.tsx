@@ -12,7 +12,7 @@ export interface Book {
   id: number;
   title: string;
   category: string;
-  cover: string;
+  coverimage: string;
   author: string;
   description?: string;
 }
@@ -174,8 +174,8 @@ export default function Home() {
               <div className="p-4 rounded-md hover:shadow-lg transition-shadow cursor-pointer">
                 <Image
                   src={
-                    book.cover
-                      ? "/" + book.cover
+                    book.coverimage
+                      ? "/" + book.coverimage
                       : book.title
                       ? "/" + book.title + ".png"
                       : "/book-cover-generic.jpg"
